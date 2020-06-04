@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Selection : MonoBehaviour
 {
+    public Board board;
+    public Piece selectedPiece;
+    public bool selecting;
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -13,7 +17,22 @@ public class Selection : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.name);
+                if (selecting)
+                {
+                    Tile selectedTile = hit.transform.GetComponent<Tile>();
+
+                    selectedPiece.transform.position = selectedTile.transform.position;
+                    selectedTile.piece = selectedPiece;
+                    selectedPiece = null;
+                    selecting = false;
+                }
+                else
+                {
+                    selectedPiece = hit.transform.GetComponent<Tile>().piece;
+                    selecting = true;
+
+                }
+
             }
             else
             {
