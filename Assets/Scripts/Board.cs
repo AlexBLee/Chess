@@ -10,8 +10,9 @@ public class Board : MonoBehaviour
 
     private const float TILE_OFFSET = 1.0f;
 
-    public int boardWidth;
-    public int boardHeight;
+    [SerializeField] private const int boardWidth = 8;
+    [SerializeField] private const int boardHeight = 8;
+
 
     enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
     PieceType pieceType;
@@ -39,11 +40,16 @@ public class Board : MonoBehaviour
             }
         }
 
-        // colour
+        // colour and naming tiles
         for (int i = 0; i < boardWidth; i++)
         {
             for (int j = 0; j < boardHeight; j++)
             {
+                int index = i + j * 8;
+                char nextChar = (char)('a' + i);
+
+                tiles[index].name = nextChar + (j+1).ToString();
+
                 if ((i+j) % 2 == 0)
                 {
                     tiles[i + j * boardWidth].render.material = pieceBlack;
@@ -55,22 +61,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        float x = Time.realtimeSinceStartup;
         SpawnPieces();
-        print(Time.realtimeSinceStartup - x);
-
-
-        // adding pieces
-        for (int i = 0; i < boardWidth; i++)
-        {
-            for (int j = 0; j < boardHeight; j++)
-            {
-                int index = i + j * 8;
-                char nextChar = (char)('a' + i);
-
-                tiles[index].name = nextChar + (j+1).ToString();
-            }
-        }
     }
 
     void SpawnPieces()
