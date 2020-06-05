@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3137124182350790586}
   - component: {fileID: 6256145766302172556}
   - component: {fileID: 427492348948822389}
-  - component: {fileID: 8595539117651200267}
+  - component: {fileID: -1148651295144696686}
   m_Layer: 0
   m_Name: king
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8595539117651200267
+--- !u!114 &-1148651295144696686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2148802007385279913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05841c10e49cec741976f3367d87dd93, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fe1ebb859c3c594ba9db1f1ba54bf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0

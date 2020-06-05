@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4539275316902232519}
   - component: {fileID: 4874504923538471921}
   - component: {fileID: 1196041110559704840}
-  - component: {fileID: 2001828251212559775}
+  - component: {fileID: -6260407229231561430}
   m_Layer: 0
   m_Name: pawn
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2001828251212559775
+--- !u!114 &-6260407229231561430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 623158115717542868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05841c10e49cec741976f3367d87dd93, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f372f03f05c8ef48a0cb23c195fafdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0

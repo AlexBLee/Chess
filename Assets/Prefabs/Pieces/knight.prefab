@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1734354937212822802}
   - component: {fileID: 7298835396556545828}
   - component: {fileID: 3924365305463645149}
-  - component: {fileID: 4887969704234216825}
+  - component: {fileID: -1947997721133195617}
   m_Layer: 0
   m_Name: knight
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4887969704234216825
+--- !u!114 &-1947997721133195617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3335746173772568321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05841c10e49cec741976f3367d87dd93, type: 3}
+  m_Script: {fileID: 11500000, guid: e643f4a5212991941b34e90c335eb8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0

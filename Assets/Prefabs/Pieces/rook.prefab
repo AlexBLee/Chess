@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6282033656329274721}
   - component: {fileID: 945928835348308400}
   - component: {fileID: 3738264170896304985}
-  - component: {fileID: 8351947829826765529}
+  - component: {fileID: 7553842220805437677}
   m_Layer: 0
   m_Name: rook
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8351947829826765529
+--- !u!114 &7553842220805437677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3550904764623115885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05841c10e49cec741976f3367d87dd93, type: 3}
+  m_Script: {fileID: 11500000, guid: 16581dcc42738e04195c9e585e51d7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
