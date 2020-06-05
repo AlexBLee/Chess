@@ -22,13 +22,17 @@ public class Selection : MonoBehaviour
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
 
                     selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
+                    selectedPiece.currentCoordinates = selectedTile.coordinates;
+
                     selectedTile.piece = selectedPiece;
                     selectedPiece = null;
+                    
                     selecting = false;
                 }
                 else
                 {
                     selectedPiece = hit.transform.GetComponent<Tile>().piece;
+                    selectedPiece.FindLegalMoves();
                     selecting = true;
                 }
 

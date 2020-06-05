@@ -7,7 +7,8 @@ public class Piece : MonoBehaviour
     // to tell between white and black
     public bool player;
     public Renderer render;
-    
+    public List<Vector2> moves;
+    public Vector2 currentCoordinates;
 
     public void SetPieceColor(Material color)
     {
@@ -16,6 +17,5 @@ public class Piece : MonoBehaviour
 
     public virtual void FindLegalMoves()
     {
-        
     }
 }

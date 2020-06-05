@@ -49,6 +49,7 @@ public class Board : MonoBehaviour
                 char nextChar = (char)('a' + i);
 
                 tiles[index].name = nextChar + (j+1).ToString();
+                tiles[index].coordinates = new Vector2(i+1, j+1);
 
                 if ((i+j) % 2 == 0)
                 {
@@ -129,6 +130,8 @@ public class Board : MonoBehaviour
         tiles[indexCoor].transform.position + new Vector3(0, 0.5f, 0),
         Quaternion.Euler(0,90,0),
         transform);
+
+        tiles[indexCoor].piece.currentCoordinates = new Vector2(x, y);
 
         tiles[indexCoor].piece.SetPieceColor(material);
 
