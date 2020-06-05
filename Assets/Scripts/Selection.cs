@@ -21,7 +21,7 @@ public class Selection : MonoBehaviour
                 {
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
 
-                    selectedPiece.transform.position = selectedTile.transform.position;
+                    selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
                     selectedTile.piece = selectedPiece;
                     selectedPiece = null;
                     selecting = false;
@@ -30,7 +30,6 @@ public class Selection : MonoBehaviour
                 {
                     selectedPiece = hit.transform.GetComponent<Tile>().piece;
                     selecting = true;
-
                 }
 
             }
