@@ -9,6 +9,7 @@ public class Piece : MonoBehaviour
     public Renderer render;
     public List<Vector2> moves;
     public Vector2 currentCoordinates;
+    public int forwardDirection;
 
     public void SetPieceColor(Material color)
     {
