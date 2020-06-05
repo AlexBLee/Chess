@@ -26,13 +26,13 @@ public class Selection : MonoBehaviour
 
                     selectedTile.piece = selectedPiece;
                     selectedPiece = null;
-                    
+
                     selecting = false;
                 }
                 else
                 {
                     selectedPiece = hit.transform.GetComponent<Tile>().piece;
-                    selectedPiece.FindLegalMoves();
+                    selectedPiece.FindMoveSet();
                     selecting = true;
                 }
 

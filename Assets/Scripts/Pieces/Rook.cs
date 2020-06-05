@@ -20,9 +20,6 @@ public class Rook : Piece
         {
             moves.Add(new Vector2(currentCoordinates.x, currentCoordinates.y + i));
         }
-
-        moves.RemoveAll(tile => tile.x < 1 || tile.x > 8 || tile.y < 1 || tile.y > 8);
-
     }
 
 }

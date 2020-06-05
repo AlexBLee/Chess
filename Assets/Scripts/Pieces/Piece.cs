@@ -15,7 +15,19 @@ public class Piece : MonoBehaviour
         render.material = color;
     }
 
+    public void FindMoveSet()
+    {
+        FindLegalMoves();
+        RemoveIllegalMoves();
+    }
+
     public virtual void FindLegalMoves()
     {
+    }
+
+    public void RemoveIllegalMoves()
+    {
+        moves.RemoveAll(tile => tile.x < 1 || tile.x > 8 || tile.y < 1 || tile.y > 8);
+    
     }
 }
