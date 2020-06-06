@@ -8,17 +8,17 @@ public class Queen : Piece
     {
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2(currentCoordinates.x - i, currentCoordinates.y));
+            moves.Add(new Vector2Int(currentCoordinates.x - i, currentCoordinates.y));
         }
 
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2(currentCoordinates.x + i, currentCoordinates.y));
+            moves.Add(new Vector2Int(currentCoordinates.x + i, currentCoordinates.y));
         }
 
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection)));
+            moves.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection)));
         }
 
 

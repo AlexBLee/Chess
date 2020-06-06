@@ -5,10 +5,10 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     // to tell between white and black
-    public bool player;
+    public bool playerOwned;
     public Renderer render;
-    public List<Vector2> moves;
-    public Vector2 currentCoordinates;
+    public List<Vector2Int> moves;
+    public Vector2Int currentCoordinates;
     public int forwardDirection;
 
     public void SetPieceColor(Material color)
