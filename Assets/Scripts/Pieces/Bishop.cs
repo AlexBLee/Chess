@@ -8,15 +8,17 @@ public class Bishop : Piece
     {
         moves.Clear();
 
-        for (int i = 1; i < 8; i++)
-        {
-            moves.Add(new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (i * forwardDirection)));
-        }
+        // diagonal right
+        CalculateMoves(1, 1);
 
-        for (int i = 1; i < 8; i++)
-        {
-            moves.Add(new Vector2Int(currentCoordinates.x - i, currentCoordinates.y + (i * forwardDirection)));
-        }
+        // diagonal left
+        CalculateMoves(-1, 1);
+
+        // diagonal left
+        CalculateMoves(1, -1);
+
+        // diagonal left
+        CalculateMoves(-1, -1);
 
     }
 }

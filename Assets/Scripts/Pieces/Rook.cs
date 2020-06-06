@@ -8,17 +8,62 @@ public class Rook : Piece
     {
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2Int(currentCoordinates.x - i, currentCoordinates.y));
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
+
+            if (!IsPieceAtTile(boardCoordPoint))
+            {
+                moves.Add(boardCoordPoint);
+            }
+            else
+            {
+                break;
+            }
         }
 
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2Int(currentCoordinates.x + i, currentCoordinates.y));
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x - i, currentCoordinates.y + (i * forwardDirection));
+
+            if (!IsPieceAtTile(boardCoordPoint))
+            {
+                moves.Add(boardCoordPoint);
+            }
+            else
+            {
+                break;
+            }
         }
 
         for (int i = 1; i < 8; i++)
         {
-            moves.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection)));
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection));
+
+            if (!IsPieceAtTile(boardCoordPoint))
+            {
+                moves.Add(boardCoordPoint);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for (int i = 1; i < 8; i++)
+        {
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x, currentCoordinates.y - (i * forwardDirection));
+
+            if (!IsPieceAtTile(boardCoordPoint))
+            {
+                moves.Add(boardCoordPoint);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

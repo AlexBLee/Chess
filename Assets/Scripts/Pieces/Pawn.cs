@@ -7,6 +7,10 @@ public class Pawn : Piece
     public override void FindLegalMoves()
     {
         moves.Clear();
-        moves.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y + forwardDirection));
+
+        if (!IsPieceAtTile(new Vector2Int(currentCoordinates.x, currentCoordinates.y + forwardDirection)))
+        {
+            moves.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y + forwardDirection));
+        }
     }
 }

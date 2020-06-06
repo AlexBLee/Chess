@@ -13,7 +13,6 @@ public class Board : MonoBehaviour
     [SerializeField] private const int boardWidth = 8;
     [SerializeField] private const int boardHeight = 8;
 
-
     enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
     PieceType pieceType;
 
