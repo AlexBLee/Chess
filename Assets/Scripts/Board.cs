@@ -135,5 +135,16 @@ public class Board : MonoBehaviour
 
         tiles[indexCoor].piece.SetPieceColor(material);
 
+        if (material == pieceWhite)
+        {
+            tiles[indexCoor].piece.forwardDirection = 1;
+            tiles[indexCoor].piece.playerOwned = true;
+        }
+        else
+        {
+            tiles[indexCoor].piece.forwardDirection = -1;
+            tiles[indexCoor].piece.playerOwned = false;
+        }
+
     }
 }
