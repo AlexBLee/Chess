@@ -32,13 +32,26 @@ public class Piece : MonoBehaviour
     {
     }
 
-    public void CalculateMoves(int xIncrement, int yIncrement)
+    public void CalculateMoves(int xIncrement, int yIncrement, bool singleJump)
     {
+        int xStep = xIncrement;
+        int yStep = yIncrement;
+        int maxJump = 8;
+
+        if (singleJump)
+        {
+            maxJump = 2;
+        }
+        else
+        {
+            maxJump = 8;
+        }
+
         int inc = 1;
-        while (inc < 8)
+        while (inc < maxJump)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + xIncrement, currentCoordinates.y + (yIncrement * forwardDirection));
+            new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
             if (boardCoordPoint.x > 0 && boardCoordPoint.y > 0 && !IsPieceAtTile(boardCoordPoint))
             {
@@ -49,8 +62,8 @@ public class Piece : MonoBehaviour
                 break;
             }
 
-            xIncrement = xIncrement > 0 ? xIncrement + 1 : xIncrement - 1;
-            yIncrement = yIncrement > 0 ? yIncrement + 1 : yIncrement - 1;
+            if (xStep < 0) { xStep -= xIncrement; } else if (xStep > 0) { xStep += xIncrement;}
+            if (yStep < 0) { yStep -= yIncrement; } else if (yStep > 0) { yStep += yIncrement;}
 
             inc++;
 

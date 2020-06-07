@@ -6,65 +6,17 @@ public class Rook : Piece
 {
     public override void FindLegalMoves()
     {
-        for (int i = 1; i < 8; i++)
-        {
-            Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
+        // right
+        CalculateMoves(1, 0, false);
 
-            if (!IsPieceAtTile(boardCoordPoint))
-            {
-                moves.Add(boardCoordPoint);
-            }
-            else
-            {
-                break;
-            }
-        }
+        // left
+        CalculateMoves(-1, 0, false);
 
-        for (int i = 1; i < 8; i++)
-        {
-            Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x - i, currentCoordinates.y + (i * forwardDirection));
+        // forward
+        CalculateMoves(0, 1, false);
 
-            if (!IsPieceAtTile(boardCoordPoint))
-            {
-                moves.Add(boardCoordPoint);
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        for (int i = 1; i < 8; i++)
-        {
-            Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection));
-
-            if (!IsPieceAtTile(boardCoordPoint))
-            {
-                moves.Add(boardCoordPoint);
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        for (int i = 1; i < 8; i++)
-        {
-            Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x, currentCoordinates.y - (i * forwardDirection));
-
-            if (!IsPieceAtTile(boardCoordPoint))
-            {
-                moves.Add(boardCoordPoint);
-            }
-            else
-            {
-                break;
-            }
-        }
+        // backwards
+        CalculateMoves(0, -1, false);
     }
 
 }

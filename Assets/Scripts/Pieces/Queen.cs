@@ -6,22 +6,29 @@ public class Queen : Piece
 {
     public override void FindLegalMoves()
     {
-        for (int i = 1; i < 8; i++)
-        {
+        // right
+        CalculateMoves(1, 0, false);
 
-            moves.Add(new Vector2Int(currentCoordinates.x - i, currentCoordinates.y));
-            
-        }
+        // left
+        CalculateMoves(-1, 0, false);
 
-        for (int i = 1; i < 8; i++)
-        {
-            moves.Add(new Vector2Int(currentCoordinates.x + i, currentCoordinates.y));
-        }
+        // forward
+        CalculateMoves(0, 1, false);
 
-        for (int i = 1; i < 8; i++)
-        {
-            moves.Add(new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection)));
-        }
+        // backwards
+        CalculateMoves(0, -1, false);
+
+        // diagonal right
+        CalculateMoves(1, 1, false);
+
+        // diagonal left
+        CalculateMoves(-1, 1, false);
+
+        // diagonal backwards right
+        CalculateMoves(1, -1, false);
+
+        // diagonal backwards left
+        CalculateMoves(-1, -1, false);
 
 
     }

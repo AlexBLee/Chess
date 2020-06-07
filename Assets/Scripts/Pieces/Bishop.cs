@@ -9,16 +9,16 @@ public class Bishop : Piece
         moves.Clear();
 
         // diagonal right
-        CalculateMoves(1, 1);
+        CalculateMoves(1, 1, false);
 
         // diagonal left
-        CalculateMoves(-1, 1);
+        CalculateMoves(-1, 1, false);
 
-        // diagonal left
-        CalculateMoves(1, -1);
+        // diagonal backwards right
+        CalculateMoves(1, -1, false);
 
-        // diagonal left
-        CalculateMoves(-1, -1);
+        // diagonal backwards left
+        CalculateMoves(-1, -1, false);
 
     }
 }
