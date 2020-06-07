@@ -62,8 +62,8 @@ public class Piece : MonoBehaviour
                 break;
             }
 
-            if (xStep < 0) { xStep -= xIncrement; } else if (xStep > 0) { xStep += xIncrement;}
-            if (yStep < 0) { yStep -= yIncrement; } else if (yStep > 0) { yStep += yIncrement;}
+            if (xStep < 0) { xStep -= Mathf.Abs(xIncrement); } else if (xStep > 0) { xStep += xIncrement;}
+            if (yStep < 0) { yStep -= Mathf.Abs(yIncrement); } else if (yStep > 0) { yStep += yIncrement;}
 
             inc++;
 

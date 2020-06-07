@@ -6,6 +6,8 @@ public class Rook : Piece
 {
     public override void FindLegalMoves()
     {
+        moves.Clear();
+        
         // right
         CalculateMoves(1, 0, false);
 
