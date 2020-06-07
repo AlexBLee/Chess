@@ -59,6 +59,7 @@ public class Piece : MonoBehaviour
             }
             else
             {
+                // Additional coding needed for determining if ally or enemy piece on tile.
                 break;
             }
 
