@@ -20,12 +20,11 @@ public class Selection : MonoBehaviour
                 if (selecting)
                 {
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
-
-                    selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
-                    selectedPiece.currentCoordinates = selectedTile.coordinates;
+                    board.tiles[(selectedPiece.currentCoordinates.x - 1) + (selectedPiece.currentCoordinates.y - 1) * 8].piece = null;
 
                     selectedTile.piece = selectedPiece;
-                    selectedPiece = null;
+                    selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
+                    selectedPiece.currentCoordinates = selectedTile.coordinates;
 
                     selecting = false;
                 }
