@@ -53,11 +53,11 @@ public class Piece : MonoBehaviour
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
-            if (boardCoordPoint.x > 0 && boardCoordPoint.y > 0 && !IsPieceAtTile(boardCoordPoint))
+            if (IsInBoard(boardCoordPoint) && !IsPieceAtTile(boardCoordPoint))
             {
                 moves.Add(boardCoordPoint);
             }
-            else if (boardCoordPoint.x > 0 && boardCoordPoint.y > 0 && IsPieceAtTile(boardCoordPoint))
+            else if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
                 // Additional coding needed for determining if ally or enemy piece on tile.
                 if (IsEnemyPiece(boardCoordPoint))
@@ -106,5 +106,10 @@ public class Piece : MonoBehaviour
     public bool IsEnemyPiece(Vector2Int tile)
     {
         return board.tiles[(tile.x - 1) + (tile.y - 1) * 8].piece.playerOwned != playerOwned;
+    }
+
+    public bool IsInBoard(Vector2Int tile)
+    {
+        return tile.x > 0 && tile.y > 0 && tile.x <= 8 && tile.y <= 8;
     }
 }
