@@ -20,6 +20,13 @@ public class Selection : MonoBehaviour
                 if (selecting)
                 {
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
+
+                    if (selectedTile.piece != null)
+                    {
+                        Debug.Log("tryin to destroy");
+                        Destroy(selectedTile.piece.gameObject);
+                    }
+
                     board.tiles[(selectedPiece.currentCoordinates.x - 1) + (selectedPiece.currentCoordinates.y - 1) * 8].piece = null;
 
                     selectedTile.piece = selectedPiece;
