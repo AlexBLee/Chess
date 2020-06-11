@@ -86,11 +86,6 @@ public class Piece : MonoBehaviour
     public void RemoveIllegalMoves()
     {
         moves.RemoveAll(tile => tile.x < 1 || tile.x > 8 || tile.y < 1 || tile.y > 8);
-
-        for (int i = 0; i < moves.Count; i++)
-        {
-            board.tiles[(moves[i].x - 1) + (moves[i].y - 1) * 8].render.material = board.pieceWhite;
-        }
     }
 
     public bool IsPieceAtTile(Vector2Int tile)
