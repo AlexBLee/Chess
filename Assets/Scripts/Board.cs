@@ -126,29 +126,29 @@ public class Board : MonoBehaviour
 
     private void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
     {
-        int indexCoor = (x - 1) + (y - 1) * 8;
+        Piece selectedPiece = tiles[x - 1][y - 1].piece;
 
-        tiles[x - 1][y - 1].piece = pieces[(int)pieceType];
+        selectedPiece = pieces[(int)pieceType];
 
-        tiles[x - 1][y - 1].piece = 
-        Instantiate(tiles[x - 1][y - 1].piece, 
+        selectedPiece = 
+        Instantiate(selectedPiece, 
         tiles[x - 1][y - 1].transform.position + new Vector3(0, 0.5f, 0),
         Quaternion.Euler(0,90,0),
         transform);
 
-        tiles[x - 1][y - 1].piece.currentCoordinates = new Vector2Int(x, y);
+        selectedPiece.currentCoordinates = new Vector2Int(x, y);
 
-        tiles[x - 1][y - 1].piece.SetPieceColor(material);
+        selectedPiece.SetPieceColor(material);
 
         if (material == pieceWhite)
         {
-            tiles[x - 1][y - 1].piece.forwardDirection = 1;
-            tiles[x - 1][y - 1].piece.playerOwned = true;
+            selectedPiece.forwardDirection = 1;
+            selectedPiece.playerOwned = true;
         }
         else
         {
-            tiles[x - 1][y - 1].piece.forwardDirection = -1;
-            tiles[x - 1][y - 1].piece.playerOwned = false;
+            selectedPiece.forwardDirection = -1;
+            selectedPiece.playerOwned = false;
         }
 
     }
