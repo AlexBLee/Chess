@@ -50,19 +50,24 @@ public class Piece : MonoBehaviour
         int inc = 1;
         while (inc < maxJump)
         {
+            // need to refactor the code to be more cleaner
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
             if (IsInBoard(boardCoordPoint) && !IsPieceAtTile(boardCoordPoint))
             {
+                board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].previousMat = board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material;
+                board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material = board.pieceWhite;
                 moves.Add(boardCoordPoint);
             }
             else if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
-                // Additional coding needed for determining if ally or enemy piece on tile.
                 if (IsEnemyPiece(boardCoordPoint))
                 {
+                    board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].previousMat = board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material;
+                    board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material = board.pieceAttack;
                     moves.Add(boardCoordPoint);
+                    
                     break;
                 }
                 else
@@ -81,6 +86,7 @@ public class Piece : MonoBehaviour
             inc++;
 
         }
+
     }
 
     public void RemoveIllegalMoves()

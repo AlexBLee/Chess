@@ -9,5 +9,7 @@ public class Tile : MonoBehaviour
     public Piece piece;
     public Vector2Int coordinates;
 
+    public Material previousMat;
+
 
 }

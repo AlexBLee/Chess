@@ -33,6 +33,11 @@ public class Selection : MonoBehaviour
                     selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
                     selectedPiece.currentCoordinates = selectedTile.coordinates;
 
+                    foreach (Vector2Int move in selectedPiece.moves)
+                    {
+                        board.tiles[(move.x - 1) + (move.y - 1) * 8].render.material = board.tiles[(move.x - 1) + (move.y - 1) * 8].previousMat;
+                    }
+
                     selecting = false;
                 }
                 else

@@ -20,6 +20,7 @@ public class Board : MonoBehaviour
     public Material boardBlack;
     public Material pieceWhite;
     public Material pieceBlack;
+    public Material pieceAttack;
 
 
     void Start()
