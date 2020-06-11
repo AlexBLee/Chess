@@ -5,7 +5,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Tile tile;
-    public List<Tile> tiles;
+    public List<List<Tile>> tiles;
     public List<Piece> pieces;
 
     private const float TILE_OFFSET = 1.0f;
@@ -25,19 +25,24 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        tiles = new List<List<Tile>>();
+
         // making the board
         for (int i = 0; i < boardWidth; i++)
         {
+            List<Tile> innerTiles = new List<Tile>();
+
             for (int j = 0; j < boardHeight; j++)
             {
-                tiles.Add
+                innerTiles.Add
                 (
                     Instantiate(tile, 
-                    transform.position + new Vector3(TILE_OFFSET * j, 0.0f, TILE_OFFSET * i),
+                    transform.position + new Vector3(TILE_OFFSET * i, 0.0f, TILE_OFFSET * j),
                     Quaternion.Euler(0,0,0), 
                     transform
                 ));
             }
+            tiles.Add(innerTiles);
         }
 
         // colour and naming tiles
@@ -48,16 +53,16 @@ public class Board : MonoBehaviour
                 int index = i + j * 8;
                 char nextChar = (char)('a' + i);
 
-                tiles[index].name = nextChar + (j+1).ToString();
-                tiles[index].coordinates = new Vector2Int(i+1, j+1);
+                tiles[i][j].name = nextChar + (j+1).ToString();
+                tiles[i][j].coordinates = new Vector2Int(i+1, j+1);
 
                 if ((i+j) % 2 == 0)
                 {
-                    tiles[i + j * boardWidth].render.material = pieceBlack;
+                    tiles[i][j].render.material = pieceBlack;
                 }
                 else
                 {
-                    tiles[i + j * boardWidth].render.material = boardWhite;
+                    tiles[i][j].render.material = boardWhite;
                 }
             }
         }
@@ -123,27 +128,27 @@ public class Board : MonoBehaviour
     {
         int indexCoor = (x - 1) + (y - 1) * 8;
 
-        tiles[indexCoor].piece = pieces[(int)pieceType];
+        tiles[x - 1][y - 1].piece = pieces[(int)pieceType];
 
-        tiles[indexCoor].piece = 
-        Instantiate(tiles[indexCoor].piece, 
-        tiles[indexCoor].transform.position + new Vector3(0, 0.5f, 0),
+        tiles[x - 1][y - 1].piece = 
+        Instantiate(tiles[x - 1][y - 1].piece, 
+        tiles[x - 1][y - 1].transform.position + new Vector3(0, 0.5f, 0),
         Quaternion.Euler(0,90,0),
         transform);
 
-        tiles[indexCoor].piece.currentCoordinates = new Vector2Int(x, y);
+        tiles[x - 1][y - 1].piece.currentCoordinates = new Vector2Int(x, y);
 
-        tiles[indexCoor].piece.SetPieceColor(material);
+        tiles[x - 1][y - 1].piece.SetPieceColor(material);
 
         if (material == pieceWhite)
         {
-            tiles[indexCoor].piece.forwardDirection = 1;
-            tiles[indexCoor].piece.playerOwned = true;
+            tiles[x - 1][y - 1].piece.forwardDirection = 1;
+            tiles[x - 1][y - 1].piece.playerOwned = true;
         }
         else
         {
-            tiles[indexCoor].piece.forwardDirection = -1;
-            tiles[indexCoor].piece.playerOwned = false;
+            tiles[x - 1][y - 1].piece.forwardDirection = -1;
+            tiles[x - 1][y - 1].piece.playerOwned = false;
         }
 
     }

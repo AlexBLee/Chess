@@ -27,7 +27,7 @@ public class Selection : MonoBehaviour
                         Destroy(selectedTile.piece.gameObject);
                     }
 
-                    board.tiles[(selectedPiece.currentCoordinates.x - 1) + (selectedPiece.currentCoordinates.y - 1) * 8].piece = null;
+                    board.tiles[selectedPiece.currentCoordinates.x - 1][selectedPiece.currentCoordinates.y - 1].piece = null;
 
                     selectedTile.piece = selectedPiece;
                     selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
@@ -35,7 +35,7 @@ public class Selection : MonoBehaviour
 
                     foreach (Vector2Int move in selectedPiece.moves)
                     {
-                        board.tiles[(move.x - 1) + (move.y - 1) * 8].render.material = board.tiles[(move.x - 1) + (move.y - 1) * 8].previousMat;
+                        board.tiles[move.x - 1][move.y - 1].render.material = board.tiles[move.x - 1][move.y - 1].previousMat;
                     }
 
                     selecting = false;

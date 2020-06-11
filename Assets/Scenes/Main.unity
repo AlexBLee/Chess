@@ -342,6 +342,7 @@ MonoBehaviour:
   boardBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceWhite: {fileID: 2100000, guid: 644348a57efd3114089b69f74becf655, type: 2}
   pieceBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
+  pieceAttack: {fileID: 2100000, guid: 48a7b427317401542a2ed07c5d55dfc9, type: 2}
 --- !u!4 &1982779082
 Transform:
   m_ObjectHideFlags: 0

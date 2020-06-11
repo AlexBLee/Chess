@@ -56,16 +56,16 @@ public class Piece : MonoBehaviour
 
             if (IsInBoard(boardCoordPoint) && !IsPieceAtTile(boardCoordPoint))
             {
-                board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].previousMat = board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material;
-                board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material = board.pieceWhite;
+                board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].previousMat = board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].render.material;
+                board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].render.material = board.pieceWhite;
                 moves.Add(boardCoordPoint);
             }
             else if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
                 if (IsEnemyPiece(boardCoordPoint))
                 {
-                    board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].previousMat = board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material;
-                    board.tiles[(boardCoordPoint.x - 1) + (boardCoordPoint.y - 1) * 8].render.material = board.pieceAttack;
+                    board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].previousMat = board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].render.material;
+                    board.tiles[(boardCoordPoint.x - 1)][(boardCoordPoint.y - 1)].render.material = board.pieceAttack;
                     moves.Add(boardCoordPoint);
                     
                     break;
@@ -96,17 +96,17 @@ public class Piece : MonoBehaviour
 
     public bool IsPieceAtTile(Vector2Int tile)
     {
-        return board.tiles[(tile.x - 1) + (tile.y - 1) * 8].piece != null;
+        return board.tiles[tile.x - 1][tile.y - 1].piece != null;
     }
 
     public bool IsFriendlyPiece(Vector2Int tile)
     {
-        return board.tiles[(tile.x - 1) + (tile.y - 1) * 8].piece.playerOwned == playerOwned;
+        return board.tiles[tile.x - 1][tile.y - 1].piece.playerOwned == playerOwned;
     }
 
     public bool IsEnemyPiece(Vector2Int tile)
     {
-        return board.tiles[(tile.x - 1) + (tile.y - 1) * 8].piece.playerOwned != playerOwned;
+        return board.tiles[tile.x - 1][tile.y - 1].piece.playerOwned != playerOwned;
     }
 
     public bool IsInBoard(Vector2Int tile)
