@@ -91,7 +91,7 @@ public class Piece : MonoBehaviour
 
     public void RemoveIllegalMoves()
     {
-        moves.RemoveAll(tile => tile.x < 1 || tile.x > 8 || tile.y < 1 || tile.y > 8);
+        moves.RemoveAll(tile => tile.x < 0 || tile.x > 7 || tile.y < 0 || tile.y > 7);
     }
 
     public bool IsPieceAtTile(Vector2Int tile)
@@ -111,6 +111,6 @@ public class Piece : MonoBehaviour
 
     public bool IsInBoard(Vector2Int tile)
     {
-        return tile.x > 0 && tile.y > 0 && tile.x <= 8 && tile.y <= 8;
+        return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
     }
 }

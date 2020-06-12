@@ -54,7 +54,7 @@ public class Board : MonoBehaviour
                 char nextChar = (char)('a' + i);
 
                 tiles[i][j].name = nextChar + (j+1).ToString();
-                tiles[i][j].coordinates = new Vector2Int(i+1, j+1);
+                tiles[i][j].coordinates = new Vector2Int(i, j);
 
                 if ((i+j) % 2 == 0)
                 {
