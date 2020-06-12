@@ -73,66 +73,66 @@ public class Board : MonoBehaviour
     void SpawnPieces()
     {
         // // pawns
-        for (int i = 1; i <= 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             // white
-            PlacePiecesAt(i, 2, PieceType.Pawn, pieceWhite);
+            PlacePiecesAt(i, 1, PieceType.Pawn, pieceWhite);
 
             // black
-            PlacePiecesAt(i, 7, PieceType.Pawn, pieceBlack);
+            PlacePiecesAt(i, 6, PieceType.Pawn, pieceBlack);
         }
 
         // ---------- WHITE --------------------
 
         // white rooks
-        PlacePiecesAt(1,1, PieceType.Rook, pieceWhite);
-        PlacePiecesAt(8,1, PieceType.Rook, pieceWhite);
+        PlacePiecesAt(0,0, PieceType.Rook, pieceWhite);
+        PlacePiecesAt(7,0, PieceType.Rook, pieceWhite);
 
         // white knights
-        PlacePiecesAt(2,1, PieceType.Knight, pieceWhite);
-        PlacePiecesAt(7,1, PieceType.Knight, pieceWhite);
+        PlacePiecesAt(1,0, PieceType.Knight, pieceWhite);
+        PlacePiecesAt(6,0, PieceType.Knight, pieceWhite);
 
         // white bishops
-        PlacePiecesAt(3,1, PieceType.Bishop, pieceWhite);
-        PlacePiecesAt(6,1, PieceType.Bishop, pieceWhite);
+        PlacePiecesAt(2,0, PieceType.Bishop, pieceWhite);
+        PlacePiecesAt(5,0, PieceType.Bishop, pieceWhite);
 
         // white queen
-        PlacePiecesAt(4,1, PieceType.Queen, pieceWhite);
+        PlacePiecesAt(3,0, PieceType.Queen, pieceWhite);
 
         // white king
-        PlacePiecesAt(5,1, PieceType.King, pieceWhite);
+        PlacePiecesAt(4,0, PieceType.King, pieceWhite);
 
         // -----------BLACK-------------------
         
         // black rooks
-        PlacePiecesAt(1,8, PieceType.Rook, pieceBlack);
-        PlacePiecesAt(8,8, PieceType.Rook, pieceBlack);
+        PlacePiecesAt(0,7, PieceType.Rook, pieceBlack);
+        PlacePiecesAt(7,7, PieceType.Rook, pieceBlack);
         
         // black knights
-        PlacePiecesAt(2,8, PieceType.Knight, pieceBlack);
-        PlacePiecesAt(7,8, PieceType.Knight, pieceBlack);
+        PlacePiecesAt(1,7, PieceType.Knight, pieceBlack);
+        PlacePiecesAt(6,7, PieceType.Knight, pieceBlack);
 
         // black bishops
-        PlacePiecesAt(3,8, PieceType.Bishop, pieceBlack);
-        PlacePiecesAt(6,8, PieceType.Bishop, pieceBlack);
+        PlacePiecesAt(2,7, PieceType.Bishop, pieceBlack);
+        PlacePiecesAt(5,7, PieceType.Bishop, pieceBlack);
 
         // black queen
-        PlacePiecesAt(4,8, PieceType.Queen, pieceBlack);
+        PlacePiecesAt(3,7, PieceType.Queen, pieceBlack);
 
         // black king
-        PlacePiecesAt(5,8, PieceType.King, pieceBlack);
+        PlacePiecesAt(4,7, PieceType.King, pieceBlack);
 
     }
 
     private void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
     {
-        Piece selectedPiece = tiles[x - 1][y - 1].piece;
+        Piece selectedPiece = tiles[x][y].piece;
 
         selectedPiece = pieces[(int)pieceType];
 
         selectedPiece = 
         Instantiate(selectedPiece, 
-        tiles[x - 1][y - 1].transform.position + new Vector3(0, 0.5f, 0),
+        tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
         Quaternion.Euler(0,90,0),
         transform);
 
