@@ -53,30 +53,33 @@ public class Piece : MonoBehaviour
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
-            Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+            if (IsInBoard(boardCoordPoint))
+            {
+                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
-            if (IsInBoard(boardCoordPoint) && !IsPieceAtTile(boardCoordPoint))
-            {
-                ColourAvailableTiles(currentTile, board.pieceWhite);
-                moves.Add(boardCoordPoint);
-            }
-            else if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
-            {
-                if (IsEnemyPiece(boardCoordPoint))
+                if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    ColourAvailableTiles(currentTile, board.pieceAttack);
+                    ColourAvailableTiles(currentTile, board.pieceWhite);
                     moves.Add(boardCoordPoint);
-                    
-                    break;
+                }
+                else if (IsPieceAtTile(boardCoordPoint))
+                {
+                    if (IsEnemyPiece(boardCoordPoint))
+                    {
+                        ColourAvailableTiles(currentTile, board.pieceAttack);
+                        moves.Add(boardCoordPoint);
+                        
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
                     break;
                 }
-            }
-            else
-            {
-                break;
             }
 
             if (xStep < 0) { xStep -= Mathf.Abs(xIncrement); } else if (xStep > 0) { xStep += xIncrement;}
