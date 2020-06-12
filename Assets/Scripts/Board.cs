@@ -126,29 +126,29 @@ public class Board : MonoBehaviour
 
     private void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
     {
-        Piece selectedPiece = tiles[x][y].piece;
+        Tile selectedTile = tiles[x][y];
 
-        selectedPiece = pieces[(int)pieceType];
+        selectedTile.piece = pieces[(int)pieceType];
 
-        selectedPiece = 
-        Instantiate(selectedPiece, 
+        selectedTile.piece = 
+        Instantiate(selectedTile.piece, 
         tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
         Quaternion.Euler(0,90,0),
         transform);
 
-        selectedPiece.currentCoordinates = new Vector2Int(x, y);
+        selectedTile.piece.currentCoordinates = new Vector2Int(x, y);
 
-        selectedPiece.SetPieceColor(material);
+        selectedTile.piece.SetPieceColor(material);
 
         if (material == pieceWhite)
         {
-            selectedPiece.forwardDirection = 1;
-            selectedPiece.playerOwned = true;
+            selectedTile.piece.forwardDirection = 1;
+            selectedTile.piece.playerOwned = true;
         }
         else
         {
-            selectedPiece.forwardDirection = -1;
-            selectedPiece.playerOwned = false;
+            selectedTile.piece.forwardDirection = -1;
+            selectedTile.piece.playerOwned = false;
         }
 
     }
