@@ -50,22 +50,21 @@ public class Piece : MonoBehaviour
         int inc = 1;
         while (inc < maxJump)
         {
-            // need to refactor the code to be more cleaner
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
+            Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+
             if (IsInBoard(boardCoordPoint) && !IsPieceAtTile(boardCoordPoint))
             {
-                board.tiles[boardCoordPoint.x][boardCoordPoint.y].previousMat = board.tiles[boardCoordPoint.x][(boardCoordPoint.y)].render.material;
-                board.tiles[(boardCoordPoint.x)][(boardCoordPoint.y)].render.material = board.pieceWhite;
+                ColourAvailableTiles(currentTile, board.pieceWhite);
                 moves.Add(boardCoordPoint);
             }
             else if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
                 if (IsEnemyPiece(boardCoordPoint))
                 {
-                    board.tiles[(boardCoordPoint.x)][(boardCoordPoint.y)].previousMat = board.tiles[(boardCoordPoint.x)][(boardCoordPoint.y)].render.material;
-                    board.tiles[(boardCoordPoint.x)][(boardCoordPoint.y)].render.material = board.pieceAttack;
+                    ColourAvailableTiles(currentTile, board.pieceAttack);
                     moves.Add(boardCoordPoint);
                     
                     break;
@@ -87,6 +86,12 @@ public class Piece : MonoBehaviour
 
         }
 
+    }
+
+    public void ColourAvailableTiles(Tile tile, Material mat)
+    {
+        tile.previousMat = tile.render.material;
+        tile.render.material = mat;
     }
 
     public void RemoveIllegalMoves()
