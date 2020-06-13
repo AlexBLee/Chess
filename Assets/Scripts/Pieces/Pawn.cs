@@ -12,6 +12,7 @@ public class Pawn : Piece
 
         moves.Clear();
 
+        // First move can move 2 tiles
         if (firstMove)
         {
             for (int i = 1; i < 3; i++)
@@ -40,22 +41,25 @@ public class Pawn : Piece
             {
                 Vector2Int boardCoordPoint = 
                 new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
-
-                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
-
-                if (i == 0 && !IsPieceAtTile(boardCoordPoint))
+                
+                // Moving normally
+                if (IsInBoard(boardCoordPoint))
                 {
-                    ColourAvailableTiles(currentTile, board.pieceWhite);
-                    moves.Add(boardCoordPoint);
-                }
-                else if (i != 0 && IsPieceAtTile(boardCoordPoint) && IsEnemyPiece(boardCoordPoint))
-                {
-                    ColourAvailableTiles(currentTile, board.pieceAttack);
-                    moves.Add(boardCoordPoint);
-                }
+                    Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
+                    if (i == 0 && !IsPieceAtTile(boardCoordPoint))
+                    {
+                        ColourAvailableTiles(currentTile, board.pieceWhite);
+                        moves.Add(boardCoordPoint);
+                    }
+                    // Attacking pieces on its diagonals
+                    else if (i != 0 && IsPieceAtTile(boardCoordPoint) && IsEnemyPiece(boardCoordPoint))
+                    {
+                        ColourAvailableTiles(currentTile, board.pieceAttack);
+                        moves.Add(boardCoordPoint);
+                    }
+                }
             }
         }
-        
     }
 }
