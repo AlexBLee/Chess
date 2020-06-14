@@ -6,7 +6,13 @@ public class Board : MonoBehaviour
 {
     public Tile tile;
     public List<List<Tile>> tiles;
+
+    // Holds the type of pieces that can be spawned
     public List<Piece> pieces;
+
+    // To keep a list of current pieces for each side on the board.
+    public List<Piece> whitePieces;
+    public List<Piece> blackPieces;
 
     private const float TILE_OFFSET = 1.0f;
 
@@ -142,11 +148,13 @@ public class Board : MonoBehaviour
 
         if (material == pieceWhite)
         {
+            whitePieces.Add(selectedTile.piece);
             selectedTile.piece.forwardDirection = 1;
             selectedTile.piece.interactable = true;
         }
         else
         {
+            blackPieces.Add(selectedTile.piece);
             selectedTile.piece.forwardDirection = -1;
             selectedTile.piece.interactable = false;
         }
