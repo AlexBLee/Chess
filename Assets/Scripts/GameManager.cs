@@ -22,22 +22,14 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSides()
     {
-        for (int i = 0; i < 8; i++)
+        foreach (Piece piece in board.whitePieces)
         {
-            for (int j = 0; j < 8; j++)
-            {
-                if (board.tiles[i][j].piece != null)
-                {
-                    if (board.tiles[i][j].piece.interactable)
-                    {
-                        board.tiles[i][j].piece.interactable = false;
-                    }
-                    else
-                    {
-                        board.tiles[i][j].piece.interactable = true;
-                    }
-                }
-            }
+            piece.interactable = (piece.interactable == true) ? false : true;
+        }
+
+        foreach (Piece piece in board.blackPieces)
+        {
+            piece.interactable = (piece.interactable == true) ? false : true;
         }
     }
 }
