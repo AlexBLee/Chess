@@ -38,13 +38,19 @@ public class Selection : MonoBehaviour
                         board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
                     }
 
+                    GameManager.instance.SwitchSides();
                     selecting = false;
                 }
                 else
                 {
-                    selectedPiece = hit.transform.GetComponent<Tile>().piece;
-                    selectedPiece.FindMoveSet();
-                    selecting = true;
+                    Piece piece = hit.transform.GetComponent<Tile>().piece;
+                    
+                    if (piece != null && piece.interactable)
+                    {
+                        selectedPiece = hit.transform.GetComponent<Tile>().piece;
+                        selectedPiece.FindMoveSet();
+                        selecting = true;
+                    }
                 }
 
             }

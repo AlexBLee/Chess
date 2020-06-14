@@ -6,7 +6,7 @@ public class Piece : MonoBehaviour
 {
     // to tell between white and black
     public static Board board;
-    public bool playerOwned;
+    public bool interactable;
     public Renderer render;
     public List<Vector2Int> moves;
     public Vector2Int currentCoordinates;
@@ -109,12 +109,12 @@ public class Piece : MonoBehaviour
 
     public bool IsFriendlyPiece(Vector2Int tile)
     {
-        return board.tiles[tile.x][tile.y].piece.playerOwned == playerOwned;
+        return board.tiles[tile.x][tile.y].piece.interactable == interactable;
     }
 
     public bool IsEnemyPiece(Vector2Int tile)
     {
-        return board.tiles[tile.x][tile.y].piece.playerOwned != playerOwned;
+        return board.tiles[tile.x][tile.y].piece.interactable != interactable;
     }
 
     public bool IsInBoard(Vector2Int tile)

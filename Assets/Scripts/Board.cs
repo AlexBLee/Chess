@@ -143,12 +143,12 @@ public class Board : MonoBehaviour
         if (material == pieceWhite)
         {
             selectedTile.piece.forwardDirection = 1;
-            selectedTile.piece.playerOwned = true;
+            selectedTile.piece.interactable = true;
         }
         else
         {
             selectedTile.piece.forwardDirection = -1;
-            selectedTile.piece.playerOwned = false;
+            selectedTile.piece.interactable = false;
         }
 
     }
