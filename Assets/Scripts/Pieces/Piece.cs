@@ -12,7 +12,7 @@ public class Piece : MonoBehaviour
     public Vector2Int currentCoordinates;
     public int forwardDirection;
     
-    private void Start() 
+    private void Awake() 
     {
         board = FindObjectOfType<Board>();
     }
@@ -59,14 +59,12 @@ public class Piece : MonoBehaviour
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    ColourAvailableTiles(currentTile, board.pieceWhite);
                     moves.Add(boardCoordPoint);
                 }
                 else if (IsPieceAtTile(boardCoordPoint))
                 {
                     if (IsEnemyPiece(boardCoordPoint))
                     {
-                        ColourAvailableTiles(currentTile, board.pieceAttack);
                         moves.Add(boardCoordPoint);
                         
                         break;

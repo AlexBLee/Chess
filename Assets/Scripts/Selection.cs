@@ -9,6 +9,7 @@ public class Selection : MonoBehaviour
     public Piece selectedPiece;
     public bool selecting;
 
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,6 +32,11 @@ public class Selection : MonoBehaviour
 
                         MovePieceTo(selectedTile);
                         GameManager.instance.SwitchSides();
+                        GameManager.instance.FindAllPossibleMoves();
+                    }
+                    else
+                    {
+                        Debug.Log(selectedTile.coordinates + "not in " + selectedPiece.name + " moves!"); 
                     }
 
                     foreach (Vector2Int move in selectedPiece.moves)
@@ -47,7 +53,6 @@ public class Selection : MonoBehaviour
                     if (piece != null && piece.interactable)
                     {
                         selectedPiece = hit.transform.GetComponent<Tile>().piece;
-                        selectedPiece.FindMoveSet();
                         selecting = true;
                     }
                 }

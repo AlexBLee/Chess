@@ -74,6 +74,7 @@ public class Board : MonoBehaviour
         }
 
         SpawnPieces();
+        GameManager.instance.FindAllPossibleMoves();
     }
 
     void SpawnPieces()

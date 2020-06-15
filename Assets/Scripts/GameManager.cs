@@ -20,6 +20,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void FindWhiteMoves()
+    {
+        foreach (Piece piece in board.whitePieces)
+        {
+            piece.FindMoveSet();
+        }
+    }
+
+    public void FindBlackMoves()
+    {
+        foreach (Piece piece in board.blackPieces)
+        {
+            piece.FindMoveSet();
+        }
+    }
+
+    public void FindAllPossibleMoves()
+    {
+        FindWhiteMoves();
+        FindBlackMoves();
+    }
+
     public void SwitchSides()
     {
         foreach (Piece piece in board.whitePieces)

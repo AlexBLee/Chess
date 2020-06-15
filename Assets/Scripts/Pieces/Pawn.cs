@@ -24,7 +24,6 @@ public class Pawn : Piece
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    ColourAvailableTiles(currentTile, board.pieceWhite);
                     moves.Add(boardCoordPoint);
                 }
                 else
@@ -49,13 +48,11 @@ public class Pawn : Piece
 
                     if (i == 0 && !IsPieceAtTile(boardCoordPoint))
                     {
-                        ColourAvailableTiles(currentTile, board.pieceWhite);
                         moves.Add(boardCoordPoint);
                     }
                     // Attacking pieces on its diagonals
                     else if (i != 0 && IsPieceAtTile(boardCoordPoint) && IsEnemyPiece(boardCoordPoint))
                     {
-                        ColourAvailableTiles(currentTile, board.pieceAttack);
                         moves.Add(boardCoordPoint);
                     }
                 }
