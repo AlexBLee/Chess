@@ -38,7 +38,7 @@ public class Selection : MonoBehaviour
                             board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
                         }
 
-                        MovePieceTo(selectedTile);
+                        board.MovePieceTo(selectedPiece, selectedTile);
                         GameManager.instance.SwitchSides();
                         GameManager.instance.FindAllPossibleMoves();
                     }
@@ -78,16 +78,5 @@ public class Selection : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void MovePieceTo(Tile selectedTile)
-    {
-        // Make sure the previous Tile no longer owns the piece
-        board.tiles[selectedPiece.currentCoordinates.x][selectedPiece.currentCoordinates.y].piece = null;
-
-        // Move piece to new Tile
-        selectedTile.piece = selectedPiece;
-        selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
-        selectedPiece.currentCoordinates = selectedTile.coordinates;            
     }
 }

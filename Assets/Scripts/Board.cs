@@ -159,6 +159,16 @@ public class Board : MonoBehaviour
             selectedTile.piece.forwardDirection = -1;
             selectedTile.piece.interactable = false;
         }
+    }
 
+    public void MovePieceTo(Piece selectedPiece, Tile tile)
+    {
+        // Make sure the previous Tile no longer owns the piece
+        tiles[selectedPiece.currentCoordinates.x][selectedPiece.currentCoordinates.y].piece = null;
+
+        // Move piece to new Tile
+        tile.piece = selectedPiece;
+        selectedPiece.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+        selectedPiece.currentCoordinates = tile.coordinates;          
     }
 }
