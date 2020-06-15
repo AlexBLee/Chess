@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Selection : MonoBehaviour
@@ -21,24 +22,22 @@ public class Selection : MonoBehaviour
                 {
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
 
-                    if (selectedTile.piece != null)
+                    if (selectedPiece.moves.Any(move => move == selectedTile.coordinates))
                     {
-                        Debug.Log("tryin to destroy");
-                        Destroy(selectedTile.piece.gameObject);
+                        if (selectedTile.piece != null)
+                        {
+                            Destroy(selectedTile.piece.gameObject);
+                        }
+
+                        MovePieceTo(selectedTile);
+                        GameManager.instance.SwitchSides();
                     }
-
-                    board.tiles[selectedPiece.currentCoordinates.x][selectedPiece.currentCoordinates.y].piece = null;
-
-                    selectedTile.piece = selectedPiece;
-                    selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
-                    selectedPiece.currentCoordinates = selectedTile.coordinates;
 
                     foreach (Vector2Int move in selectedPiece.moves)
                     {
                         board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
                     }
 
-                    GameManager.instance.SwitchSides();
                     selecting = false;
                 }
                 else
@@ -52,13 +51,18 @@ public class Selection : MonoBehaviour
                         selecting = true;
                     }
                 }
-
-            }
-            else
-            {
-                Debug.Log("Did not Hit");
             }
         }
-        
+    }
+
+    public void MovePieceTo(Tile selectedTile)
+    {
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[selectedPiece.currentCoordinates.x][selectedPiece.currentCoordinates.y].piece = null;
+
+        // Move piece to new Tile
+        selectedTile.piece = selectedPiece;
+        selectedPiece.transform.position = selectedTile.transform.position + new Vector3(0, 0.5f, 0);
+        selectedPiece.currentCoordinates = selectedTile.coordinates;            
     }
 }
