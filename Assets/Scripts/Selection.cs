@@ -67,7 +67,7 @@ public class Selection : MonoBehaviour
                             // Otherwise colour it normally
                             else
                             {
-                                board.SetTileColour(board.tiles[move.x][move.y], board.pieceAttack);
+                                board.SetTileColour(board.tiles[move.x][move.y], board.availableMoveColour);
 
                             }
                         }

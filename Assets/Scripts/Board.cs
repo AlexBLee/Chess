@@ -28,6 +28,8 @@ public class Board : MonoBehaviour
     public Material pieceBlack;
     public Material pieceAttack;
 
+    public Material availableMoveColour;
+
 
     void Start()
     {
