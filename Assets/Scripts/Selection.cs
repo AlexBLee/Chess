@@ -33,18 +33,16 @@ public class Selection : MonoBehaviour
                         }
 
                         // Colour the board back to normal
-                        foreach (Vector2Int move in selectedPiece.moves)
-                        {
-                            board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
-                        }
-
+                        board.ResetPieceMoveTileColours(selectedPiece);
                         board.MovePieceTo(selectedPiece, selectedTile);
+                        
                         GameManager.instance.SwitchSides();
                         GameManager.instance.FindAllPossibleMoves();
                     }
                     else
                     {
                         Debug.Log(selectedTile.coordinates + " not in " + selectedPiece.name + " moves!"); 
+                        board.ResetPieceMoveTileColours(selectedPiece);
                     }
 
                     selecting = false;
@@ -64,15 +62,15 @@ public class Selection : MonoBehaviour
                             // If the piece can attack a piece, then turn it red
                             if (piece != null && (piece.interactable != selectedPiece.interactable))
                             {
-                                board.tiles[move.x][move.y].SetTileColour(board.pieceAttack);
+                                board.SetTileColour(board.tiles[move.x][move.y], board.pieceAttack);
                             }
                             // Otherwise colour it normally
                             else
                             {
-                                board.tiles[move.x][move.y].SetTileColour(board.pieceWhite);
+                                board.SetTileColour(board.tiles[move.x][move.y], board.pieceAttack);
+
                             }
                         }
-
                         selecting = true;
                     }
                 }

@@ -8,13 +8,5 @@ public class Tile : MonoBehaviour
     public Renderer render;
     public Piece piece;
     public Vector2Int coordinates;
-
     public Material previousMat;
-
-    public void SetTileColour(Material mat)
-    {
-        previousMat = render.material;
-        render.material = mat;
-    }
-
 }
