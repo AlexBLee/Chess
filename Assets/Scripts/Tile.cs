@@ -11,5 +11,10 @@ public class Tile : MonoBehaviour
 
     public Material previousMat;
 
+    public void SetTileColour(Material mat)
+    {
+        previousMat = render.material;
+        render.material = mat;
+    }
 
 }

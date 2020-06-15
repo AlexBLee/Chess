@@ -23,11 +23,19 @@ public class Selection : MonoBehaviour
                 {
                     Tile selectedTile = hit.transform.GetComponent<Tile>();
 
+                    // If the clicked tile is possible for the piece to move to, move there
                     if (selectedPiece.moves.Any(move => move == selectedTile.coordinates))
                     {
+                        // Destroy the piece at that tile
                         if (selectedTile.piece != null)
                         {
                             Destroy(selectedTile.piece.gameObject);
+                        }
+
+                        // Colour the board back to normal
+                        foreach (Vector2Int move in selectedPiece.moves)
+                        {
+                            board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
                         }
 
                         MovePieceTo(selectedTile);
@@ -36,23 +44,35 @@ public class Selection : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(selectedTile.coordinates + "not in " + selectedPiece.name + " moves!"); 
-                    }
-
-                    foreach (Vector2Int move in selectedPiece.moves)
-                    {
-                        board.tiles[move.x][move.y].render.material = board.tiles[move.x][move.y].previousMat;
+                        Debug.Log(selectedTile.coordinates + " not in " + selectedPiece.name + " moves!"); 
                     }
 
                     selecting = false;
                 }
                 else
                 {
-                    Piece piece = hit.transform.GetComponent<Tile>().piece;
+                    selectedPiece = hit.transform.GetComponent<Tile>().piece;
                     
-                    if (piece != null && piece.interactable)
+                    // Make sure the player is clicking the right piece
+                    if (selectedPiece != null && selectedPiece.interactable)
                     {
-                        selectedPiece = hit.transform.GetComponent<Tile>().piece;
+                        // Loop through each possible move that the piece can make
+                        foreach (Vector2Int move in selectedPiece.moves)
+                        {
+                            Piece piece = board.tiles[move.x][move.y].piece;
+
+                            // If the piece can attack a piece, then turn it red
+                            if (piece != null && (piece.interactable != selectedPiece.interactable))
+                            {
+                                board.tiles[move.x][move.y].SetTileColour(board.pieceAttack);
+                            }
+                            // Otherwise colour it normally
+                            else
+                            {
+                                board.tiles[move.x][move.y].SetTileColour(board.pieceWhite);
+                            }
+                        }
+
                         selecting = true;
                     }
                 }
