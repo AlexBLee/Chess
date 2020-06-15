@@ -168,6 +168,18 @@ public class Board : MonoBehaviour
         // Make sure the previous Tile no longer owns the piece
         tiles[selectedPiece.currentCoordinates.x][selectedPiece.currentCoordinates.y].piece = null;
 
+        // If its a pawn, modify its first move check if needed (This might be better done somewhere else.. either in Piece/Pawn class)
+        if (selectedPiece is Pawn)
+        {
+            Pawn pawn = (Pawn)selectedPiece;
+
+            if (pawn.firstMove)
+            {
+                pawn.firstMove = false;
+                selectedPiece = pawn;
+            }
+        }
+
         // Move piece to new Tile
         tile.piece = selectedPiece;
         selectedPiece.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);

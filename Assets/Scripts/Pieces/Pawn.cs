@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
-    bool firstMove = true;
+    public bool firstMove = true;
 
     public override void FindLegalMoves()
     {
         // Does not use the CalculateMove function because of the special movement patterns of the pawn.
-
         moves.Clear();
 
         // First move can move 2 tiles
@@ -31,8 +30,6 @@ public class Pawn : Piece
                     break;
                 }
             }
-
-            firstMove = false;
         }
         else
         {
