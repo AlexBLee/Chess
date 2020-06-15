@@ -337,11 +337,14 @@ MonoBehaviour:
   - {fileID: -8584396003266799852, guid: be10fde3f3bd1f14bac3f5a5eed9cd62, type: 3}
   - {fileID: 4129706068979860152, guid: 18fbdc802060108498a86c6cd5aeb71c, type: 3}
   - {fileID: -1148651295144696686, guid: 47afdbddb43d6c6418b42391e0dad814, type: 3}
+  whitePieces: []
+  blackPieces: []
   boardWhite: {fileID: 2100000, guid: 82472f43848b6e34cb683862c337dbc6, type: 2}
   boardBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceWhite: {fileID: 2100000, guid: 644348a57efd3114089b69f74becf655, type: 2}
   pieceBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceAttack: {fileID: 2100000, guid: 48a7b427317401542a2ed07c5d55dfc9, type: 2}
+  availableMoveColour: {fileID: 2100000, guid: fcfb7b7094a24ca43ad8fb954b15d1d0, type: 2}
 --- !u!4 &1982779082
 Transform:
   m_ObjectHideFlags: 0
