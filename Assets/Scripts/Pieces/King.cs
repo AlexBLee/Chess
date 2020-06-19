@@ -5,6 +5,8 @@ using System.Linq;
 
 public class King : Piece
 {
+    public bool check;
+    
     public override void FindLegalMoves()
     {
         moves.Clear();
@@ -63,6 +65,5 @@ public class King : Piece
                 }
             }
         }
-
     } 
 }

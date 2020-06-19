@@ -65,8 +65,16 @@ public class Piece : MonoBehaviour
                 {
                     if (IsEnemyPiece(boardCoordPoint))
                     {
-                        moves.Add(boardCoordPoint);
-                        
+                        if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
+                        {
+                            King k = (King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece;
+                            k.check = true;
+                            board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece = k;
+                        }
+                        else
+                        {
+                            moves.Add(boardCoordPoint);
+                        }
                         break;
                     }
                     else
