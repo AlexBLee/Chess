@@ -185,7 +185,6 @@ public class Board : MonoBehaviour
         selectedPiece.transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
         selectedPiece.currentCoordinates = tile.coordinates;          
     }
-
     
     public void SetTileColour(Tile tile, Material mat)
     {

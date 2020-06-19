@@ -6,6 +6,7 @@ using System.Linq;
 public class King : Piece
 {
     public bool check;
+    public Piece checkPiece;
     
     public override void FindLegalMoves()
     {

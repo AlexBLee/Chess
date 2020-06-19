@@ -38,6 +38,12 @@ public class Selection : MonoBehaviour
                         
                         GameManager.instance.SwitchSides();
                         GameManager.instance.FindAllPossibleMoves();
+                        
+                        if (GameManager.instance.kingInCheck != null)
+                        {
+                            GameManager.instance.CheckCheck();
+                        }
+                        
                     }
                     else
                     {

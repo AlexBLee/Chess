@@ -69,6 +69,8 @@ public class Piece : MonoBehaviour
                         {
                             King k = (King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece;
                             k.check = true;
+                            k.checkPiece = this;
+                            GameManager.instance.kingInCheck = k;
                             board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece = k;
                         }
                         else
