@@ -95,7 +95,7 @@ public class Piece : MonoBehaviour
         tile.render.material = mat;
     }
 
-    public void RemoveIllegalMoves()
+    public virtual void RemoveIllegalMoves()
     {
         moves.RemoveAll(tile => tile.x < 0 || tile.x > 7 || tile.y < 0 || tile.y > 7);
     }
