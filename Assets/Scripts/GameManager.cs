@@ -64,17 +64,20 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < board.blackPieces.Count; i++)
         {
+            List<Vector2Int> tempCoors = new List<Vector2Int>();
+
             foreach (Vector2Int move in kingInCheck.checkPiece.moves)
             {
-                for (int j = 0; j < board.blackPieces[i].moves.Count; j++)
+                // If any moves that intersect with the piece are found, add them to the list
+                if (board.blackPieces[i].moves.Any(x => x == move))
                 {
-                    if (board.blackPieces[i].moves[j] != move)
-                    {
-                        Debug.Log("Found move: " + move + " From: " + board.blackPieces[i] + " at " + board.blackPieces[i].currentCoordinates);
-                        // board.blackPieces[i].moves.Remove(board.blackPieces[i].moves[j]);
-                    }
+                    tempCoors.Add(move);
                 }
             }
+
+            // Change the move list for the pieces that found any intersecting moves
+            // If there's nothing, it will give an empty list, as any piece that cant move in the way shouldn't be able to move.
+            board.blackPieces[i].moves = tempCoors;
             
         }
     }
