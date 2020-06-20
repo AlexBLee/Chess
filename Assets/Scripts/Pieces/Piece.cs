@@ -67,11 +67,7 @@ public class Piece : MonoBehaviour
                     {
                         if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
                         {
-                            King k = (King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece;
-                            k.check = true;
-                            k.checkPiece = this;
-                            GameManager.instance.kingInCheck = k;
-                            board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece = k;
+                            ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece);
                         }
                         else
                         {
@@ -128,5 +124,12 @@ public class Piece : MonoBehaviour
     public bool IsInBoard(Vector2Int tile)
     {
         return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
+    }
+
+    public void ApplyCheck(King king)
+    {
+        king.check = true;
+        king.checkPiece = this;
+        GameManager.instance.kingInCheck = king;
     }
 }
