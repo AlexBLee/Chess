@@ -33,24 +33,47 @@ public class Pawn : Piece
         }
         else
         {
-            for (int i = -1; i < 2; i++)
+            // TODO: very crap solution need to refactor
+            if (interactable)
             {
-                Vector2Int boardCoordPoint = 
-                new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
-                
-                // Moving normally
-                if (IsInBoard(boardCoordPoint))
+                for (int i = -1; i < 2; i++)
                 {
-                    Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+                    Vector2Int boardCoordPoint = 
+                    new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+                    
+                    // Moving normally
+                    if (IsInBoard(boardCoordPoint))
+                    {
+                        Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
-                    if (i == 0 && !IsPieceAtTile(boardCoordPoint))
-                    {
-                        moves.Add(boardCoordPoint);
+                        if (i == 0 && !IsPieceAtTile(boardCoordPoint))
+                        {
+                            moves.Add(boardCoordPoint);
+                        }
+                        // Attacking pieces on its diagonals
+                        else if (i != 0 && IsPieceAtTile(boardCoordPoint) && IsEnemyPiece(boardCoordPoint))
+                        {
+                            moves.Add(boardCoordPoint);
+                        }
                     }
-                    // Attacking pieces on its diagonals
-                    else if (i != 0 && IsPieceAtTile(boardCoordPoint) && IsEnemyPiece(boardCoordPoint))
+                }
+            }
+            else
+            {
+                for (int i = -1; i < 2; i++)
+                {
+                    Vector2Int boardCoordPoint = 
+                    new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+                    
+                    // Moving normally
+                    if (IsInBoard(boardCoordPoint))
                     {
-                        moves.Add(boardCoordPoint);
+                        Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+
+                        if (i != 0)
+                        {
+                            moves.Add(boardCoordPoint);
+                        }
                     }
                 }
             }
