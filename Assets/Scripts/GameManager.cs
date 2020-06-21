@@ -77,7 +77,10 @@ public class GameManager : MonoBehaviour
 
             // Change the move list for the pieces that found any intersecting moves
             // If there's nothing, it will give an empty list, as any piece that cant move in the way shouldn't be able to move.
-            board.blackPieces[i].moves = tempCoors;
+            if (!(board.blackPieces[i] is King))
+            {
+                board.blackPieces[i].moves = tempCoors;
+            }
             
         }
     }
