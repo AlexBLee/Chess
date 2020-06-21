@@ -47,6 +47,12 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSides()
     {
+        if (kingInCheck != null)
+        {
+            kingInCheck.check = false;
+            kingInCheck = null;
+        }
+
         foreach (Piece piece in board.whitePieces)
         {
             piece.interactable = (piece.interactable == true) ? false : true;
