@@ -38,6 +38,9 @@ public class Piece : MonoBehaviour
         int yStep = yIncrement;
         int maxJump = 8;
 
+        // List for if a king is checked in the same line
+        List<Vector2Int> temp = new List<Vector2Int>();
+
         if (singleJump)
         {
             maxJump = 2;
@@ -59,6 +62,7 @@ public class Piece : MonoBehaviour
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
+                    temp.Add(boardCoordPoint);
                     moves.Add(boardCoordPoint);
                 }
                 else if (IsPieceAtTile(boardCoordPoint))
@@ -67,7 +71,7 @@ public class Piece : MonoBehaviour
                     {
                         if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
                         {
-                            ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece);
+                            ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece, temp);
                         }
                         else
                         {
@@ -126,10 +130,10 @@ public class Piece : MonoBehaviour
         return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
     }
 
-    public void ApplyCheck(King king)
+    public void ApplyCheck(King king, List<Vector2Int> line)
     {
         king.check = true;
-        king.checkPiece = this;
+        king.line = line;
         GameManager.instance.kingInCheck = king;
     }
 }

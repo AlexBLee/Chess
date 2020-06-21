@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         {
             List<Vector2Int> tempCoors = new List<Vector2Int>();
 
-            foreach (Vector2Int move in kingInCheck.checkPiece.moves)
+            foreach (Vector2Int move in kingInCheck.line)
             {
                 // If any moves that intersect with the piece are found, add them to the list
                 if (board.blackPieces[i].moves.Any(x => x == move))
