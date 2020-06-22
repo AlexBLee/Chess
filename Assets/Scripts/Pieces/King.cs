@@ -60,8 +60,9 @@ public class King : Piece
         {
             for (int j = 0; j < opposingMoves[i].moves.Count; j++)
             {
-                if (moves.Contains(opposingMoves[i].moves[j]))
+                if (opposingMoves[i] != null && moves.Contains(opposingMoves[i].moves[j]))
                 {
+                    Debug.Log("Removing: " + opposingMoves[i].moves[j] + " from " + opposingMoves[i] + " at: " + opposingMoves[i].currentCoordinates);
                     moves.Remove(opposingMoves[i].moves[j]);
                 }
             }
