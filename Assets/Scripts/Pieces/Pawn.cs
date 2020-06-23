@@ -14,13 +14,11 @@ public class Pawn : Piece
         // First move can move 2 tiles
         if (firstMove)
         {
-            for (int i = 1; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Vector2Int boardCoordPoint = 
                 new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection));
                 
-                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
-
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
                     moves.Add(boardCoordPoint);
@@ -44,8 +42,6 @@ public class Pawn : Piece
                     // Moving normally
                     if (IsInBoard(boardCoordPoint))
                     {
-                        Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
-
                         if (i == 0 && !IsPieceAtTile(boardCoordPoint))
                         {
                             moves.Add(boardCoordPoint);
@@ -60,22 +56,8 @@ public class Pawn : Piece
             }
             else
             {
-                for (int i = -1; i < 2; i++)
-                {
-                    Vector2Int boardCoordPoint = 
-                    new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
-                    
-                    // Moving normally
-                    if (IsInBoard(boardCoordPoint))
-                    {
-                        Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
-
-                        if (i != 0)
-                        {
-                            moves.Add(boardCoordPoint);
-                        }
-                    }
-                }
+                CalculateMoves(1, 1, true);
+                CalculateMoves(-1, 1, true);
             }
         }
     }
