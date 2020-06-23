@@ -67,5 +67,14 @@ public class King : Piece
                 }
             }
         }
+
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (board.tiles[moves[i].x][moves[i].y].piece != null && board.tiles[moves[i].x][moves[i].y].piece.defended)
+            {
+                moves.Remove(moves[i]);
+            }
+        }
+
     } 
 }
