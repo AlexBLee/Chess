@@ -56,11 +56,13 @@ public class GameManager : MonoBehaviour
         foreach (Piece piece in board.whitePieces)
         {
             piece.interactable = (piece.interactable == true) ? false : true;
+            piece.defended = false;
         }
 
         foreach (Piece piece in board.blackPieces)
         {
             piece.interactable = (piece.interactable == true) ? false : true;
+            piece.defended = false;
         }
     }
 

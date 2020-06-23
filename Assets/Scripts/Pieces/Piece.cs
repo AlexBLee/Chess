@@ -11,6 +11,7 @@ public class Piece : MonoBehaviour
     public List<Vector2Int> moves;
     public Vector2Int currentCoordinates;
     public int forwardDirection;
+    public bool defended;
     
     private void Awake() 
     {
@@ -67,7 +68,12 @@ public class Piece : MonoBehaviour
                 }
                 else if (IsPieceAtTile(boardCoordPoint))
                 {
-                    if (IsEnemyPiece(boardCoordPoint))
+                    if (IsFriendlyPiece(boardCoordPoint))
+                    {
+                        currentTile.piece.defended = true;
+                        break;
+                    }
+                    else if (IsEnemyPiece(boardCoordPoint))
                     {
                         if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
                         {
