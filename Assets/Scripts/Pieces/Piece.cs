@@ -142,4 +142,11 @@ public class Piece : MonoBehaviour
         king.line = line;
         GameManager.instance.kingInCheck = king;
     }
+
+        public void ApplyCheck(King king, Vector2Int tile)
+    {
+        king.check = true;
+        king.line.Add(tile);
+        GameManager.instance.kingInCheck = king;
+    }
 }
