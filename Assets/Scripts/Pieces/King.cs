@@ -53,26 +53,28 @@ public class King : Piece
         
     }
 
-    // TODO: further optimize if needed
-    public void RemoveKingMoves(List<Piece> opposingMoves)
+    public void RemoveKingMoves(List<Piece> opposingPieces)
     {
-        for (int i = 0; i < opposingMoves.Count; i++)
+        // Remove tiles that are being attacked by opposing pieces.
+        foreach (Piece piece in opposingPieces)
         {
-            for (int j = 0; j < opposingMoves[i].moves.Count; j++)
+            for (int i = 0; i < piece.moves.Count; i++)
             {
-                if (opposingMoves[i] != null && moves.Contains(opposingMoves[i].moves[j]))
+                if (piece != null && moves.Contains(piece.moves[i]))
                 {
-                    Debug.Log("Removing: " + opposingMoves[i].moves[j] + " from " + opposingMoves[i] + " at: " + opposingMoves[i].currentCoordinates);
-                    moves.Remove(opposingMoves[i].moves[j]);
+                    moves.Remove(piece.moves[i]);
                 }
             }
-        }
+        }       
 
-        for (int i = 0; i < moves.Count; i++)
+        // Remove moves where the piece is defended.
+        foreach (Vector2Int move in moves)
         {
-            if (board.tiles[moves[i].x][moves[i].y].piece != null && board.tiles[moves[i].x][moves[i].y].piece.defended)
+            Piece piece = board.tiles[move.x][move.y].piece;
+
+            if (piece != null && piece.defended)
             {
-                moves.Remove(moves[i]);
+                moves.Remove(move);
             }
         }
 
