@@ -43,6 +43,15 @@ public class GameManager : MonoBehaviour
     {
         FindWhiteMoves();
         FindBlackMoves();
+
+        // King movesets are found at the end because if one king is called first in FindXMoves without the opposite
+        // side piece's to have been updated, the king will only take the previous moves into consideration.
+        // PS: may need to find a better way to write this.
+        King k = (King)board.whitePieces.Find(x => x is King);
+        k.FindMoveSet();
+
+        King kx = (King)board.blackPieces.Find(x => x is King);
+        kx.FindMoveSet();
     }
 
     public void SwitchSides()
