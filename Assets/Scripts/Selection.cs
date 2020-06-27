@@ -41,7 +41,7 @@ public class Selection : MonoBehaviour
                         
                         if (GameManager.instance.kingInCheck != null)
                         {
-                            GameManager.instance.CheckCheck();
+                            GameManager.instance.CheckKingCheck();
                         }
                         
                     }

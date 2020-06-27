@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSides()
     {
+        // Resets checks and defended statuses as well.
+
         if (kingInCheck != null)
         {
             kingInCheck.check = false;
@@ -66,18 +68,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Right now checks both directions, 
-    // should only check the direction relative to the king and the piece that is checking it.
-    public void CheckCheck()
+    public void CheckKingCheck()
     {
-        for (int i = 0; i < board.blackPieces.Count; i++)
+        // Assign the correct list
+        List<Piece> pieceList = 
+        (kingInCheck.render.sharedMaterial == board.pieceBlack) ? board.blackPieces : board.whitePieces;
+
+        for (int i = 0; i < pieceList.Count; i++)
         {
             List<Vector2Int> tempCoors = new List<Vector2Int>();
 
             foreach (Vector2Int move in kingInCheck.line)
             {
                 // If any moves that intersect with the piece are found, add them to the list
-                if (board.blackPieces[i].moves.Any(x => x == move))
+                if (pieceList[i].moves.Any(x => x == move))
                 {
                     tempCoors.Add(move);
                 }
@@ -85,9 +89,9 @@ public class GameManager : MonoBehaviour
 
             // Change the move list for the pieces that found any intersecting moves
             // If there's nothing, it will give an empty list, as any piece that cant move in the way shouldn't be able to move.
-            if (!(board.blackPieces[i] is King))
+            if (!(pieceList[i] is King))
             {
-                board.blackPieces[i].moves = tempCoors;
+                pieceList[i].moves = tempCoors;
             }
             
         }

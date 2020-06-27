@@ -46,7 +46,7 @@ public class King : Piece
         {
             RemoveKingMoves(board.whitePieces);
         }
-        else if (render.sharedMaterial == board.pieceWhite)
+        else
         {
             RemoveKingMoves(board.blackPieces);
         }
