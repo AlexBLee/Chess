@@ -37,21 +37,12 @@ public class Piece : MonoBehaviour
     {
         int xStep = xIncrement;
         int yStep = yIncrement;
-        int maxJump = 8;
+        int maxJump = singleJump == true ? 1 : 7;
 
         // List for if a king is checked in the same line
         List<Vector2Int> temp = new List<Vector2Int>();
 
-        if (singleJump)
-        {
-            maxJump = 2;
-        }
-        else
-        {
-            maxJump = 8;
-        }
-
-        int inc = 1;
+        int inc = 0;
         while (inc < maxJump)
         {
             Vector2Int boardCoordPoint = 
@@ -73,7 +64,7 @@ public class Piece : MonoBehaviour
                         currentTile.piece.defended = true;
                         break;
                     }
-                    else if (IsEnemyPiece(boardCoordPoint))
+                    else
                     {
                         if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
                         {
@@ -85,14 +76,6 @@ public class Piece : MonoBehaviour
                         }
                         break;
                     }
-                    else
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    break;
                 }
             }
 
