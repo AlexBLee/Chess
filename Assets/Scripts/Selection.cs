@@ -15,18 +15,15 @@ public class Selection : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit))
         {
-            if (Physics.Raycast(ray, out hit))
+            if (pieceSelected)
             {
-                if (pieceSelected)
-                {
-                    MakeMove(hit.transform.GetComponent<Tile>());
-                }
-                else
-                {
-                    SelectPiece(hit.transform.GetComponent<Tile>().piece);
-                }
+                MakeMove(hit.transform.GetComponent<Tile>());
+            }
+            else
+            {
+                SelectPiece(hit.transform.GetComponent<Tile>().piece);
             }
         }
     }

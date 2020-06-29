@@ -12,6 +12,7 @@ public class Piece : MonoBehaviour
     public Vector2Int currentCoordinates;
     public int forwardDirection;
     public bool defended;
+    public bool cantMove;
     
     private void Awake() 
     {
@@ -33,11 +34,14 @@ public class Piece : MonoBehaviour
     {
     }
 
+    // TODO: clean this up.. as usual.
     public void CalculateMoves(int xIncrement, int yIncrement, bool singleJump)
     {
         int xStep = xIncrement;
         int yStep = yIncrement;
         int maxJump = singleJump == true ? 1 : 7;
+        bool possibleBlockingPiece = false;
+        Piece tempPiece = null;
 
         // List for if a king is checked in the same line
         List<Vector2Int> temp = new List<Vector2Int>();
@@ -54,8 +58,11 @@ public class Piece : MonoBehaviour
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    temp.Add(boardCoordPoint);
-                    moves.Add(boardCoordPoint);
+                    if (!possibleBlockingPiece)
+                    {
+                        temp.Add(boardCoordPoint);
+                        moves.Add(boardCoordPoint);
+                    }
                 }
                 else if (IsPieceAtTile(boardCoordPoint))
                 {
@@ -68,13 +75,29 @@ public class Piece : MonoBehaviour
                     {
                         if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
                         {
-                            ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece, temp);
+                            if (!possibleBlockingPiece)
+                            {
+                                ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece, temp);
+                            }
+                            else
+                            {
+                                tempPiece.cantMove = true;
+                            }
                         }
                         else
                         {
-                            moves.Add(boardCoordPoint);
+                            if (!possibleBlockingPiece)
+                            {
+                                tempPiece = currentTile.piece;
+                                possibleBlockingPiece = true;
+
+                                moves.Add(boardCoordPoint);
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
-                        break;
                     }
                 }
             }

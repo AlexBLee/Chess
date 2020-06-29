@@ -27,7 +27,14 @@ public class GameManager : MonoBehaviour
     {
         foreach (Piece piece in board.whitePieces)
         {
-            piece.FindMoveSet();
+            if (!piece.cantMove)
+            {
+                piece.FindMoveSet();
+            }
+            else
+            {
+                piece.moves.Clear();
+            }
         }
     }
 
@@ -35,7 +42,14 @@ public class GameManager : MonoBehaviour
     {
         foreach (Piece piece in board.blackPieces)
         {
-            piece.FindMoveSet();
+            if (!piece.cantMove)
+            {
+                piece.FindMoveSet();
+            }
+            else
+            {
+                piece.moves.Clear();
+            }
         }
     }
 
