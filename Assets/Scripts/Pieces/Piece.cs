@@ -37,11 +37,13 @@ public class Piece : MonoBehaviour
     // TODO: clean this up.. as usual.
     public void CalculateMoves(int xIncrement, int yIncrement, bool singleJump)
     {
+        // Movement
         int xStep = xIncrement;
         int yStep = yIncrement;
         int maxJump = singleJump == true ? 1 : 7;
-        bool possibleBlockingPiece = false;
-        Piece tempPiece = null;
+
+        // For marking the first enemy piece found in the moveset.
+        Piece enemyPieceFound = null;
 
         // List for if a king is checked in the same line
         List<Vector2Int> temp = new List<Vector2Int>();
@@ -58,7 +60,8 @@ public class Piece : MonoBehaviour
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    if (!possibleBlockingPiece)
+                    // If an enemy piece hasn't already appeared, keep adding moves.
+                    if (enemyPieceFound == null)
                     {
                         temp.Add(boardCoordPoint);
                         moves.Add(boardCoordPoint);
@@ -73,26 +76,30 @@ public class Piece : MonoBehaviour
                     }
                     else
                     {
-                        if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is King)
+                        if (currentTile.piece is King)
                         {
-                            if (!possibleBlockingPiece)
+                            // If the 1ST ENEMY PIECE found is the King, apply the check
+                            if (enemyPieceFound == null)
                             {
-                                ApplyCheck((King)board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece, temp);
+                                ApplyCheck((King)currentTile.piece, temp);
                             }
+                            // If the 2ND ENEMY PIECE found is the King AFTER the 1ST ENEMY PIECE is found, then the first piece
+                            // will not be allowed to move as the king will be in check otherwise.
                             else
                             {
-                                tempPiece.cantMove = true;
+                                enemyPieceFound.cantMove = true;
                             }
+                            break;
                         }
                         else
                         {
-                            if (!possibleBlockingPiece)
+                            // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
+                            if (enemyPieceFound == null)
                             {
-                                tempPiece = currentTile.piece;
-                                possibleBlockingPiece = true;
-
+                                enemyPieceFound = currentTile.piece;
                                 moves.Add(boardCoordPoint);
                             }
+                            // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
                             else
                             {
                                 break;
