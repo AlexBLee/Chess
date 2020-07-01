@@ -7,6 +7,8 @@ public class King : Piece
 {
     public bool check;
     public List<Vector2Int> line;
+    public bool canCastle;
+    public List<Vector2Int> castleMoveList;
     
     public override void FindLegalMoves()
     {
@@ -36,6 +38,7 @@ public class King : Piece
         // diagonal backwards left
         CalculateMoves(-1, -1, true);
 
+        CheckCastle();
     }
 
     public override void RemoveIllegalMoves()
@@ -77,6 +80,27 @@ public class King : Piece
                 moves.Remove(move);
             }
         }
+    }
 
-    } 
+    public void CheckCastle()
+    {
+        int inc = 1;
+        while (inc < 5)
+        {
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x + inc, currentCoordinates.y);
+
+            if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
+            {
+                if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook)
+                {
+                    canCastle = true;
+                }
+                break;
+            }
+            
+            inc++;
+        }
+    }
+
 }
