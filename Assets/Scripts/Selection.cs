@@ -78,7 +78,7 @@ public class Selection : MonoBehaviour
 
             // Colour the board back to normal
             board.ResetPieceMoveTileColours(selectedPiece);
-            board.MovePieceTo(selectedPiece, selectedTile);
+            selectedPiece.MoveTo(selectedTile);
             
             GameManager.instance.SwitchSides();
             GameManager.instance.FindAllPossibleMoves();

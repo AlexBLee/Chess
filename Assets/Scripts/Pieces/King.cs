@@ -9,6 +9,7 @@ public class King : Piece
     public List<Vector2Int> line;
     public bool canCastle;
     public List<Vector2Int> castleMoveList;
+    public bool hasMoved;
     
     public override void FindLegalMoves()
     {
@@ -103,4 +104,13 @@ public class King : Piece
         }
     }
 
+    public override void MoveTo(Tile tile)
+    {
+        base.MoveTo(tile);
+        
+        if (hasMoved)
+        {
+            hasMoved = true;
+        }
+    }
 }

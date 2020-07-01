@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Rook : Piece
 {
+    public bool hasMoved;
+
     public override void FindLegalMoves()
     {
         moves.Clear();
@@ -19,6 +21,16 @@ public class Rook : Piece
 
         // backwards
         CalculateMoves(0, -1, false);
+    }
+
+    public override void MoveTo(Tile tile)
+    {
+        base.MoveTo(tile);
+        
+        if (hasMoved)
+        {
+            hasMoved = true;
+        }
     }
 
 }

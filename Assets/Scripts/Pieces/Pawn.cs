@@ -109,4 +109,14 @@ public class Pawn : Piece
             }
         }
     }
+
+    public override void MoveTo(Tile tile)
+    {
+        base.MoveTo(tile);
+
+        if (firstMove)
+        {
+            firstMove = false;
+        }
+    }
 }

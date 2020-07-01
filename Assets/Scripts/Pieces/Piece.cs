@@ -118,6 +118,17 @@ public class Piece : MonoBehaviour
 
     }
 
+    public virtual void MoveTo(Tile tile)
+    {
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+
+        // Move piece to new Tile
+        tile.piece = this;
+        transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+        currentCoordinates = tile.coordinates;          
+    }
+
     public void ColourAvailableTiles(Tile tile, Material mat)
     {
         tile.previousMat = tile.render.material;
@@ -156,7 +167,7 @@ public class Piece : MonoBehaviour
         GameManager.instance.kingInCheck = king;
     }
 
-        public void ApplyCheck(King king, Vector2Int tile)
+    public void ApplyCheck(King king, Vector2Int tile)
     {
         king.check = true;
         king.line.Add(tile);
