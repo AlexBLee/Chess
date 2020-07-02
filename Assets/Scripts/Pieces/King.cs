@@ -39,7 +39,10 @@ public class King : Piece
         // diagonal backwards left
         CalculateMoves(-1, -1, true);
 
-        CheckCastle();
+        if (!hasMoved)
+        {
+            CheckCastle();
+        }
     }
 
     public override void RemoveIllegalMoves()
@@ -93,7 +96,8 @@ public class King : Piece
 
             if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
-                if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook)
+                // If the rook found hasn't moved, you can castle.
+                if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook rook && !rook.hasMoved)
                 {
                     canCastle = true;
                 }
@@ -111,6 +115,7 @@ public class King : Piece
         if (!hasMoved)
         {
             hasMoved = true;
+            canCastle = false;
         }
     }
 }
