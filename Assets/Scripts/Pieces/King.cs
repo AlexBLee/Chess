@@ -5,15 +5,16 @@ using System.Linq;
 
 public class King : Piece
 {
-    public bool check;
     public List<Vector2Int> line;
-    public bool canCastle;
     public List<Vector2Int> castleMoveList;
+    public bool check;
     public bool hasMoved;
+    public bool canCastle;
     
     public override void FindLegalMoves()
     {
         moves.Clear();
+        castleMoveList.Clear();
         
         // right
         CalculateMoves(1, 0, true);
@@ -88,23 +89,38 @@ public class King : Piece
 
     public void CheckCastle()
     {
-        int inc = 1;
-        while (inc < 5)
+        for (int i = 1; i < 5; i++)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + inc, currentCoordinates.y);
+            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
 
-            if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
+            if (IsInBoard(boardCoordPoint))
             {
-                // If the rook found hasn't moved, you can castle.
-                if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook rook && !rook.hasMoved)
+                castleMoveList.Add(boardCoordPoint);
+                
+                if (IsPieceAtTile(boardCoordPoint))
                 {
-                    canCastle = true;
+                    // If there is nothing between the rook and the king..
+                    if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook rook)
+                    {
+                        // If the rook found hasn't moved, you can castle.
+                        if (!rook.hasMoved)
+                        {
+                            canCastle = true;
+                            break;
+                        }
+                        else
+                        {
+                            canCastle = false;
+                        }
+                    }
+                    else
+                    {
+                        canCastle = false;
+                        break;
+                    }
                 }
-                break;
             }
-            
-            inc++;
         }
     }
 
