@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
@@ -122,6 +123,20 @@ public class Piece : MonoBehaviour
     {
         // Make sure the previous Tile no longer owns the piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+
+        if (this is King king)
+        {
+            if (king.castleMoveList.Any(x => x == tile.coordinates))
+            {
+                tile = board.tiles[6][0];
+
+                Tile rookTile = board.tiles[5][0];
+                board.tiles[7][0].piece.MoveTo(rookTile);
+
+
+                Debug.Log("@");
+            }
+        }
 
         // Move piece to new Tile
         tile.piece = this;

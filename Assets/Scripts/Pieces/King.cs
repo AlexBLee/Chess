@@ -89,7 +89,7 @@ public class King : Piece
 
     public void CheckCastle()
     {
-        for (int i = 1; i < 5; i++)
+        for (int i = 2; i < 5; i++)
         {
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
@@ -107,6 +107,7 @@ public class King : Piece
                         if (!rook.hasMoved)
                         {
                             canCastle = true;
+                            moves.AddRange(castleMoveList);
                             break;
                         }
                         else
