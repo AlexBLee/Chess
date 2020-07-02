@@ -27,7 +27,7 @@ public class Rook : Piece
     {
         base.MoveTo(tile);
         
-        if (hasMoved)
+        if (!hasMoved)
         {
             hasMoved = true;
         }

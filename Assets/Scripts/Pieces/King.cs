@@ -108,7 +108,7 @@ public class King : Piece
     {
         base.MoveTo(tile);
         
-        if (hasMoved)
+        if (!hasMoved)
         {
             hasMoved = true;
         }
