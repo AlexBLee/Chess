@@ -42,7 +42,9 @@ public class King : Piece
 
         if (!hasMoved)
         {
-            CheckCastle();
+            // Check both directions for castling
+            CheckCastle(1);
+            CheckCastle(-1);
         }
     }
 
@@ -87,12 +89,12 @@ public class King : Piece
         }
     }
 
-    public void CheckCastle()
+    public void CheckCastle(int direction)
     {
         for (int i = 0; i < 4; i++)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + i + 1, currentCoordinates.y);
+            new Vector2Int(currentCoordinates.x + (i + 1) * direction, currentCoordinates.y);
 
             if (IsInBoard(boardCoordPoint))
             {
