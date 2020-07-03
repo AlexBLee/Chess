@@ -127,7 +127,26 @@ public class King : Piece
 
     public override void MoveTo(Tile tile)
     {
-        base.MoveTo(tile);
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+
+        // Scuffed way to castle.. but a way to castle it is..
+        if (canCastle && castleMoveList.Any(x => x == tile.coordinates))
+        {
+            // Allocate the tiles that the pieces are supposed to switch to.
+            tile = board.tiles[currentCoordinates.x + 2][0];
+            Tile rookTile = board.tiles[currentCoordinates.x + 1][0];
+
+            // Move the rook to the position
+            board.tiles[7][0].piece.MoveTo(rookTile);
+        }
+        
+
+        // Move piece to new Tile
+        tile.piece = this;
+        transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+        currentCoordinates = tile.coordinates;  
+       
         
         if (!hasMoved)
         {
