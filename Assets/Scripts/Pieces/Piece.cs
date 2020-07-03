@@ -126,15 +126,15 @@ public class Piece : MonoBehaviour
 
         if (this is King king)
         {
+            // Scuffed way to castle.. but a way to castle it is..
             if (king.castleMoveList.Any(x => x == tile.coordinates))
             {
-                tile = board.tiles[6][0];
+                // Allocate the tiles that the pieces are supposed to switch to.
+                tile = board.tiles[king.currentCoordinates.x + 2][0];
+                Tile rookTile = board.tiles[king.currentCoordinates.x + 1][0];
 
-                Tile rookTile = board.tiles[5][0];
+                // Move the rook to the position
                 board.tiles[7][0].piece.MoveTo(rookTile);
-
-
-                Debug.Log("@");
             }
         }
 
