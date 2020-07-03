@@ -89,14 +89,18 @@ public class King : Piece
 
     public void CheckCastle()
     {
-        for (int i = 2; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
+            new Vector2Int(currentCoordinates.x + i + 1, currentCoordinates.y);
 
             if (IsInBoard(boardCoordPoint))
             {
-                castleMoveList.Add(boardCoordPoint);
+                // skip adding the x + 1 tile because its not a castle tile
+                if (i != 0)
+                {
+                    castleMoveList.Add(boardCoordPoint);
+                }
                 
                 if (IsPieceAtTile(boardCoordPoint))
                 {
