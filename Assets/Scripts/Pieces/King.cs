@@ -119,6 +119,7 @@ public class King : Piece
                         {
                             canCastle = true;
                             moves.AddRange(castleMoveList);
+                            moves = moves.Distinct().ToList();
                             break;
                         }
                         else
@@ -138,14 +139,19 @@ public class King : Piece
         return canCastle;
     }
 
-    public void MoveAndCastleKing(Tile tile)
+    public Tile MoveAndCastleKing(Tile tile, int side)
     {
+        // Choose the correct rook
+        int rookPosition = (side > 0) ? 7 : 0;
+
         // Allocate the tiles that the pieces are supposed to switch to.
-        tile = board.tiles[currentCoordinates.x + 2][0];
-        Tile rookTile = board.tiles[currentCoordinates.x + 1][0];
+        tile = board.tiles[currentCoordinates.x + (2 * side)][0];
+        Tile castleRookTile = board.tiles[currentCoordinates.x + (1 * side)][0];
 
         // Move the rook to the position
-        board.tiles[7][0].piece.MoveTo(rookTile);
+        board.tiles[rookPosition][0].piece.MoveTo(castleRookTile);
+
+        return tile;
     }
 
     public override void MoveTo(Tile tile)
@@ -153,10 +159,13 @@ public class King : Piece
         // Make sure the previous Tile no longer owns the piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
 
-        // Scuffed way to castle.. but a way to castle it is..
-        if (canCastleRight && castleMoveList.Any(x => x == tile.coordinates))
+        if (canCastleRight && castleMoveList.Any(x => x == tile.coordinates && tile.coordinates.x > 4))
         {
-            MoveAndCastleKing(tile);
+            tile = MoveAndCastleKing(tile, 1);
+        }
+        else if (canCastleLeft && castleMoveList.Any(x => x == tile.coordinates && tile.coordinates.x < 4))
+        {
+            tile = MoveAndCastleKing(tile, -1);
         }
 
         // Move piece to new Tile
