@@ -164,13 +164,15 @@ public class Piece : MonoBehaviour
     public void ApplyCheck(King king, List<Vector2Int> line)
     {
         king.check = true;
-        king.line = line;
+        king.line.Add(currentCoordinates);
+        king.line.AddRange(line);
         GameManager.instance.kingInCheck = king;
     }
 
     public void ApplyCheck(King king, Vector2Int tile)
     {
         king.check = true;
+        king.line.Add(currentCoordinates);
         king.line.Add(tile);
         GameManager.instance.kingInCheck = king;
     }
