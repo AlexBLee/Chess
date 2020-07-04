@@ -142,14 +142,15 @@ public class King : Piece
     public Tile MoveAndCastleKing(Tile tile, int side)
     {
         // Choose the correct rook
-        int rookPosition = (side > 0) ? 7 : 0;
+        int rookPositionX = (side > 0) ? 7 : 0;
+        int rookPositionY = (render.sharedMaterial == board.pieceWhite) ? 0 : 7;
 
         // Allocate the tiles that the pieces are supposed to switch to.
-        tile = board.tiles[currentCoordinates.x + (2 * side)][0];
-        Tile castleRookTile = board.tiles[currentCoordinates.x + (1 * side)][0];
+        tile = board.tiles[currentCoordinates.x + (2 * side)][rookPositionY];
+        Tile castleRookTile = board.tiles[currentCoordinates.x + (1 * side)][rookPositionY];
 
         // Move the rook to the position
-        board.tiles[rookPosition][0].piece.MoveTo(castleRookTile);
+        board.tiles[rookPositionX][rookPositionY].piece.MoveTo(castleRookTile);
 
         return tile;
     }
