@@ -5,12 +5,15 @@ using System.Linq;
 
 public class King : Piece
 {
-    public List<Vector2Int> line;
-    public List<Vector2Int> castleMoveList;
     public bool check;
     public bool hasMoved;
-    public bool canCastle;
-    
+
+    public List<Vector2Int> line;
+    public List<Vector2Int> castleMoveList;
+
+    public bool canCastleRight;
+    public bool canCastleLeft;
+
     public override void FindLegalMoves()
     {
         moves.Clear();
@@ -43,8 +46,8 @@ public class King : Piece
         if (!hasMoved)
         {
             // Check both directions for castling
-            CheckCastle(1);
-            CheckCastle(-1);
+            canCastleRight = CheckCastle(1);
+            canCastleLeft = CheckCastle(-1);
         }
     }
 
@@ -89,8 +92,10 @@ public class King : Piece
         }
     }
 
-    public void CheckCastle(int direction)
+    public bool CheckCastle(int direction)
     {
+        bool canCastle = false;
+        
         for (int i = 0; i < 4; i++)
         {
             Vector2Int boardCoordPoint = 
@@ -129,6 +134,8 @@ public class King : Piece
                 }
             }
         }
+
+        return canCastle;
     }
 
     public void MoveAndCastleKing(Tile tile)
@@ -147,7 +154,7 @@ public class King : Piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
 
         // Scuffed way to castle.. but a way to castle it is..
-        if (canCastle && castleMoveList.Any(x => x == tile.coordinates))
+        if (canCastleRight && castleMoveList.Any(x => x == tile.coordinates))
         {
             MoveAndCastleKing(tile);
         }
@@ -160,7 +167,7 @@ public class King : Piece
         if (!hasMoved)
         {
             hasMoved = true;
-            canCastle = false;
+            canCastleRight = false;
         }
     }
 }
