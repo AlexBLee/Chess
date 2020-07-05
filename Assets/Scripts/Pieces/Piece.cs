@@ -172,6 +172,8 @@ public class Piece : MonoBehaviour
     public void ApplyCheck(King king, List<Vector2Int> line)
     {
         king.check = true;
+        king.canCastleRight = false;
+        king.canCastleLeft = false;
         king.line.Add(currentCoordinates);
         king.line.AddRange(line);
         GameManager.instance.kingInCheck = king;
@@ -180,6 +182,8 @@ public class Piece : MonoBehaviour
     public void ApplyCheck(King king, Vector2Int tile)
     {
         king.check = true;
+        king.canCastleRight = false;
+        king.canCastleLeft = false;
         king.line.Add(currentCoordinates);
         king.line.Add(tile);
         GameManager.instance.kingInCheck = king;
