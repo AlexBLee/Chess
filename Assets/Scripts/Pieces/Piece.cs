@@ -13,7 +13,7 @@ public class Piece : MonoBehaviour
     public Vector2Int currentCoordinates;
     public int forwardDirection;
     public bool defended;
-    public bool cantMove;
+    public bool pinned;
     
     private void Awake() 
     {
@@ -73,9 +73,9 @@ public class Piece : MonoBehaviour
                     if (IsFriendlyPiece(boardCoordPoint))
                     {
                         currentTile.piece.defended = true;
-                        break;
+                        return;
                     }
-                    else
+                    else if (IsEnemyPiece(boardCoordPoint))
                     {
                         if (currentTile.piece is King)
                         {
@@ -85,10 +85,18 @@ public class Piece : MonoBehaviour
                                 ApplyCheck((King)currentTile.piece, temp);
                             }
                             // If the 2ND ENEMY PIECE found is the King AFTER the 1ST ENEMY PIECE is found, then the first piece
-                            // will not be allowed to move as the king will be in check otherwise.
+                            // will only be allowed to move within the line that the king is on as the king will be in 
+                            // check otherwise.
                             else
                             {
-                                enemyPieceFound.cantMove = true;
+                                // Need to know ahead of time of what moves the enemy piece can make
+                                enemyPieceFound.FindMoveSet();
+                                
+                                // Get only the moves along the checked line and add it to the enemy piece
+                                enemyPieceFound.moves = enemyPieceFound.moves.Intersect(temp).ToList();
+                                enemyPieceFound.moves.Add(currentCoordinates);
+
+                                enemyPieceFound.pinned = true;
                             }
                             break;
                         }
@@ -103,7 +111,7 @@ public class Piece : MonoBehaviour
                             // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
                             else
                             {
-                                break;
+                                return;
                             }
                         }
                     }

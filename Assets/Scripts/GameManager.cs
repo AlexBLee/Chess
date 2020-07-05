@@ -27,13 +27,9 @@ public class GameManager : MonoBehaviour
     {
         foreach (Piece piece in board.whitePieces)
         {
-            if (!piece.cantMove)
+            if (!piece.pinned)
             {
                 piece.FindMoveSet();
-            }
-            else
-            {
-                piece.moves.Clear();
             }
         }
     }
@@ -42,13 +38,9 @@ public class GameManager : MonoBehaviour
     {
         foreach (Piece piece in board.blackPieces)
         {
-            if (!piece.cantMove)
+            if (!piece.pinned)
             {
                 piece.FindMoveSet();
-            }
-            else
-            {
-                piece.moves.Clear();
             }
         }
     }
@@ -82,12 +74,15 @@ public class GameManager : MonoBehaviour
         {
             piece.interactable = (piece.interactable == true) ? false : true;
             piece.defended = false;
+            piece.pinned = false;
         }
 
         foreach (Piece piece in board.blackPieces)
         {
             piece.interactable = (piece.interactable == true) ? false : true;
             piece.defended = false;
+            piece.pinned = false;
+
         }
     }
 
