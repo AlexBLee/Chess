@@ -6,8 +6,6 @@ public class Knight : Piece
 {
     public override void FindLegalMoves()
     {
-        moves.Clear();
-        
         // forward right side
         CalculateMoves(1, 2, true);
         CalculateMoves(2, 1, true);
@@ -23,9 +21,5 @@ public class Knight : Piece
         // backward right side
         CalculateMoves(1, -2, true);
         CalculateMoves(2, -1, true);
-
-
-
-
     }
 }

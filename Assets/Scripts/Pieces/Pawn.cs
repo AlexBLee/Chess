@@ -9,7 +9,6 @@ public class Pawn : Piece
     public override void FindLegalMoves()
     {
         // Does not use the CalculateMove function because of the special movement patterns of the pawn.
-        moves.Clear();
 
         // TODO: very crap solution need to refactor
         if (interactable)

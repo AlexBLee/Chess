@@ -16,7 +16,6 @@ public class King : Piece
 
     public override void FindLegalMoves()
     {
-        moves.Clear();
         castleMoveList.Clear();
         
         // right

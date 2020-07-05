@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         {
             if (!piece.pinned)
             {
+                piece.moves.Clear();
                 piece.FindMoveSet();
             }
         }
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             if (!piece.pinned)
             {
+                piece.moves.Clear();
                 piece.FindMoveSet();
             }
         }

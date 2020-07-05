@@ -6,8 +6,6 @@ public class Bishop : Piece
 {
     public override void FindLegalMoves()
     {
-        moves.Clear();
-
         // diagonal right
         CalculateMoves(1, 1, false);
 
@@ -19,6 +17,5 @@ public class Bishop : Piece
 
         // diagonal backwards left
         CalculateMoves(-1, -1, false);
-
     }
 }

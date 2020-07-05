@@ -6,8 +6,6 @@ public class Queen : Piece
 {
     public override void FindLegalMoves()
     {
-        moves.Clear();
-        
         // right
         CalculateMoves(1, 0, false);
 
@@ -31,7 +29,5 @@ public class Queen : Piece
 
         // diagonal backwards left
         CalculateMoves(-1, -1, false);
-
-
     }
 }
