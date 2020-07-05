@@ -72,8 +72,11 @@ public class Piece : MonoBehaviour
                 {
                     if (IsFriendlyPiece(boardCoordPoint))
                     {
-                        currentTile.piece.defended = true;
-                        return;
+                        if (enemyPieceFound == null)
+                        {
+                            currentTile.piece.defended = true;
+                            return;
+                        }
                     }
                     else if (IsEnemyPiece(boardCoordPoint))
                     {
