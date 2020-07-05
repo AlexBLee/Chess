@@ -67,6 +67,7 @@ public class King : Piece
 
     public void RemoveKingMoves(List<Piece> opposingPieces)
     {
+        Debug.Log("@");
         // Remove tiles that are being attacked by opposing pieces.
         foreach (Piece piece in opposingPieces)
         {

@@ -27,6 +27,7 @@ public class Piece : MonoBehaviour
 
     public void FindMoveSet()
     {
+        moves.Clear();
         FindLegalMoves();
         RemoveIllegalMoves();
     }
