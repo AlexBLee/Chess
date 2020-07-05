@@ -10,6 +10,7 @@ public class Piece : MonoBehaviour
     public bool interactable;
     public Renderer render;
     public List<Vector2Int> moves;
+    public List<Vector2Int> pinnedMoveList;
     public Vector2Int currentCoordinates;
     public int forwardDirection;
     public bool defended;
@@ -93,12 +94,14 @@ public class Piece : MonoBehaviour
                             // check otherwise.
                             else
                             {
+                                enemyPieceFound.pinnedMoveList.Clear();
+
                                 // Need to know ahead of time of what moves the enemy piece can make
                                 enemyPieceFound.FindMoveSet();
                                 
                                 // Get only the moves along the checked line and add it to the enemy piece
-                                enemyPieceFound.moves = enemyPieceFound.moves.Intersect(temp).ToList();
-                                enemyPieceFound.moves.Add(currentCoordinates);
+                                enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(temp).ToList();
+                                enemyPieceFound.pinnedMoveList.Add(currentCoordinates);
 
                                 enemyPieceFound.pinned = true;
                             }
