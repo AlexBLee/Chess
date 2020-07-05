@@ -60,17 +60,20 @@ public class Board : MonoBehaviour
             {
                 int index = i + j * 8;
                 char nextChar = (char)('a' + i);
+                Tile tile = tiles[i][j];
 
-                tiles[i][j].name = nextChar + (j+1).ToString();
-                tiles[i][j].coordinates = new Vector2Int(i, j);
+                tile.name = nextChar + (j+1).ToString();
+                tile.coordinates = new Vector2Int(i, j);
 
                 if ((i+j) % 2 == 0)
                 {
-                    tiles[i][j].render.material = pieceBlack;
+                    tile.render.material = boardBlack;
+                    tile.defaultColour = boardBlack;
                 }
                 else
                 {
-                    tiles[i][j].render.material = boardWhite;
+                    tile.render.material = boardWhite;
+                    tile.defaultColour = boardWhite;
                 }
             }
         }
@@ -165,7 +168,6 @@ public class Board : MonoBehaviour
     
     public void SetTileColour(Tile tile, Material mat)
     {
-        tile.previousMat = tile.render.material;
         tile.render.material = mat;
     }
 
@@ -173,7 +175,7 @@ public class Board : MonoBehaviour
     {
         foreach (Vector2Int move in piece.moves)
         {
-            tiles[move.x][move.y].render.material = tiles[move.x][move.y].previousMat;
+            tiles[move.x][move.y].render.material = tiles[move.x][move.y].defaultColour;
         }
     }
 }

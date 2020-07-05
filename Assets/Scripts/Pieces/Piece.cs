@@ -140,7 +140,6 @@ public class Piece : MonoBehaviour
 
     public void ColourAvailableTiles(Tile tile, Material mat)
     {
-        tile.previousMat = tile.render.material;
         tile.render.material = mat;
     }
 
