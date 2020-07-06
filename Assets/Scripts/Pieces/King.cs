@@ -80,8 +80,9 @@ public class King : Piece
         }       
 
         // Remove moves where the piece is defended.
-        foreach (Vector2Int move in moves)
+        for (int i = 0; i < moves.Count; i++)
         {
+            Vector2Int move = moves[i];
             Piece piece = board.tiles[move.x][move.y].piece;
 
             if (piece != null && piece.defended)
