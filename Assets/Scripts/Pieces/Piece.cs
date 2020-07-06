@@ -49,7 +49,8 @@ public class Piece : MonoBehaviour
         Piece enemyPieceFound = null;
 
         // List for if a king is checked in the same line
-        List<Vector2Int> temp = new List<Vector2Int>();
+        King kingRef = null;
+        List<Vector2Int> line = new List<Vector2Int>();
 
         int inc = 0;
         while (inc < maxJump)
@@ -66,7 +67,7 @@ public class Piece : MonoBehaviour
                     // If an enemy piece hasn't already appeared, keep adding moves.
                     if (enemyPieceFound == null)
                     {
-                        temp.Add(boardCoordPoint);
+                        line.Add(boardCoordPoint);
                         moves.Add(boardCoordPoint);
                     }
                 }
@@ -84,10 +85,12 @@ public class Piece : MonoBehaviour
                     {
                         if (currentTile.piece is King)
                         {
-                            // If the 1ST ENEMY PIECE found is the King, apply the check
+                            // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
+                            // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
+                            // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
                             if (enemyPieceFound == null)
                             {
-                                ApplyCheck((King)currentTile.piece, temp);
+                                kingRef = (King)currentTile.piece;
                             }
                             // If the 2ND ENEMY PIECE found is the King AFTER the 1ST ENEMY PIECE is found, then the first piece
                             // will only be allowed to move within the line that the king is on as the king will be in 
@@ -100,12 +103,11 @@ public class Piece : MonoBehaviour
                                 enemyPieceFound.FindMoveSet();
                                 
                                 // Get only the moves along the checked line and add it to the enemy piece
-                                enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(temp).ToList();
+                                enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(line).ToList();
                                 enemyPieceFound.pinnedMoveList.Add(currentCoordinates);
 
                                 enemyPieceFound.pinned = true;
                             }
-                            break;
                         }
                         else
                         {
@@ -132,6 +134,11 @@ public class Piece : MonoBehaviour
 
         }
 
+        // Apply the check at the end of the entire line.
+        if (kingRef != null)
+        {
+            ApplyCheck((King)kingRef, line);
+        }
     }
 
     public virtual void MoveTo(Tile tile)
