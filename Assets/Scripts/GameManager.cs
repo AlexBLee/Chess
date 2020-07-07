@@ -131,5 +131,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("checkmate");
         }
+        kingInCheck.line.Clear();
     }
 }
