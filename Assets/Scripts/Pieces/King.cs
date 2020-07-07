@@ -7,6 +7,7 @@ public class King : Piece
 {
     public bool check;
     public bool hasMoved;
+    public bool checkDefended;
 
     public List<Vector2Int> line;
     public List<Vector2Int> castleMoveList;

@@ -88,6 +88,7 @@ public class Selection : MonoBehaviour
             if (GameManager.instance.kingInCheck != null)
             {
                 GameManager.instance.CheckKingCheck();
+                GameManager.instance.CheckForCheckMate();
             }
         }
         else

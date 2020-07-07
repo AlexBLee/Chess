@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         if (kingInCheck != null)
         {
             kingInCheck.check = false;
+            kingInCheck.checkDefended = false;
             kingInCheck = null;
         }
 
@@ -109,6 +110,7 @@ public class GameManager : MonoBehaviour
                 // If any moves that intersect with the piece are found, add them to the list
                 if (pieceList[i].moves.Any(x => x == move))
                 {
+                    kingInCheck.checkDefended = true;
                     tempCoors.Add(move);
                 }
             }
@@ -120,6 +122,14 @@ public class GameManager : MonoBehaviour
                 pieceList[i].moves = tempCoors;
             }
             
+        }
+    }
+
+    public void CheckForCheckMate()
+    {
+        if (kingInCheck.check && kingInCheck.moves.Count == 0 && !kingInCheck.checkDefended)
+        {
+            Debug.Log("checkmate");
         }
     }
 }

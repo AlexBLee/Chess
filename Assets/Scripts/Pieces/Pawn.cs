@@ -60,14 +60,24 @@ public class Pawn : Piece
 
                 if (IsInBoard(boardCoordPoint))
                 {
+                    Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+
                     if (IsPieceAtTile(boardCoordPoint))
                     {
                         if (IsFriendlyPiece(boardCoordPoint))
                         {
-                            board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece.defended = true;
+                            currentTile.piece.defended = true;
+                        }
+                        // Attacking pieces on its diagonals
+                        else if (IsEnemyPiece(boardCoordPoint))
+                        {
+                            if (currentTile.piece is King)
+                            {
+                                ApplyCheck((King)currentTile.piece, boardCoordPoint);
+                            }
                         }
                     }
-
+                    
                     moves.Add(boardCoordPoint);
                 }
             }
