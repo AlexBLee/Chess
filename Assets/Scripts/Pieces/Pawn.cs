@@ -46,8 +46,10 @@ public class Pawn : Piece
                         moves.Add(boardCoordPoint);
                     }
                 }
+
             }
 
+            CheckForEnPassant();
             AttackDiagonals();
 
         }
@@ -120,6 +122,32 @@ public class Pawn : Piece
         }
     }
 
+    public void CheckForEnPassant()
+    {
+        for (int i = -1; i < 2; i += 2)
+        {
+            Vector2Int boardCoordPoint = 
+            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
+
+
+            if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
+            {
+                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+
+                if (IsEnemyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn)
+                {
+                    if (pawn.enPassantPossible)
+                    {
+                        Vector2Int enPassantTile = 
+                        new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+
+                        moves.Add(enPassantTile);
+                    }
+                }
+            }
+        }
+    }
+
     public override void MoveTo(Tile tile)
     {
         if (firstMove)
@@ -132,8 +160,7 @@ public class Pawn : Piece
                 enPassantPossible = true;
             }
         }
+
         base.MoveTo(tile);
-
-
     }
 }
