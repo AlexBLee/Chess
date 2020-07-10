@@ -6,6 +6,7 @@ public class Pawn : Piece
 {
     public bool firstMove = true;
     public bool enPassantPossible = false;
+    public Vector2Int enPassantTile;
 
     public override void FindLegalMoves()
     {
@@ -129,7 +130,6 @@ public class Pawn : Piece
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
 
-
             if (IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
             {
                 Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
@@ -138,10 +138,12 @@ public class Pawn : Piece
                 {
                     if (pawn.enPassantPossible)
                     {
-                        Vector2Int enPassantTile = 
+                        Vector2Int enPassantCoordinate = 
                         new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
-                        moves.Add(enPassantTile);
+                        enPassantTile = enPassantCoordinate;
+
+                        moves.Add(enPassantCoordinate);
                     }
                 }
             }
@@ -161,6 +163,22 @@ public class Pawn : Piece
             }
         }
 
-        base.MoveTo(tile);
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+
+        if (tile.coordinates == enPassantTile)
+        {
+            // Pass by and destroy the pawn at the tile
+            board.DestroyPieceAt(this, board.tiles[enPassantTile.x][enPassantTile.y - (1 * forwardDirection)]);
+        }
+        else
+        {
+            board.DestroyPieceAt(this, tile);
+        }
+
+        // Move piece to new Tile
+        tile.piece = this;
+        transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+        currentCoordinates = tile.coordinates;
     }
 }

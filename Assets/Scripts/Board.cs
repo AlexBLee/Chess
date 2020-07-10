@@ -178,4 +178,24 @@ public class Board : MonoBehaviour
             tiles[move.x][move.y].render.material = tiles[move.x][move.y].defaultColour;
         }
     }
+
+    public void DestroyPieceAt(Piece selectedPiece, Tile selectedTile)
+    {
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null && selectedPiece.interactable != selectedTile.piece.interactable) 
+        {
+            // TODO: clear piece from board function
+            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            {
+                blackPieces.Remove(selectedTile.piece);
+            }
+            else
+            {
+                whitePieces.Remove(selectedTile.piece);
+            }
+
+
+            Destroy(selectedTile.piece.gameObject); 
+        }
+    }
 }

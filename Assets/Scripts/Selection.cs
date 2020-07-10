@@ -60,24 +60,6 @@ public class Selection : MonoBehaviour
         // If the clicked tile is possible for the piece to move to, move there
         if (selectedPiece.moves.Any(move => move == selectedTile.coordinates))
         {
-            // Destroy the piece at that tile
-            if (selectedTile.piece != null && selectedPiece.interactable != selectedTile.piece.interactable) 
-            {
-                // TODO: clear piece from board function
-                if (selectedTile.piece.render.sharedMaterial == board.pieceBlack)
-                {
-                    board.blackPieces.Remove(selectedTile.piece);
-                }
-                else
-                {
-                    board.whitePieces.Remove(selectedTile.piece);
-                }
-
-
-                Destroy(selectedTile.piece.gameObject);
-                
-            }
-
             // Colour the board back to normal
             board.ResetPieceMoveTileColours(selectedPiece);
             selectedPiece.MoveTo(selectedTile);
