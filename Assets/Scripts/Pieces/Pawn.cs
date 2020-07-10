@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pawn : Piece
 {
     public bool firstMove = true;
+    public bool enPassantPossible = false;
 
     public override void FindLegalMoves()
     {
@@ -121,11 +122,18 @@ public class Pawn : Piece
 
     public override void MoveTo(Tile tile)
     {
-        base.MoveTo(tile);
-
         if (firstMove)
         {
             firstMove = false;
+
+            // If the pawn moves two tiles, then its possible for the pawn to be subject to an en passant.
+            if ((tile.coordinates.y - currentCoordinates.y) == (2 * forwardDirection))
+            {
+                enPassantPossible = true;
+            }
         }
+        base.MoveTo(tile);
+
+
     }
 }
