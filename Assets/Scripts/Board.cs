@@ -19,8 +19,8 @@ public class Board : MonoBehaviour
     [SerializeField] private const int boardWidth = 8;
     [SerializeField] private const int boardHeight = 8;
 
-    enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
-    PieceType pieceType;
+    public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
+    public PieceType pieceType;
 
     public Material boardWhite;
     public Material boardBlack;
@@ -136,7 +136,7 @@ public class Board : MonoBehaviour
 
     }
 
-    private void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
+    public void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
     {
         Tile selectedTile = tiles[x][y];
 

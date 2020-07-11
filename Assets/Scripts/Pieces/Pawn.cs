@@ -186,5 +186,11 @@ public class Pawn : Piece
         tile.piece = this;
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
         currentCoordinates = tile.coordinates;
+
+        if (tile.coordinates.y == 7)
+        {
+            board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, Board.PieceType.Queen, render.sharedMaterial);
+            Destroy(gameObject);
+        }
     }
 }
