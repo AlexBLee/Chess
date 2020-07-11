@@ -48,6 +48,12 @@ public class Pawn : Piece
                     }
                 }
 
+                // make enPassantPossible false the turn after it was enabled.
+                if (enPassantPossible)
+                {
+                    enPassantPossible = false;
+                }
+
             }
 
             CheckForEnPassant();
