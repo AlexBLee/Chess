@@ -64,14 +64,7 @@ public class Selection : MonoBehaviour
             board.ResetPieceMoveTileColours(selectedPiece);
             selectedPiece.MoveTo(selectedTile);
             
-            GameManager.instance.SwitchSides();
-            GameManager.instance.FindAllPossibleMoves();
-            
-            if (GameManager.instance.kingInCheck != null)
-            {
-                GameManager.instance.CheckKingCheck();
-                GameManager.instance.CheckForCheckMate();
-            }
+            GameManager.instance.NextTurn();
         }
         else
         {

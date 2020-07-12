@@ -190,8 +190,10 @@ public class Pawn : Piece
         if (tile.coordinates.y == 7)
         {
             GameManager.instance.promotionPanel.gameObject.SetActive(true);
+            GameManager.instance.SetGameState(false);
             
             StartCoroutine(PromotePiece(tile));
+            
         }
     }
 
@@ -203,5 +205,6 @@ public class Pawn : Piece
         }
         board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
         Destroy(gameObject);
+        GameManager.instance.SetGameState(true);
     }
 }

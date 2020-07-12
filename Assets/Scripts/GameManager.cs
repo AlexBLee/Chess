@@ -98,6 +98,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetGameState(bool state)
+    {
+        // If state is true -> resume game, if state is false -> pause game
+        foreach (Piece piece in board.whitePieces)
+        {
+            piece.interactable = state;
+        }
+
+        foreach (Piece piece in board.blackPieces)
+        {
+            piece.interactable = state;
+        }
+    }
+
     public void CheckKingCheck()
     {
         // Assign the correct list
@@ -133,6 +147,18 @@ public class GameManager : MonoBehaviour
         if (kingInCheck.check && kingInCheck.moves.Count == 0 && !kingInCheck.checkDefended)
         {
             Debug.Log("checkmate");
+        }
+    }
+
+    public void NextTurn()
+    {
+        SwitchSides();
+        FindAllPossibleMoves();
+            
+        if (kingInCheck != null)
+        {
+            CheckKingCheck();
+            CheckForCheckMate();
         }
     }
 }
