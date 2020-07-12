@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool playerTurn = true;
     public bool check;
     public King kingInCheck;
+    public PromotionPanel promotionPanel;
 
     void Awake()
     {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        promotionPanel.gameObject.SetActive(false);
     }
 
     public void FindWhiteMoves()

@@ -189,8 +189,19 @@ public class Pawn : Piece
 
         if (tile.coordinates.y == 7)
         {
-            board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, Board.PieceType.Queen, render.sharedMaterial);
-            Destroy(gameObject);
+            GameManager.instance.promotionPanel.gameObject.SetActive(true);
+            
+            StartCoroutine(PromotePiece(tile));
         }
+    }
+
+    IEnumerator PromotePiece(Tile tile)
+    {
+        while (!GameManager.instance.promotionPanel.buttonPressed)
+        {
+            yield return null;
+        }
+        board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
+        Destroy(gameObject);
     }
 }
