@@ -187,7 +187,10 @@ public class Pawn : Piece
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
         currentCoordinates = tile.coordinates;
 
-        if (tile.coordinates.y == 7)
+        // Mark end of the board for each side.
+        int side = (render.sharedMaterial == board.pieceWhite) ? 7 : 0;
+
+        if (tile.coordinates.y == side)
         {
             GameManager.instance.promotionPanel.gameObject.SetActive(true);
             GameManager.instance.SetGameState(false);
@@ -202,10 +205,23 @@ public class Pawn : Piece
         {
             yield return null;
         }
+        board.DestroyPieceAt(tile);
         board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
-        GameManager.instance.promotionPanel.gameObject.SetActive(false);
 
-        Destroy(gameObject);
+        // VERY UGLY WAY to determine interactable.. definitely need refactor
+        if (tile.piece.render.sharedMaterial == board.pieceWhite)
+        {
+            tile.piece.interactable = board.whitePieces[0].interactable;
+        }
+        else
+        {
+            tile.piece.interactable = board.blackPieces[0].interactable;
+
+        }
+
+        GameManager.instance.promotionPanel.gameObject.SetActive(false);
+        GameManager.instance.promotionPanel.buttonPressed = false;
+
         GameManager.instance.SetGameState(true);
         GameManager.instance.NextTurn();
     }

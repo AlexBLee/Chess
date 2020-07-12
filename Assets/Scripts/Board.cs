@@ -198,4 +198,23 @@ public class Board : MonoBehaviour
             Destroy(selectedTile.piece.gameObject); 
         }
     }
+
+    public void DestroyPieceAt(Tile selectedTile)
+    {
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null)
+        {
+            // TODO: clear piece from board function
+            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            {
+                blackPieces.Remove(selectedTile.piece);
+            }
+            else
+            {
+                whitePieces.Remove(selectedTile.piece);
+            }
+
+            Destroy(selectedTile.piece.gameObject); 
+        }
+    }
 }

@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
     public void SwitchSides()
     {
         // Resets checks and defended statuses as well.
-
         if (kingInCheck != null)
         {
             kingInCheck.check = false;
