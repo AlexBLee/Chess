@@ -30,7 +30,7 @@ public class Selection : MonoBehaviour
 
     public void SelectPiece(Piece piece)
     {
-        if (piece != null && piece.interactable)
+        if (piece != null && piece.interactable && !GameManager.instance.paused)
         {
             selectedPiece = piece;
 

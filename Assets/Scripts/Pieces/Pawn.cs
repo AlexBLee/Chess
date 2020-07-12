@@ -191,9 +191,8 @@ public class Pawn : Piece
         {
             GameManager.instance.promotionPanel.gameObject.SetActive(true);
             GameManager.instance.SetGameState(false);
-            
-            StartCoroutine(PromotePiece(tile));
-            
+    
+            StartCoroutine(PromotePiece(tile));        
         }
     }
 
@@ -204,7 +203,10 @@ public class Pawn : Piece
             yield return null;
         }
         board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
+        GameManager.instance.promotionPanel.gameObject.SetActive(false);
+
         Destroy(gameObject);
         GameManager.instance.SetGameState(true);
+        GameManager.instance.NextTurn();
     }
 }

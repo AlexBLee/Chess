@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Board board;
     public bool playerTurn = true;
     public bool check;
+    public bool paused;
     public King kingInCheck;
     public PromotionPanel promotionPanel;
 
@@ -101,15 +102,7 @@ public class GameManager : MonoBehaviour
     public void SetGameState(bool state)
     {
         // If state is true -> resume game, if state is false -> pause game
-        foreach (Piece piece in board.whitePieces)
-        {
-            piece.interactable = state;
-        }
-
-        foreach (Piece piece in board.blackPieces)
-        {
-            piece.interactable = state;
-        }
+        paused = !state;
     }
 
     public void CheckKingCheck()
@@ -152,13 +145,16 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        SwitchSides();
-        FindAllPossibleMoves();
-            
-        if (kingInCheck != null)
+        if (!paused)
         {
-            CheckKingCheck();
-            CheckForCheckMate();
+            SwitchSides();
+            FindAllPossibleMoves();
+                
+            if (kingInCheck != null)
+            {
+                CheckKingCheck();
+                CheckForCheckMate();
+            }
         }
     }
 }
