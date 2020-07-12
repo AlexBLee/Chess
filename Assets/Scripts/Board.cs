@@ -19,8 +19,8 @@ public class Board : MonoBehaviour
     [SerializeField] private const int boardWidth = 8;
     [SerializeField] private const int boardHeight = 8;
 
-    enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
-    PieceType pieceType;
+    public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
+    public PieceType pieceType;
 
     public Material boardWhite;
     public Material boardBlack;
@@ -136,7 +136,7 @@ public class Board : MonoBehaviour
 
     }
 
-    private void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
+    public void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
     {
         Tile selectedTile = tiles[x][y];
 
@@ -176,6 +176,45 @@ public class Board : MonoBehaviour
         foreach (Vector2Int move in piece.moves)
         {
             tiles[move.x][move.y].render.material = tiles[move.x][move.y].defaultColour;
+        }
+    }
+
+    public void DestroyPieceAt(Piece selectedPiece, Tile selectedTile)
+    {
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null && selectedPiece.interactable != selectedTile.piece.interactable) 
+        {
+            // TODO: clear piece from board function
+            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            {
+                blackPieces.Remove(selectedTile.piece);
+            }
+            else
+            {
+                whitePieces.Remove(selectedTile.piece);
+            }
+
+
+            Destroy(selectedTile.piece.gameObject); 
+        }
+    }
+
+    public void DestroyPieceAt(Tile selectedTile)
+    {
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null)
+        {
+            // TODO: clear piece from board function
+            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            {
+                blackPieces.Remove(selectedTile.piece);
+            }
+            else
+            {
+                whitePieces.Remove(selectedTile.piece);
+            }
+
+            Destroy(selectedTile.piece.gameObject); 
         }
     }
 }

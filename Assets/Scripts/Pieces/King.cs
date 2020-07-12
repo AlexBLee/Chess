@@ -161,6 +161,8 @@ public class King : Piece
         // Make sure the previous Tile no longer owns the piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
 
+        board.DestroyPieceAt(this, tile);
+
         if (canCastleRight && castleMoveList.Any(x => x == tile.coordinates && tile.coordinates.x > 4))
         {
             tile = MoveAndCastleKing(tile, 1);

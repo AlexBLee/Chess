@@ -152,6 +152,8 @@ public class Piece : MonoBehaviour
         // Make sure the previous Tile no longer owns the piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
 
+        board.DestroyPieceAt(this, tile);
+
         // Move piece to new Tile
         tile.piece = this;
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);

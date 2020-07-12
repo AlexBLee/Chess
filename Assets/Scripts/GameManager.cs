@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public Board board;
     public bool playerTurn = true;
     public bool check;
+    public bool paused;
     public King kingInCheck;
+    public PromotionPanel promotionPanel;
 
     void Awake()
     {
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        promotionPanel.gameObject.SetActive(false);
     }
 
     public void FindWhiteMoves()
@@ -71,7 +75,6 @@ public class GameManager : MonoBehaviour
     public void SwitchSides()
     {
         // Resets checks and defended statuses as well.
-
         if (kingInCheck != null)
         {
             kingInCheck.check = false;
@@ -93,6 +96,12 @@ public class GameManager : MonoBehaviour
             piece.pinned = false;
 
         }
+    }
+
+    public void SetGameState(bool state)
+    {
+        // If state is true -> resume game, if state is false -> pause game
+        paused = !state;
     }
 
     public void CheckKingCheck()
@@ -132,5 +141,20 @@ public class GameManager : MonoBehaviour
             Debug.Log("checkmate");
         }
         kingInCheck.line.Clear();
+    }
+
+    public void NextTurn()
+    {
+        if (!paused)
+        {
+            SwitchSides();
+            FindAllPossibleMoves();
+                
+            if (kingInCheck != null)
+            {
+                CheckKingCheck();
+                CheckForCheckMate();
+            }
+        }
     }
 }
