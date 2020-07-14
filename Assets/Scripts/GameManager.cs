@@ -155,6 +155,18 @@ public class GameManager : MonoBehaviour
                 CheckKingCheck();
                 CheckForCheckMate();
             }
+
+            CheckDraw();
         }
+    }
+
+    public void CheckDraw()
+    {
+        if (kingInCheck == null && board.blackPieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count)
+        {
+            Debug.Log("stalemate");
+        }
+
+
     }
 }
