@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Board board;
-    public bool playerTurn = true;
+    public bool whiteTurn = true;
     public bool check;
     public bool paused;
     public King kingInCheck;
     public PromotionPanel promotionPanel;
+    public int moveCounter;
 
     void Awake()
     {
@@ -74,6 +75,17 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSides()
     {
+        whiteTurn = (whiteTurn == true) ? false : true;
+
+        moveCounter--;
+        if (moveCounter % 2 == 0)
+        {
+            board.moveCount++;
+            moveCounter = 2;
+        }
+
+        board.enPassantTile = "-";
+
         // Resets checks and defended statuses as well.
         if (kingInCheck != null)
         {
@@ -94,7 +106,6 @@ public class GameManager : MonoBehaviour
             piece.interactable = (piece.interactable == true) ? false : true;
             piece.defended = false;
             piece.pinned = false;
-
         }
     }
 
@@ -157,6 +168,7 @@ public class GameManager : MonoBehaviour
             }
 
             CheckDraw();
+            board.WritePosition();
         }
     }
 
@@ -166,6 +178,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("stalemate");
         }
+
+        
+
+        
 
 
     }

@@ -149,6 +149,8 @@ public class Piece : MonoBehaviour
 
     public virtual void MoveTo(Tile tile)
     {
+        board.consecutivePieceMoves++;
+        
         // Make sure the previous Tile no longer owns the piece
         board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
 

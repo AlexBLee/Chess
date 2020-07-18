@@ -4041,6 +4041,9 @@ MonoBehaviour:
   pieceBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceAttack: {fileID: 2100000, guid: 48a7b427317401542a2ed07c5d55dfc9, type: 2}
   availableMoveColour: {fileID: 2100000, guid: fcfb7b7094a24ca43ad8fb954b15d1d0, type: 2}
+  enPassantTile: 
+  consecutivePieceMoves: 0
+  moveCount: 1
 --- !u!4 &1982779082
 Transform:
   m_ObjectHideFlags: 0
@@ -4240,10 +4243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 1982779081}
-  playerTurn: 1
+  whiteTurn: 1
   check: 0
+  paused: 0
   kingInCheck: {fileID: 0}
   promotionPanel: {fileID: 1057277300}
+  moveCounter: 2
 --- !u!4 &2103853830
 Transform:
   m_ObjectHideFlags: 0
