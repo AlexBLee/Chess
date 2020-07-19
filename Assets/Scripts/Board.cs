@@ -30,9 +30,6 @@ public class Board : MonoBehaviour
 
     public Material availableMoveColour;
 
-
-
-
     void Start()
     {
         tiles = new List<List<Tile>>();

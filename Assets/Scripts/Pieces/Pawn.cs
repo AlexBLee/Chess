@@ -148,8 +148,7 @@ public class Pawn : Piece
                         new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
                         enPassantTile = enPassantCoordinate;
-                        board.enPassantTile = board.tiles[enPassantCoordinate.x][enPassantCoordinate.y].name;
-
+                        GameManager.instance.PENWriter.enPassantTile = board.tiles[enPassantCoordinate.x][enPassantCoordinate.y].name;
 
                         moves.Add(enPassantCoordinate);
                     }
@@ -160,7 +159,7 @@ public class Pawn : Piece
 
     public override void MoveTo(Tile tile)
     {
-        board.consecutivePieceMoves = 0;
+        GameManager.instance.PENWriter.consecutivePieceMoves = 0;
 
         if (firstMove)
         {

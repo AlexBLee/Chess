@@ -9,47 +9,56 @@ public class PENWriter : MonoBehaviour
     public int consecutivePieceMoves;
     public int moveCount;
 
+    public List<Piece> rookList = new List<Piece>();
+    public King blackKing;
+    public King whiteKing;
+
+    private void Start() 
+    {
+        blackKing = (King)board.blackPieces.Find(x => x is King);
+        whiteKing = (King)board.whitePieces.Find(x => x is King);
+        rookList.AddRange(board.blackPieces.FindAll(x => x is Rook));
+        rookList.AddRange(board.whitePieces.FindAll(x => x is Rook));
+        WritePosition();
+    }
+
     public void WritePosition()
     {
         string PEN = "";
 
         PEN += WriteRanksAndFiles();
-
-        // write white or black depending on turn
         PEN += (GameManager.instance.whiteTurn) ? " w " : " b ";
-
-        // TODO!!!!!!!!!! : VERY HACKY SOLUTION.. need a better one
-        List<Piece> WRookList = board.whitePieces.FindAll(x => x is Rook);
-        King k = (King)board.whitePieces.Find(x => x is King);
-
-        List<Piece> BRookList = board.blackPieces.FindAll(x => x is Rook);
-        King kx = (King)board.blackPieces.Find(x => x is King);
-
-
-        if (!k.hasMoved)
-        {
-            PEN += WriteCastlePossibility(WRookList);
-        }
-
-        if (!kx.hasMoved)
-        {
-            PEN += WriteCastlePossibility(BRookList);
-        }
-
-        PEN += (enPassantTile != "") ? " " + enPassantTile : PEN += " - ";
+        PEN += WriteCastlePossibility();
+        PEN += (enPassantTile != "") ? " " + enPassantTile : " - ";
         PEN += " " + consecutivePieceMoves;
         PEN += " " + moveCount;
 
         Debug.Log(PEN);
     }
 
-    public string WriteCastlePossibility(List<Piece> pieceList)
+    public string WriteCastlePossibility()
     {
         string a = "";
 
-        for (int i = pieceList.Count - 1; i >= 0; i--)
+        for (int i = rookList.Count - 1; i >= 0; i--)
         {
-            Rook rook = (Rook)pieceList[i];
+            Rook rook = (Rook)rookList[i];
+
+            if (rook.render.sharedMaterial == board.pieceWhite)
+            {
+                if (whiteKing.hasMoved)
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                if (blackKing.hasMoved)
+                {
+                    continue;
+                }
+            }
+
             char castleChar = ' ';
 
             if (!rook.hasMoved)

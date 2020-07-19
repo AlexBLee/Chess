@@ -6,6 +6,7 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public PENWriter PENWriter;
     public Board board;
     public bool whiteTurn = true;
     public bool check;
@@ -80,11 +81,11 @@ public class GameManager : MonoBehaviour
         moveCounter--;
         if (moveCounter % 2 == 0)
         {
-            board.moveCount++;
+            PENWriter.moveCount++;
             moveCounter = 2;
         }
 
-        board.enPassantTile = "-";
+        PENWriter.enPassantTile = "-";
 
         // Resets checks and defended statuses as well.
         if (kingInCheck != null)
@@ -168,7 +169,7 @@ public class GameManager : MonoBehaviour
             }
 
             CheckDraw();
-            board.WritePosition();
+            PENWriter.WritePosition();
         }
     }
 
