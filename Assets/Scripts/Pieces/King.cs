@@ -99,24 +99,23 @@ public class King : Piece
 
     private bool CheckCastle(int direction)
     {
-        bool canCastle = false;
+        bool canCastle = true;
         
         for (int i = 0; i < 4; i++)
         {
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + (i + 1) * direction, currentCoordinates.y);
             
-            if (IsPieceAtTile(boardCoordPoint))
+            // skip adding the x + 1 tile because its not a castle tile
+            if (i != 0)
             {
-                // skip adding the x + 1 tile because its not a castle tile
-                if (i != 0)
-                {
-                    castleMoveList.Add(boardCoordPoint);
-                }
-
-                canCastle = CheckForCastleRooks(boardCoordPoint);
+                castleMoveList.Add(boardCoordPoint);
             }
             
+            if (IsPieceAtTile(boardCoordPoint) && !CheckForCastleRooks(boardCoordPoint))
+            {
+                return false;
+            }
         }
 
         return canCastle;

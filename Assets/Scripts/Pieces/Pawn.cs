@@ -79,7 +79,7 @@ public class Pawn : Piece
                             currentTile.piece.defended = true;
                         }
                         // Attacking pieces on its diagonals
-                        else if (IsEnemyPiece(boardCoordPoint))
+                        else if (!IsFriendlyPiece(boardCoordPoint))
                         {
                             if (currentTile.piece is King)
                             {
@@ -113,7 +113,7 @@ public class Pawn : Piece
                         currentTile.piece.defended = true;
                     }
                     // Attacking pieces on its diagonals
-                    else if (IsEnemyPiece(boardCoordPoint))
+                    else if (!IsFriendlyPiece(boardCoordPoint))
                     {
                         if (currentTile.piece is King)
                         {
@@ -140,7 +140,7 @@ public class Pawn : Piece
             {
                 Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
-                if (IsEnemyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn)
+                if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn)
                 {
                     if (pawn.enPassantPossible)
                     {
