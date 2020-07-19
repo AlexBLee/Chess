@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PENWriter : MonoBehaviour
 {
-    public Board board;
+    private Board board;
+    private List<Piece> rookList = new List<Piece>();
+    private King blackKing;
+    private King whiteKing;
+    
     public string enPassantTile;
     public int consecutivePieceMoves;
     public int moveCount;
-
-    public List<Piece> rookList = new List<Piece>();
-    public King blackKing;
-    public King whiteKing;
 
     private void Start() 
     {
@@ -36,7 +36,7 @@ public class PENWriter : MonoBehaviour
         Debug.Log(PEN);
     }
 
-    public string WriteCastlePossibility()
+    private string WriteCastlePossibility()
     {
         string castleString = "";
         char castleChar = ' ';
@@ -75,11 +75,12 @@ public class PENWriter : MonoBehaviour
         return castleString;
     }
 
-    public string WriteRanksAndFiles()
+    private string WriteRanksAndFiles()
     {
         string lines = "";
         int emptyTileCount = 0;
 
+        // The reason we start at 7 is because PEN notation starts from the 8th rank
         for (int i = 7; i >= 0; i--)
         {
             for (int j = 0; j < 8; j++)
@@ -89,21 +90,13 @@ public class PENWriter : MonoBehaviour
 
                 if (piece != null)
                 {
-                    if (emptyTileCount != 0)
-                    {
-                        lines += emptyTileCount;
-                    }
-                    emptyTileCount = 0;
+                    // If there is a piece in the middle of the line, add the number of empty tiles before it.
+                    AddNumberToLine(lines, emptyTileCount);
 
-                    if (piece is Knight)
-                    {
-                        pieceChar = 'n';
-                    }
-                    else
-                    {
-                        pieceChar = piece.name[0];
-                    }
+                    // The knight is the only piece that doesn't use their first letter
+                    pieceChar = (piece is Knight) ? 'n' : piece.name[0];
 
+                    // Capitalize the character if white
                     if (piece.render.sharedMaterial == board.pieceWhite)
                     {
                         pieceChar -= ' ';
@@ -117,12 +110,10 @@ public class PENWriter : MonoBehaviour
                 }
             }
 
-            if (emptyTileCount != 0)
-            {
-                lines += emptyTileCount;
-            }
-            emptyTileCount = 0;
+            // For the lines that have only empty tiles
+            AddNumberToLine(lines, emptyTileCount);
 
+            // When we reach the last line, don't put "/"
             if (i != 0)
             {
                 lines += "/";
@@ -130,5 +121,14 @@ public class PENWriter : MonoBehaviour
         }
 
         return lines;
+    }
+
+    private void AddNumberToLine(string line, int number)
+    {
+        if (number != 0)
+        {
+            line += number;
+        }
+        number = 0;
     }
 }
