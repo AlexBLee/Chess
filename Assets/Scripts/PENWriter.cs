@@ -38,53 +38,41 @@ public class PENWriter : MonoBehaviour
 
     public string WriteCastlePossibility()
     {
-        string a = "";
+        string castleString = "";
+        char castleChar = ' ';
 
         for (int i = rookList.Count - 1; i >= 0; i--)
         {
             Rook rook = (Rook)rookList[i];
 
-            if (rook.render.sharedMaterial == board.pieceWhite)
+            // If kings or rook have moved, skip finding a character for the string.
+            if (rook.hasMoved)
             {
-                if (whiteKing.hasMoved)
-                {
-                    continue;
-                }
-            }
-            else
-            {
-                if (blackKing.hasMoved)
-                {
-                    continue;
-                }
+                continue;
             }
 
-            char castleChar = ' ';
-
-            if (!rook.hasMoved)
+            if (rook.render.sharedMaterial == board.pieceWhite && whiteKing.hasMoved)
             {
-                if (rook.currentCoordinates.x < 4)
-                {
-                    castleChar = 'q';
-                }
-                else 
-                {
-                    castleChar = 'k';
-                }
+                continue;
             }
+            else if (rook.render.sharedMaterial == board.pieceWhite && blackKing.hasMoved)
+            {
+                continue;
+            }
+
+            // King or queen side
+            castleChar = (rook.currentCoordinates.x < 4) ? 'q' : 'k';
             
+            // Capitalize if white piece.
             if (rook.render.sharedMaterial == board.pieceWhite)
             {
                 castleChar -= ' ';
             }
 
-            if (castleChar != '\0')
-            {
-                a += castleChar;
-            }
+            castleString += castleChar;
         }
 
-        return a;
+        return castleString;
     }
 
     public string WriteRanksAndFiles()
