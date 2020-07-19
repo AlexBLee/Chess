@@ -32,6 +32,14 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        InitalizeBoard();
+        ColourAndNameTiles();
+        SpawnPieces();
+        GameManager.instance.FindAllPossibleMoves();
+    }
+
+    private void InitalizeBoard()
+    {
         tiles = new List<List<Tile>>();
 
         // making the board
@@ -52,6 +60,11 @@ public class Board : MonoBehaviour
             tiles.Add(innerTiles);
         }
 
+        
+    }
+
+    private void ColourAndNameTiles()
+    {
         // colour and naming tiles
         for (int i = 0; i < boardWidth; i++)
         {
@@ -76,12 +89,9 @@ public class Board : MonoBehaviour
                 }
             }
         }
-
-        SpawnPieces();
-        GameManager.instance.FindAllPossibleMoves();
     }
 
-    void SpawnPieces()
+    private void SpawnPieces()
     {
         // // pawns
         for (int i = 0; i < 8; i++)
