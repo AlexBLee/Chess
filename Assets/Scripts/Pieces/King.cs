@@ -10,7 +10,7 @@ public class King : Piece
     public bool checkDefended;
 
     public List<Vector2Int> line;
-    private List<Vector2Int> castleMoveList;
+    private List<Vector2Int> castleMoveList = new List<Vector2Int>();
 
     public bool canCastleRight;
     public bool canCastleLeft;
