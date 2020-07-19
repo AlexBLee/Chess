@@ -1169,6 +1169,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407927888}
   m_CullTransparentMesh: 0
+--- !u!1 &597682835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 597682837}
+  - component: {fileID: 597682836}
+  m_Layer: 0
+  m_Name: PENWriter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &597682836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597682835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6690cc97717521449101299da6c7a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enPassantTile: 
+  consecutivePieceMoves: 0
+  moveCount: 0
+--- !u!4 &597682837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597682835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.195534, y: 29.393126, z: 12.32921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,9 +4087,6 @@ MonoBehaviour:
   pieceBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceAttack: {fileID: 2100000, guid: 48a7b427317401542a2ed07c5d55dfc9, type: 2}
   availableMoveColour: {fileID: 2100000, guid: fcfb7b7094a24ca43ad8fb954b15d1d0, type: 2}
-  enPassantTile: 
-  consecutivePieceMoves: 0
-  moveCount: 1
 --- !u!4 &1982779082
 Transform:
   m_ObjectHideFlags: 0
@@ -4242,6 +4285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226fb2f8195755e43b0f590bb65f06be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PENWriter: {fileID: 597682836}
   board: {fileID: 1982779081}
   whiteTurn: 1
   check: 0
