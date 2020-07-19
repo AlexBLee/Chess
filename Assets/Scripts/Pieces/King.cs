@@ -10,7 +10,7 @@ public class King : Piece
     public bool checkDefended;
 
     public List<Vector2Int> line;
-    public List<Vector2Int> castleMoveList;
+    private List<Vector2Int> castleMoveList;
 
     public bool canCastleRight;
     public bool canCastleLeft;
@@ -66,7 +66,13 @@ public class King : Piece
         
     }
 
-    public void RemoveKingMoves(List<Piece> opposingPieces)
+    private void RemoveKingMoves(List<Piece> opposingPieces)
+    {
+        RemoveAttackedTiles(opposingPieces);
+        RemoveDefendedPieceTiles();
+    }
+
+    private void RemoveAttackedTiles(List<Piece> opposingPieces)
     {
         // Remove tiles that are being attacked by opposing pieces.
         foreach (Piece piece in opposingPieces)
@@ -79,21 +85,19 @@ public class King : Piece
                 }
             }
         }       
+    }
 
+    private void RemoveDefendedPieceTiles()
+    {
         // Remove moves where the piece is defended.
         for (int i = 0; i < moves.Count; i++)
         {
-            Vector2Int move = moves[i];
-            Piece piece = board.tiles[move.x][move.y].piece;
-
-            if (piece != null && piece.defended)
-            {
-                moves.Remove(move);
-            }
+            Piece piece = board.tiles[moves[i].x][moves[i].y].piece;
+            moves.RemoveAll(x => piece != null && piece.defended);
         }
     }
 
-    public bool CheckCastle(int direction)
+    private bool CheckCastle(int direction)
     {
         bool canCastle = false;
         
@@ -140,7 +144,7 @@ public class King : Piece
         return canCastle;
     }
 
-    public Tile MoveAndCastleKing(Tile tile, int side)
+    private Tile MoveAndCastleKing(Tile tile, int side)
     {
         // Choose the correct rook
         int rookPositionX = (side > 0) ? 7 : 0;
