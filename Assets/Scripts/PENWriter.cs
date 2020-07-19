@@ -15,6 +15,8 @@ public class PENWriter : MonoBehaviour
 
     private void Start() 
     {
+        board = FindObjectOfType<Board>();
+
         blackKing = (King)board.blackPieces.Find(x => x is King);
         whiteKing = (King)board.whitePieces.Find(x => x is King);
         rookList.AddRange(board.blackPieces.FindAll(x => x is Rook));
