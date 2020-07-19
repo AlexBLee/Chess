@@ -57,7 +57,7 @@ public class PENWriter : MonoBehaviour
             {
                 continue;
             }
-            else if (rook.render.sharedMaterial == board.pieceWhite && blackKing.hasMoved)
+            else if (rook.render.sharedMaterial != board.pieceWhite && blackKing.hasMoved)
             {
                 continue;
             }
