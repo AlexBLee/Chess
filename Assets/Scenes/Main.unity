@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enPassantTile: 
   consecutivePieceMoves: 0
-  moveCount: 0
+  moveCount: 1
 --- !u!4 &597682837
 Transform:
   m_ObjectHideFlags: 0

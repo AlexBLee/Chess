@@ -87,24 +87,15 @@ public class PENWriter : MonoBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
-                char pieceChar;
                 Piece piece = board.tiles[j][i].piece;
 
                 if (piece != null)
                 {
                     // If there is a piece in the middle of the line, add the number of empty tiles before it.
-                    AddNumberToLine(lines, emptyTileCount);
-
-                    // The knight is the only piece that doesn't use their first letter
-                    pieceChar = (piece is Knight) ? 'n' : piece.name[0];
-
-                    // Capitalize the character if white
-                    if (piece.render.sharedMaterial == board.pieceWhite)
-                    {
-                        pieceChar -= ' ';
-                    }
-
-                    lines += pieceChar;
+                    lines = AddNumberToLine(lines, emptyTileCount);
+                    emptyTileCount = 0;
+                
+                    lines = AddPieceToLine(lines, piece);
                 }
                 else
                 {
@@ -113,7 +104,8 @@ public class PENWriter : MonoBehaviour
             }
 
             // For the lines that have only empty tiles
-            AddNumberToLine(lines, emptyTileCount);
+            lines = AddNumberToLine(lines, emptyTileCount);
+            emptyTileCount = 0;
 
             // When we reach the last line, don't put "/"
             if (i != 0)
@@ -125,12 +117,24 @@ public class PENWriter : MonoBehaviour
         return lines;
     }
 
-    private void AddNumberToLine(string line, int number)
+    private string AddNumberToLine(string line, int number)
     {
-        if (number != 0)
+        return (number != 0) ? line + number : line;
+    }
+
+    private string AddPieceToLine(string line, Piece piece)
+    {
+        char pieceChar;
+
+        // The knight is the only piece that doesn't use their first letter
+        pieceChar = (piece is Knight) ? 'n' : piece.name[0];
+
+        // Capitalize the character if white
+        if (piece.render.sharedMaterial == board.pieceWhite)
         {
-            line += number;
+            pieceChar -= ' ';
         }
-        number = 0;
+
+        return line + pieceChar;
     }
 }
