@@ -30,9 +30,7 @@ public class Board : MonoBehaviour
 
     public Material availableMoveColour;
 
-    public string enPassantTile;
-    public int consecutivePieceMoves;
-    public int moveCount;
+
 
 
     void Start()
@@ -84,7 +82,6 @@ public class Board : MonoBehaviour
 
         SpawnPieces();
         GameManager.instance.FindAllPossibleMoves();
-        WritePosition();
     }
 
     void SpawnPieces()
@@ -223,138 +220,4 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void WritePosition()
-    {
-        string PEN = "";
-        int emptyTileCount = 0;
-
-        for (int i = 7; i >= 0; i--)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                char pieceChar;
-                Piece piece = tiles[j][i].piece;
-
-                if (piece != null)
-                {
-                    if (emptyTileCount != 0)
-                    {
-                        PEN += emptyTileCount;
-                    }
-                    emptyTileCount = 0;
-
-                    if (piece is Knight)
-                    {
-                        pieceChar = 'n';
-                    }
-                    else
-                    {
-                        pieceChar = piece.name[0];
-                    }
-
-                    if (piece.render.sharedMaterial == pieceWhite)
-                    {
-                        pieceChar -= ' ';
-                    }
-
-                    PEN += pieceChar;
-                }
-                else
-                {
-                    emptyTileCount++;
-                }
-            }
-
-            if (emptyTileCount != 0)
-            {
-                PEN += emptyTileCount;
-            }
-            emptyTileCount = 0;
-
-            if (i != 0)
-            {
-                PEN += "/";
-            }
-        }
-
-        if (GameManager.instance.whiteTurn)
-        {
-            PEN += " w ";
-        }
-        else
-        {
-            PEN += " b ";
-        }
-
-        // TODO!!!!!!!!!! : VERY HACKY SOLUTION.. need a better one
-        List<Piece> WRookList = whitePieces.FindAll(x => x is Rook);
-        List<Piece> BRookList = blackPieces.FindAll(x => x is Rook);
-        King k = (King)whitePieces.Find(x => x is King);
-        k.FindMoveSet();
-
-        King kx = (King)blackPieces.Find(x => x is King);
-        kx.FindMoveSet();
-
-        if (!k.hasMoved)
-        {
-            PEN += WriteCastlePossibility(WRookList);
-        }
-
-        if (!kx.hasMoved)
-        {
-            PEN += WriteCastlePossibility(BRookList);
-        }
-
-        if (enPassantTile != "")
-        {
-            PEN += " " + enPassantTile;
-        }
-        else
-        {
-            PEN += " - ";
-        }
-
-
-        PEN += " " + consecutivePieceMoves;
-        
-
-        PEN += " " + moveCount;
-
-        Debug.Log(PEN);
-    }
-
-    public string WriteCastlePossibility(List<Piece> pieceList)
-    {
-        string a = "";
-
-        for (int i = pieceList.Count - 1; i >= 0; i--)
-        {
-            Rook rook = (Rook)pieceList[i];
-            char castleChar = ' ';
-
-            if (!rook.hasMoved)
-            {
-                if (rook.currentCoordinates.x < 4)
-                {
-                    castleChar = 'q';
-                }
-                else 
-                {
-                    castleChar = 'k';
-                }
-            }
-            
-            if (rook.render.sharedMaterial == pieceWhite)
-            {
-                castleChar -= ' ';
-            }
-
-            if (castleChar != '\0')
-            {
-                a += castleChar;
-            }
-        }
-
-        return a;
-    }
 }
