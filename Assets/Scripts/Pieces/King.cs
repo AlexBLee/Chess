@@ -105,43 +105,42 @@ public class King : Piece
         {
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + (i + 1) * direction, currentCoordinates.y);
-
-            if (IsInBoard(boardCoordPoint))
+            
+            if (IsPieceAtTile(boardCoordPoint))
             {
                 // skip adding the x + 1 tile because its not a castle tile
                 if (i != 0)
                 {
                     castleMoveList.Add(boardCoordPoint);
                 }
-                
-                if (IsPieceAtTile(boardCoordPoint))
-                {
-                    // If there is nothing between the rook and the king..
-                    if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook rook)
-                    {
-                        // If the rook found hasn't moved, you can castle.
-                        if (!rook.hasMoved)
-                        {
-                            canCastle = true;
-                            moves.AddRange(castleMoveList);
-                            moves = moves.Distinct().ToList();
-                            break;
-                        }
-                        else
-                        {
-                            canCastle = false;
-                        }
-                    }
-                    else
-                    {
-                        canCastle = false;
-                        break;
-                    }
-                }
+
+                canCastle = CheckForCastleRooks(boardCoordPoint);
             }
+            
         }
 
         return canCastle;
+    }
+
+    private bool CheckForCastleRooks(Vector2Int boardCoordPoint)
+    {
+        bool canCastle = false;
+
+        // If there is nothing between the rook and the king..
+        if (board.tiles[boardCoordPoint.x][boardCoordPoint.y].piece is Rook rook && !rook.hasMoved)
+        {
+            // If the rook found hasn't moved, you can castle.
+            canCastle = true;
+            moves.AddRange(castleMoveList);
+            moves = moves.Distinct().ToList();
+        }
+        else
+        {
+            canCastle = false;
+        }
+
+        return canCastle;
+
     }
 
     private Tile MoveAndCastleKing(Tile tile, int side)
