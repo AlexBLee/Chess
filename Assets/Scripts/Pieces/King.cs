@@ -133,10 +133,6 @@ public class King : Piece
             moves.AddRange(castleMoveList);
             moves = moves.Distinct().ToList();
         }
-        else
-        {
-            canCastle = false;
-        }
 
         return canCastle;
 
