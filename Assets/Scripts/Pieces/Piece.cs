@@ -64,27 +64,74 @@ public class Piece : MonoBehaviour
 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
+                    // If an enemy piece hasn't already appeared, keep adding moves.
                     if (enemyPieceFound == null)
                     {
-                        // If an enemy piece hasn't already appeared, keep adding moves.
                         line.Add(boardCoordPoint);
                         moves.Add(boardCoordPoint);
                     }
                 }
-                else if (IsFriendlyPiece(boardCoordPoint))
+                else if (IsPieceAtTile(boardCoordPoint))
                 {
-                    if (enemyPieceFound == null)
+                    if (IsFriendlyPiece(boardCoordPoint))
                     {
-                        currentTile.piece.defended = true;
-                        return;
+                        if (enemyPieceFound == null)
+                        {
+                            currentTile.piece.defended = true;
+                            return;
+                        }
+                    }
+                    else if (!IsFriendlyPiece(boardCoordPoint))
+                    {
+                        if (currentTile.piece is King)
+                        {
+                            // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
+                            // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
+                            // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
+                            if (enemyPieceFound == null)
+                            {
+                                kingRef = (King)currentTile.piece;
+                            }
+                            // If the 2ND ENEMY PIECE found is the King AFTER the 1ST ENEMY PIECE is found, then the first piece
+                            // will only be allowed to move within the line that the king is on as the king will be in 
+                            // check otherwise.
+                            else
+                            {
+                                enemyPieceFound.pinnedMoveList.Clear();
+
+                                // Need to know ahead of time of what moves the enemy piece can make
+                                enemyPieceFound.FindMoveSet();
+                                
+                                // Get only the moves along the checked line and add it to the enemy piece
+                                enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(line).ToList();
+
+                                // Only add current coordinates if its not a pawn as the pawn would be able to teleport and
+                                // capture pieces way out of it s moveset.
+                                if (!(enemyPieceFound is Pawn))
+                                {
+                                    enemyPieceFound.pinnedMoveList.Add(currentCoordinates);
+                                }
+
+                                enemyPieceFound.pinned = true;
+                            }
+                        }
+                        else
+                        {
+                            // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
+                            if (enemyPieceFound == null)
+                            {
+                                enemyPieceFound = currentTile.piece;
+                                moves.Add(boardCoordPoint);
+                            }
+                            // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
+                            else
+                            {
+                                return;
+                            }
+                        }
                     }
                 }
-                else
-                {
-                    CheckEnemyLines(enemyPieceFound, currentTile, kingRef, boardCoordPoint, line);
-                }
             }
-            
 
             if (xStep < 0) { xStep -= Mathf.Abs(xIncrement); } else if (xStep > 0) { xStep += xIncrement;}
             if (yStep < 0) { yStep -= Mathf.Abs(yIncrement); } else if (yStep > 0) { yStep += yIncrement;}
@@ -97,56 +144,6 @@ public class Piece : MonoBehaviour
         if (kingRef != null)
         {
             ApplyCheck((King)kingRef, line);
-        }
-    }
-
-    private void CheckEnemyLines(Piece enemyPieceFound, Tile currentTile, King kingRef, Vector2Int boardCoordPoint, List<Vector2Int> line)
-    {
-        if (currentTile.piece is King)
-        {
-            // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
-            // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
-            // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
-            if (enemyPieceFound == null)
-            {
-                kingRef = (King)currentTile.piece;
-            }
-            // If the 2ND ENEMY PIECE found is the King AFTER the 1ST ENEMY PIECE is found, then the first piece
-            // will only be allowed to move within the line that the king is on as the king will be in 
-            // check otherwise.
-            else
-            {
-                enemyPieceFound.pinnedMoveList.Clear();
-
-                // Need to know ahead of time of what moves the enemy piece can make
-                enemyPieceFound.FindMoveSet();
-                
-                // Get only the moves along the checked line and add it to the enemy piece
-                enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(line).ToList();
-
-                // Only add current coordinates if its not a pawn as the pawn would be able to teleport and
-                // capture pieces way out of it s moveset.
-                if (!(enemyPieceFound is Pawn))
-                {
-                    enemyPieceFound.pinnedMoveList.Add(currentCoordinates);
-                }
-
-                enemyPieceFound.pinned = true;
-            }
-        }
-        else
-        {
-            // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
-            if (enemyPieceFound == null)
-            {
-                enemyPieceFound = currentTile.piece;
-                moves.Add(boardCoordPoint);
-            }
-            // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
-            else
-            {
-                return;
-            }
         }
     }
 
