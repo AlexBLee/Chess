@@ -18,10 +18,7 @@ public class Pawn : Piece
             int moveIncrement = (firstMove) ? 2 : 1;
             
             // make enPassantPossible false the turn after it was enabled.
-            if (enPassantPossible)
-            {
-                enPassantPossible = false;
-            }
+            if (enPassantPossible) { enPassantPossible = false; }
 
             for (int i = 0; i < moveIncrement; i++)
             {
@@ -113,6 +110,23 @@ public class Pawn : Piece
     {
         GameManager.instance.PENWriter.consecutivePieceMoves = 0;
 
+        FirstMoveCheck(tile);
+
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[location.x][location.y].piece = null;
+
+        CheckForMovementToEnPassantTile(tile);
+
+        // Move piece to new Tile
+        tile.piece = this;
+        transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
+        location = tile.coordinates;
+
+        CheckForMovementToPromotionTile(tile);
+    }
+    
+    public void FirstMoveCheck(Tile tile)
+    {
         if (firstMove)
         {
             firstMove = false;
@@ -123,10 +137,10 @@ public class Pawn : Piece
                 enPassantPossible = true;
             }
         }
+    }
 
-        // Make sure the previous Tile no longer owns the piece
-        board.tiles[location.x][location.y].piece = null;
-
+    public void CheckForMovementToEnPassantTile(Tile tile)
+    {
         if (tile.coordinates == enPassantTile)
         {
             // Pass by and destroy the pawn at the tile
@@ -136,12 +150,10 @@ public class Pawn : Piece
         {
             board.DestroyPieceAt(this, tile);
         }
+    }
 
-        // Move piece to new Tile
-        tile.piece = this;
-        transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-        location = tile.coordinates;
-
+    public void CheckForMovementToPromotionTile(Tile tile)
+    {
         // Mark end of the board for each side.
         int side = (render.sharedMaterial == board.pieceWhite) ? 7 : 0;
 
