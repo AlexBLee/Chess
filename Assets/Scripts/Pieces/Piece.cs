@@ -11,7 +11,7 @@ public class Piece : MonoBehaviour
     public Renderer render;
     public List<Vector2Int> moves;
     public List<Vector2Int> pinnedMoveList;
-    public Vector2Int currentCoordinates;
+    public Vector2Int location;
     public int forwardDirection;
     public bool defended;
     public bool pinned;
@@ -56,7 +56,7 @@ public class Piece : MonoBehaviour
         while (inc < maxJump)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
+            new Vector2Int(location.x + xStep, location.y + (yStep * forwardDirection));
 
             if (board.IsInBoard(boardCoordPoint))
             {
@@ -145,7 +145,7 @@ public class Piece : MonoBehaviour
         // capture pieces way out of it s moveset.
         if (!(enemyPieceFound is Pawn))
         {
-            enemyPieceFound.pinnedMoveList.Add(currentCoordinates);
+            enemyPieceFound.pinnedMoveList.Add(location);
         }
 
         enemyPieceFound.pinned = true;
@@ -157,14 +157,14 @@ public class Piece : MonoBehaviour
         GameManager.instance.PENWriter.consecutivePieceMoves++;
         
         // Make sure the previous Tile no longer owns the piece
-        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+        board.tiles[location.x][location.y].piece = null;
 
         board.DestroyPieceAt(this, tile);
 
         // Move piece to new Tile
         tile.piece = this;
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-        currentCoordinates = tile.coordinates;          
+        location = tile.coordinates;          
     }
 
     public void ColourAvailableTiles(Tile tile, Material mat)
@@ -194,7 +194,7 @@ public class Piece : MonoBehaviour
         king.check = true;
         king.canCastleRight = false;
         king.canCastleLeft = false;
-        king.line.Add(currentCoordinates);
+        king.line.Add(location);
         king.line.AddRange(line);
         GameManager.instance.kingInCheck = king;
     }
@@ -204,7 +204,7 @@ public class Piece : MonoBehaviour
         king.check = true;
         king.canCastleRight = false;
         king.canCastleLeft = false;
-        king.line.Add(currentCoordinates);
+        king.line.Add(location);
         king.line.Add(tile);
         GameManager.instance.kingInCheck = king;
     }

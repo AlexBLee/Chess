@@ -104,7 +104,7 @@ public class King : Piece
         for (int i = 0; i < 4; i++)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + (i + 1) * direction, currentCoordinates.y);
+            new Vector2Int(location.x + (i + 1) * direction, location.y);
             
             // skip adding the x + 1 tile because its not a castle tile
             if (i != 0)
@@ -145,8 +145,8 @@ public class King : Piece
         int rookPositionY = (render.sharedMaterial == board.pieceWhite) ? 0 : 7;
 
         // Allocate the tiles that the pieces are supposed to switch to.
-        tile = board.tiles[currentCoordinates.x + (2 * side)][rookPositionY];
-        Tile castleRookTile = board.tiles[currentCoordinates.x + (1 * side)][rookPositionY];
+        tile = board.tiles[location.x + (2 * side)][rookPositionY];
+        Tile castleRookTile = board.tiles[location.x + (1 * side)][rookPositionY];
 
         // Move the rook to the position
         board.tiles[rookPositionX][rookPositionY].piece.MoveTo(castleRookTile);
@@ -157,7 +157,7 @@ public class King : Piece
     public override void MoveTo(Tile tile)
     {
         // Make sure the previous Tile no longer owns the piece
-        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+        board.tiles[location.x][location.y].piece = null;
 
         board.DestroyPieceAt(this, tile);
 
@@ -173,7 +173,7 @@ public class King : Piece
         // Move piece to new Tile
         tile.piece = this;
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-        currentCoordinates = tile.coordinates;  
+        location = tile.coordinates;  
        
         if (!hasMoved)
         {

@@ -26,7 +26,7 @@ public class Pawn : Piece
             for (int i = 0; i < moveIncrement; i++)
             {
                 Vector2Int boardCoordPoint = 
-                new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i + 1) * forwardDirection);
+                new Vector2Int(location.x, location.y + (i + 1) * forwardDirection);
                 
                 if (!IsPieceAtTile(boardCoordPoint))
                 {
@@ -54,7 +54,7 @@ public class Pawn : Piece
         for (int i = -1; i < 2; i += 2)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+            new Vector2Int(location.x + i, location.y + (1 * forwardDirection));
 
             Tile currentTile = board.GetTile(boardCoordPoint);
             if (currentTile == null || currentTile.piece == null) { continue; }
@@ -90,7 +90,7 @@ public class Pawn : Piece
         for (int i = -1; i < 2; i += 2)
         {
             Vector2Int boardCoordPoint = 
-            new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
+            new Vector2Int(location.x + i, location.y);
 
             Tile currentTile = board.GetTile(boardCoordPoint);
             if (currentTile == null || currentTile.piece == null) { continue; }
@@ -98,7 +98,7 @@ public class Pawn : Piece
             if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn && pawn.enPassantPossible)
             {
                 Vector2Int enPassantCoordinate = 
-                new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+                new Vector2Int(location.x + i, location.y + (1 * forwardDirection));
 
                 enPassantTile = enPassantCoordinate;
                 GameManager.instance.PENWriter.enPassantTile = currentTile.name;
@@ -118,14 +118,14 @@ public class Pawn : Piece
             firstMove = false;
 
             // If the pawn moves two tiles, then its possible for the pawn to be subject to an en passant.
-            if ((tile.coordinates.y - currentCoordinates.y) == (2 * forwardDirection))
+            if ((tile.coordinates.y - location.y) == (2 * forwardDirection))
             {
                 enPassantPossible = true;
             }
         }
 
         // Make sure the previous Tile no longer owns the piece
-        board.tiles[currentCoordinates.x][currentCoordinates.y].piece = null;
+        board.tiles[location.x][location.y].piece = null;
 
         if (tile.coordinates == enPassantTile)
         {
@@ -140,7 +140,7 @@ public class Pawn : Piece
         // Move piece to new Tile
         tile.piece = this;
         transform.position = tile.transform.position + new Vector3(0, 0.5f, 0);
-        currentCoordinates = tile.coordinates;
+        location = tile.coordinates;
 
         // Mark end of the board for each side.
         int side = (render.sharedMaterial == board.pieceWhite) ? 7 : 0;

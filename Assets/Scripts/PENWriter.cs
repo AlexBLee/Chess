@@ -63,7 +63,7 @@ public class PENWriter : MonoBehaviour
             }
 
             // King or queen side
-            castleChar = (rook.currentCoordinates.x < 4) ? 'q' : 'k';
+            castleChar = (rook.location.x < 4) ? 'q' : 'k';
             
             // Capitalize if white piece.
             if (rook.render.sharedMaterial == board.pieceWhite)

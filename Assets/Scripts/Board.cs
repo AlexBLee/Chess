@@ -158,7 +158,7 @@ public class Board : MonoBehaviour
         Quaternion.Euler(0,90,0),
         transform);
 
-        selectedTile.piece.currentCoordinates = new Vector2Int(x, y);
+        selectedTile.piece.location = new Vector2Int(x, y);
 
         selectedTile.piece.SetPieceColor(material);
 
