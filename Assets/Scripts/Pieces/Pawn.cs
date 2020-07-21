@@ -57,27 +57,25 @@ public class Pawn : Piece
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
             Tile currentTile = board.GetTile(boardCoordPoint);
-            if (currentTile == null) break;
+            if (currentTile == null || currentTile.piece == null) { continue; }
 
-            if (IsPieceAtTile(boardCoordPoint))
+            if (IsFriendlyPiece(boardCoordPoint))
             {
-                if (IsFriendlyPiece(boardCoordPoint))
+                currentTile.piece.defended = true;
+            }
+            // Attacking pieces on its diagonals
+            else
+            {
+                if (currentTile.piece is King king)
                 {
-                    currentTile.piece.defended = true;
+                    ApplyCheck(king, boardCoordPoint);
                 }
-                // Attacking pieces on its diagonals
                 else
                 {
-                    if (currentTile.piece is King king)
-                    {
-                        ApplyCheck(king, boardCoordPoint);
-                    }
-                    else
-                    {
-                        moves.Add(boardCoordPoint);
-                    }
+                    moves.Add(boardCoordPoint);
                 }
             }
+            
             
             // If it's not this pawn's turn, add the diagonals regardless if there is a piece or not at those tiles.
             if (!interactable)
@@ -94,24 +92,20 @@ public class Pawn : Piece
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
 
-            if (IsPieceAtTile(boardCoordPoint))
+            Tile currentTile = board.GetTile(boardCoordPoint);
+            if (currentTile == null || currentTile.piece == null) { continue; }
+
+            if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn && pawn.enPassantPossible)
             {
-                Tile currentTile = board.GetTile(boardCoordPoint);
+                Vector2Int enPassantCoordinate = 
+                new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
-                if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn)
-                {
-                    if (pawn.enPassantPossible)
-                    {
-                        Vector2Int enPassantCoordinate = 
-                        new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
+                enPassantTile = enPassantCoordinate;
+                GameManager.instance.PENWriter.enPassantTile = currentTile.name;
 
-                        enPassantTile = enPassantCoordinate;
-                        GameManager.instance.PENWriter.enPassantTile = currentTile.name;
-
-                        moves.Add(enPassantCoordinate);
-                    }
-                }
+                moves.Add(enPassantCoordinate);
             }
+            
         }
     }
 
