@@ -58,7 +58,7 @@ public class Piece : MonoBehaviour
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + xStep, currentCoordinates.y + (yStep * forwardDirection));
 
-            if (IsInBoard(boardCoordPoint))
+            if (board.IsInBoard(boardCoordPoint))
             {
                 Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
@@ -179,18 +179,15 @@ public class Piece : MonoBehaviour
 
     public bool IsPieceAtTile(Vector2Int tile)
     {
-        return IsInBoard(new Vector2Int(tile.x, tile.y)) && board.tiles[tile.x][tile.y].piece != null;
+        return board.IsInBoard(new Vector2Int(tile.x, tile.y)) && board.tiles[tile.x][tile.y].piece != null;
     }
 
     public bool IsFriendlyPiece(Vector2Int tile)
     {
-        return IsPieceAtTile(new Vector2Int(tile.x, tile.y)) && board.tiles[tile.x][tile.y].piece.interactable == interactable;
+        return board.tiles[tile.x][tile.y].piece.interactable == interactable;
     }
 
-    public bool IsInBoard(Vector2Int tile)
-    {
-        return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
-    }
+
 
     public void ApplyCheck(King king, List<Vector2Int> line)
     {

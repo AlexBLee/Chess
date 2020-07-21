@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Board : MonoBehaviour
 {
@@ -225,6 +226,16 @@ public class Board : MonoBehaviour
 
             Destroy(selectedTile.piece.gameObject); 
         }
+    }
+
+    public bool IsInBoard(Vector2Int tile)
+    {
+        return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
+    }
+
+    public Tile GetTile(Vector2Int coordinates)
+    {
+        return IsInBoard(coordinates) ? tiles[coordinates.x][coordinates.y] : null;
     }
 
 }
