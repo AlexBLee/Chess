@@ -94,9 +94,9 @@ public class Pawn : Piece
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y);
 
-            if (board.IsInBoard(boardCoordPoint) && IsPieceAtTile(boardCoordPoint))
+            if (IsPieceAtTile(boardCoordPoint))
             {
-                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+                Tile currentTile = board.GetTile(boardCoordPoint);
 
                 if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn)
                 {
@@ -106,7 +106,7 @@ public class Pawn : Piece
                         new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
                         enPassantTile = enPassantCoordinate;
-                        GameManager.instance.PENWriter.enPassantTile = board.tiles[enPassantCoordinate.x][enPassantCoordinate.y].name;
+                        GameManager.instance.PENWriter.enPassantTile = currentTile.name;
 
                         moves.Add(enPassantCoordinate);
                     }
