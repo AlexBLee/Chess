@@ -11,49 +11,31 @@ public class Pawn : Piece
     public override void FindLegalMoves()
     {
         // Does not use the CalculateMove function because of the special movement patterns of the pawn.
-        // TODO: very crap solution need to refactor
         if (interactable)
         {
-            // First move can move 2 tiles
-            if (firstMove)
+            // If its the first move, make 2 moves instead of one
+            int moveIncrement = (firstMove) ? 2 : 1;
+            
+            // make enPassantPossible false the turn after it was enabled.
+            if (enPassantPossible)
             {
-                for (int i = 1; i < 3; i++)
-                {
-                    Vector2Int boardCoordPoint = 
-                    new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i * forwardDirection));
-                    
-                    if (!IsPieceAtTile(boardCoordPoint))
-                    {
-                        moves.Add(boardCoordPoint);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                enPassantPossible = false;
             }
-            // Normal movement
-            else
+
+            for (int i = 0; i < moveIncrement; i++)
             {
                 Vector2Int boardCoordPoint = 
-                new Vector2Int(currentCoordinates.x, currentCoordinates.y + (1 * forwardDirection));
-                    
-                // Moving normally
-                if (IsInBoard(boardCoordPoint))
+                new Vector2Int(currentCoordinates.x, currentCoordinates.y + (i + 1) * forwardDirection);
+                
+                if (!IsPieceAtTile(boardCoordPoint))
                 {
-                    if (!IsPieceAtTile(boardCoordPoint))
-                    {
-                        moves.Add(boardCoordPoint);
-                    }
+                    moves.Add(boardCoordPoint);
                 }
-
-                // make enPassantPossible false the turn after it was enabled.
-                if (enPassantPossible)
+                else
                 {
-                    enPassantPossible = false;
+                    break;
                 }
-
-            }
+            }       
 
             CheckForEnPassant();
             AttackDiagonals();
