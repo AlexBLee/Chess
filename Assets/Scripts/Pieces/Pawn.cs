@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Pawn : Piece
@@ -44,34 +45,7 @@ public class Pawn : Piece
         else
         {
             // If it's not the pawn's turn, add only the attacking squares into the move list.
-            for (int i = -1; i < 2; i += 2)
-            {
-                Vector2Int boardCoordPoint = 
-                new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
-
-                if (IsInBoard(boardCoordPoint))
-                {
-                    Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
-
-                    if (IsPieceAtTile(boardCoordPoint))
-                    {
-                        if (IsFriendlyPiece(boardCoordPoint))
-                        {
-                            currentTile.piece.defended = true;
-                        }
-                        // Attacking pieces on its diagonals
-                        else if (!IsFriendlyPiece(boardCoordPoint))
-                        {
-                            if (currentTile.piece is King)
-                            {
-                                ApplyCheck((King)currentTile.piece, boardCoordPoint);
-                            }
-                        }
-                    }
-                    
-                    moves.Add(boardCoordPoint);
-                }
-            }
+            AttackDiagonals();
         }
     }
 
@@ -82,32 +56,34 @@ public class Pawn : Piece
             Vector2Int boardCoordPoint = 
             new Vector2Int(currentCoordinates.x + i, currentCoordinates.y + (1 * forwardDirection));
 
-            // Moving normally
-            if (IsInBoard(boardCoordPoint))
+            if (IsPieceAtTile(boardCoordPoint))
             {
                 Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
 
-                if (IsPieceAtTile(boardCoordPoint))
+                if (IsFriendlyPiece(boardCoordPoint))
                 {
-                    if (IsFriendlyPiece(boardCoordPoint))
+                    currentTile.piece.defended = true;
+                }
+                // Attacking pieces on its diagonals
+                else if (!IsFriendlyPiece(boardCoordPoint))
+                {
+                    if (currentTile.piece is King king)
                     {
-                        currentTile.piece.defended = true;
+                        ApplyCheck(king, boardCoordPoint);
                     }
-                    // Attacking pieces on its diagonals
-                    else if (!IsFriendlyPiece(boardCoordPoint))
+                    else
                     {
-                        if (currentTile.piece is King)
-                        {
-                            ApplyCheck((King)currentTile.piece, boardCoordPoint);
-                        }
-                        else
-                        {
-                            moves.Add(boardCoordPoint);
-                        }
+                        moves.Add(boardCoordPoint);
                     }
-                }          
+                }
             }
-        }
+
+            // If it's not this pawn's turn, add the diagonals regardless if there is a piece or not at those tiles.
+            if (!interactable)
+            {
+                moves.Add(boardCoordPoint);
+            }          
+        }        
     }
 
     public void CheckForEnPassant()
