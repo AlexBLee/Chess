@@ -127,16 +127,10 @@ public class Pawn : Piece
     
     public void FirstMoveCheck(Tile tile)
     {
-        if (firstMove)
-        {
-            firstMove = false;
+        firstMove = false;
 
-            // If the pawn moves two tiles, then its possible for the pawn to be subject to an en passant.
-            if ((tile.coordinates.y - location.y) == (2 * forwardDirection))
-            {
-                enPassantPossible = true;
-            }
-        }
+        // If the pawn moves two tiles, then its possible for the pawn to be subject to an en passant.
+        enPassantPossible = ((tile.coordinates.y - location.y) == (2 * forwardDirection)) ? true : false;
     }
 
     public void CheckForMovementToEnPassantTile(Tile tile)
@@ -175,16 +169,8 @@ public class Pawn : Piece
         board.DestroyPieceAt(tile);
         board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
 
-        // VERY UGLY WAY to determine interactable.. definitely need refactor
-        if (tile.piece.render.sharedMaterial == board.pieceWhite)
-        {
-            tile.piece.interactable = board.whitePieces[0].interactable;
-        }
-        else
-        {
-            tile.piece.interactable = board.blackPieces[0].interactable;
-
-        }
+        tile.piece.interactable = 
+        (tile.piece.render.sharedMaterial) ? board.whitePieces[0].interactable : board.blackPieces[0].interactable;
 
         GameManager.instance.promotionPanel.gameObject.SetActive(false);
         GameManager.instance.promotionPanel.buttonPressed = false;
