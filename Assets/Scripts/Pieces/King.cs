@@ -93,7 +93,7 @@ public class King : Piece
         for (int i = 0; i < moves.Count; i++)
         {
             Piece piece = board.tiles[moves[i].x][moves[i].y].piece;
-            moves.RemoveAll(x => piece != null && piece.defended);
+            moves.RemoveAll(x => piece != null && piece.defended && piece.render.sharedMaterial != render.sharedMaterial);
         }
     }
 
