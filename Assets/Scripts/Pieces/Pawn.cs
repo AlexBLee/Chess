@@ -73,12 +73,8 @@ public class Pawn : Piece
                 }
             }
             
-            
             // If it's not this pawn's turn, add the diagonals regardless if there is a piece or not at those tiles.
-            if (!interactable)
-            {
-                moves.Add(boardCoordPoint);
-            }          
+            if (!interactable) { moves.Add(boardCoordPoint); }        
         }        
     }
 
