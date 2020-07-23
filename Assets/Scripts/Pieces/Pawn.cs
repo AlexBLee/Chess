@@ -18,7 +18,7 @@ public class Pawn : Piece
             int moveIncrement = (firstMove) ? 2 : 1;
             
             // make enPassantPossible false the turn after it was enabled.
-            if (enPassantPossible) { enPassantPossible = false; }
+            enPassantPossible = false;
 
             for (int i = 0; i < moveIncrement; i++)
             {
@@ -98,7 +98,7 @@ public class Pawn : Piece
                 new Vector2Int(location.x + i, location.y + (1 * forwardDirection));
 
                 enPassantTile = enPassantCoordinate;
-                GameManager.instance.PENWriter.enPassantTile = currentTile.name;
+                GameManager.instance.PENWriter.enPassantTile = board.GetTile(enPassantTile).name;
 
                 moves.Add(enPassantCoordinate);
             }
@@ -134,16 +134,10 @@ public class Pawn : Piece
     }
 
     public void CheckForMovementToEnPassantTile(Tile tile)
-    {
-        if (tile.coordinates == enPassantTile)
-        {
-            // Pass by and destroy the pawn at the tile
-            board.DestroyPieceAt(this, board.tiles[enPassantTile.x][enPassantTile.y - (1 * forwardDirection)]);
-        }
-        else
-        {
-            board.DestroyPieceAt(this, tile);
-        }
+    {        
+        Tile tilePieceToDestroy = (tile.coordinates == enPassantTile) ? board.GetTile(enPassantTile) : tile;
+
+        board.DestroyPieceAt(this, tilePieceToDestroy);
     }
 
     public void CheckForMovementToPromotionTile(Tile tile)
