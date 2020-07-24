@@ -52,71 +52,65 @@ public class Piece : MonoBehaviour
         King kingRef = null;
         List<Vector2Int> line = new List<Vector2Int>();
 
-        int inc = 0;
-        while (inc < maxJump)
+        for (int i = 0; i < maxJump; i++)
         {
             Vector2Int boardCoordPoint = 
             new Vector2Int(location.x + xStep, location.y + (yStep * forwardDirection));
 
-            if (board.IsInBoard(boardCoordPoint))
-            {
-                Tile currentTile = board.tiles[boardCoordPoint.x][boardCoordPoint.y];
+            Tile currentTile = board.GetTile(boardCoordPoint);
+            if (currentTile == null) { continue; }
 
-                if (!IsPieceAtTile(boardCoordPoint))
+            if (!IsPieceAtTile(boardCoordPoint))
+            {
+                // If an enemy piece hasn't already appeared, keep adding moves.
+                if (enemyPieceFound == null)
                 {
-                    // If an enemy piece hasn't already appeared, keep adding moves.
+                    line.Add(boardCoordPoint);
+                    moves.Add(boardCoordPoint);
+                }
+            }
+            else if (IsFriendlyPiece(boardCoordPoint))
+            {
+                if (enemyPieceFound == null)
+                {
+                    currentTile.piece.defended = true;
+                }
+                return;
+            }
+            else if (!IsFriendlyPiece(boardCoordPoint))
+            {
+                if (currentTile.piece is King)
+                {
+                    // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
+                    // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
+                    // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
                     if (enemyPieceFound == null)
                     {
-                        line.Add(boardCoordPoint);
-                        moves.Add(boardCoordPoint);
-                    }
-                }
-                else if (IsFriendlyPiece(boardCoordPoint))
-                {
-                    if (enemyPieceFound == null)
-                    {
-                        currentTile.piece.defended = true;
-                        return;
-                    }
-                }
-                else if (!IsFriendlyPiece(boardCoordPoint))
-                {
-                    if (currentTile.piece is King)
-                    {
-                        // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
-                        // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
-                        // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
-                        if (enemyPieceFound == null)
-                        {
-                            kingRef = (King)currentTile.piece;
-                        }
-                        else
-                        {
-                            PinPiece(enemyPieceFound, kingRef, line, currentTile);
-                        }
+                        kingRef = (King)currentTile.piece;
                     }
                     else
                     {
-                        // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
-                        if (enemyPieceFound == null)
-                        {
-                            enemyPieceFound = currentTile.piece;
-                            moves.Add(boardCoordPoint);
-                        }
-                        // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
-                        else
-                        {
-                            return;
-                        }
+                        PinPiece(enemyPieceFound, kingRef, line, currentTile);
+                    }
+                }
+                else
+                {
+                    // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
+                    if (enemyPieceFound == null)
+                    {
+                        enemyPieceFound = currentTile.piece;
+                        moves.Add(boardCoordPoint);
+                    }
+                    // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
+                    else
+                    {
+                        return;
                     }
                 }
             }
-
-            if (xStep < 0) { xStep -= Mathf.Abs(xIncrement); } else if (xStep > 0) { xStep += xIncrement;}
-            if (yStep < 0) { yStep -= Mathf.Abs(yIncrement); } else if (yStep > 0) { yStep += yIncrement;}
-
-            inc++;
-
+            
+            xStep = (xStep < 0) ? xStep -= Mathf.Abs(xIncrement) : xStep += xIncrement;
+            yStep = (yStep < 0) ? yStep -= Mathf.Abs(yIncrement) : yStep += yIncrement; 
         }
 
         // Apply the check at the end of the entire line.
