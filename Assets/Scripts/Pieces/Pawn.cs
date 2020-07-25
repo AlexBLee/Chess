@@ -54,14 +54,14 @@ public class Pawn : Piece
             new Vector2Int(location.x + i, location.y + (1 * forwardDirection));
 
             Tile currentTile = board.GetTile(boardCoordPoint);
-            if (currentTile == null || currentTile.piece == null) { continue; }
+            if (currentTile == null) { continue; }
 
             if (IsFriendlyPiece(boardCoordPoint))
             {
                 currentTile.piece.defended = true;
             }
             // Attacking pieces on its diagonals
-            else
+            else if (IsEnemyPiece(boardCoordPoint))
             {
                 if (currentTile.piece is King king)
                 {

@@ -178,7 +178,12 @@ public class Piece : MonoBehaviour
 
     public bool IsFriendlyPiece(Vector2Int tile)
     {
-        return board.tiles[tile.x][tile.y].piece.interactable == interactable;
+        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable == interactable;
+    }
+
+    public bool IsEnemyPiece(Vector2Int tile)
+    {
+        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable != interactable;
     }
 
 
