@@ -77,7 +77,7 @@ public class Piece : MonoBehaviour
                 }
                 return;
             }
-            else if (!IsFriendlyPiece(boardCoordPoint))
+            else if (IsEnemyPiece(boardCoordPoint))
             {
                 if (currentTile.piece is King)
                 {

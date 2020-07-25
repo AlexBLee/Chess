@@ -86,9 +86,9 @@ public class Pawn : Piece
             new Vector2Int(location.x + i, location.y);
 
             Tile currentTile = board.GetTile(boardCoordPoint);
-            if (currentTile == null || currentTile.piece == null) { continue; }
+            if (currentTile == null) { continue; }
 
-            if (!IsFriendlyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn && pawn.enPassantPossible)
+            if (IsEnemyPiece(boardCoordPoint) && currentTile.piece is Pawn pawn && pawn.enPassantPossible)
             {
                 Vector2Int enPassantCoordinate = 
                 new Vector2Int(location.x + i, location.y + (1 * forwardDirection));
