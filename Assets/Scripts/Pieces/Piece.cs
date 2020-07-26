@@ -143,6 +143,7 @@ public class Piece : MonoBehaviour
     public virtual void MoveTo(Tile tile)
     {
         GameManager.instance.PENWriter.consecutivePieceMoves++;
+        GameManager.instance.movesWithoutCaptures++;
         
         // Make sure the previous Tile no longer owns the piece
         board.tiles[location.x][location.y].piece = null;

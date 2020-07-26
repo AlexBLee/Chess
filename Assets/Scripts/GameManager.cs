@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public King kingInCheck;
     public PromotionPanel promotionPanel;
     public int moveCounter;
+    public int movesWithoutCaptures;
 
 
     void Awake()
@@ -189,10 +190,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("draw by repitition");
         }
 
-        
-
-        
-
+        // If 50 complete moves without captures or pawn movement has happened..
+        if (PENWriter.consecutivePieceMoves == 100 && movesWithoutCaptures == 100)
+        {
+            Debug.Log("fifty move draw");
+        }
 
     }
 }

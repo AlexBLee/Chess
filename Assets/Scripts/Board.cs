@@ -194,6 +194,8 @@ public class Board : MonoBehaviour
         // Destroy the piece at that tile
         if (selectedTile.piece != null && selectedPiece.interactable != selectedTile.piece.interactable) 
         {
+            GameManager.instance.movesWithoutCaptures = 0;
+
             // TODO: clear piece from board function
             if (selectedTile.piece.render.sharedMaterial == pieceBlack)
             {
@@ -214,6 +216,8 @@ public class Board : MonoBehaviour
         // Destroy the piece at that tile
         if (selectedTile.piece != null)
         {
+            GameManager.instance.movesWithoutCaptures = 0;
+
             // TODO: clear piece from board function
             if (selectedTile.piece.render.sharedMaterial == pieceBlack)
             {
