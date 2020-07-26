@@ -178,7 +178,8 @@ public class GameManager : MonoBehaviour
     public void CheckDraw()
     {
         // If there are no more legal moves but king isn't in check..
-        if (kingInCheck == null && board.blackPieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count)
+        if (kingInCheck == null && (board.blackPieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count ||
+                                    board.whitePieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count))
         {
             Debug.Log("stalemate");
         }
