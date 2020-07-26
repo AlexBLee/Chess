@@ -8,6 +8,8 @@ public class PENWriter : MonoBehaviour
     private List<Piece> rookList = new List<Piece>();
     private King blackKing;
     private King whiteKing;
+
+    public List<string> positionHistory = new List<string>();
     
     public string enPassantTile;
     public int consecutivePieceMoves;
@@ -35,7 +37,7 @@ public class PENWriter : MonoBehaviour
         PEN += " " + consecutivePieceMoves;
         PEN += " " + moveCount;
 
-        Debug.Log(PEN);
+        positionHistory.Add(PEN.Substring(0, PEN.IndexOf(' ')));
     }
 
     private string WriteCastlePossibility()

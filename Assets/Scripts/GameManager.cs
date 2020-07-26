@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public PromotionPanel promotionPanel;
     public int moveCounter;
 
+
     void Awake()
     {
         if (instance == null)
@@ -168,16 +169,24 @@ public class GameManager : MonoBehaviour
                 CheckForCheckMate();
             }
 
-            CheckDraw();
             PENWriter.WritePosition();
+            CheckDraw();
         }
     }
 
     public void CheckDraw()
     {
+        // If there are no more legal moves but king isn't in check..
         if (kingInCheck == null && board.blackPieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count)
         {
             Debug.Log("stalemate");
+        }
+
+        // If there are 3 identical positions at any point in the game..
+        List<string> posHistory = PENWriter.positionHistory;
+        if (posHistory.Where(x => x.Equals(posHistory[posHistory.Count - 1])).Count() == 3)
+        {
+            Debug.Log("draw by repitition");
         }
 
         
