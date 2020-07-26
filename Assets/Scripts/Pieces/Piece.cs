@@ -58,23 +58,17 @@ public class Piece : MonoBehaviour
             new Vector2Int(location.x + xStep, location.y + (yStep * forwardDirection));
 
             Tile currentTile = board.GetTile(boardCoordPoint);
-            if (currentTile == null) { continue; }
+            if (currentTile == null) { return; }
 
-            if (!IsPieceAtTile(boardCoordPoint))
+            if (!IsPieceAtTile(boardCoordPoint) && enemyPieceFound == null)
             {
                 // If an enemy piece hasn't already appeared, keep adding moves.
-                if (enemyPieceFound == null)
-                {
-                    line.Add(boardCoordPoint);
-                    moves.Add(boardCoordPoint);
-                }
+                line.Add(boardCoordPoint);
+                moves.Add(boardCoordPoint);
             }
-            else if (IsFriendlyPiece(boardCoordPoint))
+            else if (IsFriendlyPiece(boardCoordPoint) && enemyPieceFound == null)
             {
-                if (enemyPieceFound == null)
-                {
-                    currentTile.piece.defended = true;
-                }
+                currentTile.piece.defended = true;
                 return;
             }
             else if (IsEnemyPiece(boardCoordPoint))
@@ -185,8 +179,6 @@ public class Piece : MonoBehaviour
     {
         return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable != interactable;
     }
-
-
 
     public void ApplyCheck(King king, List<Vector2Int> line)
     {
