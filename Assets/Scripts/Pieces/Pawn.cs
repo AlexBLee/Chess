@@ -25,19 +25,15 @@ public class Pawn : Piece
                 Vector2Int boardCoordPoint = 
                 new Vector2Int(location.x, location.y + (i + 1) * forwardDirection);
                 
-                if (!IsPieceAtTile(boardCoordPoint))
-                {
-                    moves.Add(boardCoordPoint);
-                }
-                else
+                if (IsPieceAtTile(boardCoordPoint))
                 {
                     break;
                 }
+                moves.Add(boardCoordPoint);
             }       
 
             CheckForEnPassant();
             AttackDiagonals();
-
         }
         else
         {
