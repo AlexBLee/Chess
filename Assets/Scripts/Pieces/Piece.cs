@@ -89,17 +89,14 @@ public class Piece : MonoBehaviour
                 }
                 else
                 {
-                    // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
-                    if (enemyPieceFound == null)
-                    {
-                        enemyPieceFound = currentTile.piece;
-                        moves.Add(boardCoordPoint);
-                    }
                     // If an enemy piece has already been found and the next piece is anything but a king, do nothing and break.
-                    else
+                    if (enemyPieceFound != null)
                     {
                         return;
                     }
+                    // If a piece has not yet been set, set it and begin looking at the tiles behind the piece
+                    enemyPieceFound = currentTile.piece;
+                    moves.Add(boardCoordPoint);
                 }
             }
             
