@@ -49,7 +49,6 @@ public class Piece : MonoBehaviour
         Piece enemyPieceFound = null;
 
         // List for if a king is checked in the same line
-        King kingRef = null;
         List<Vector2Int> line = new List<Vector2Int>();
 
         for (int i = 0; i < maxJump; i++)
@@ -73,19 +72,19 @@ public class Piece : MonoBehaviour
             }
             else if (IsEnemyPiece(boardCoordPoint))
             {
-                if (currentTile.piece is King)
+                if (currentTile.piece is King king)
                 {
                     // If the 1ST ENEMY PIECE found is the King, assign the king for reference purposes:
                     // Cannot apply check right away because the piece has to take the ENTIRE line into consideration and then
                     // check at the END otherwise the king will still be able to move along the line, which it shouldn't be able to.
                     if (enemyPieceFound == null)
                     {
-                        kingRef = (King)currentTile.piece;
-                        kingRef.line = new List<Vector2Int>(line);
+                        king.line = new List<Vector2Int>(line);
+                        ApplyCheck(king);
                     }
                     else
                     {
-                        PinPiece(enemyPieceFound, kingRef, line, currentTile);
+                        PinPiece(enemyPieceFound, king, line, currentTile);
                     }
                 }
                 else
@@ -104,13 +103,6 @@ public class Piece : MonoBehaviour
             xStep = (xStep < 0) ? xStep -= Mathf.Abs(xIncrement) : xStep += xIncrement;
             yStep = (yStep < 0) ? yStep -= Mathf.Abs(yIncrement) : yStep += yIncrement; 
         }
-
-        // Apply the check at the end of the entire line.
-        if (kingRef != null)
-        {
-            ApplyCheck(kingRef);
-        }
-
     }
 
     private void PinPiece(Piece enemyPieceFound, King kingRef, List<Vector2Int> line, Tile currentTile)
