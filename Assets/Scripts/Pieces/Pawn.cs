@@ -61,7 +61,7 @@ public class Pawn : Piece
             {
                 if (currentTile.piece is King king)
                 {
-                    ApplyCheck(king, boardCoordPoint);
+                    ApplyCheck(king);
                 }
                 else
                 {

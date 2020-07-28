@@ -81,6 +81,7 @@ public class Piece : MonoBehaviour
                     if (enemyPieceFound == null)
                     {
                         kingRef = (King)currentTile.piece;
+                        kingRef.line = new List<Vector2Int>(line);
                     }
                     else
                     {
@@ -107,7 +108,7 @@ public class Piece : MonoBehaviour
         // Apply the check at the end of the entire line.
         if (kingRef != null)
         {
-            ApplyCheck((King)kingRef, line);
+            ApplyCheck(kingRef);
         }
 
     }
@@ -178,23 +179,12 @@ public class Piece : MonoBehaviour
         return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable != interactable;
     }
 
-    public void ApplyCheck(King king, List<Vector2Int> line)
+    public void ApplyCheck(King king)
     {
         king.check = true;
         king.canCastleRight = false;
         king.canCastleLeft = false;
         king.line.Add(location);
-        king.line.AddRange(line);
-        GameManager.instance.kingInCheck = king;
-    }
-
-    public void ApplyCheck(King king, Vector2Int tile)
-    {
-        king.check = true;
-        king.canCastleRight = false;
-        king.canCastleLeft = false;
-        king.line.Add(location);
-        king.line.Add(tile);
         GameManager.instance.kingInCheck = king;
     }
 }
