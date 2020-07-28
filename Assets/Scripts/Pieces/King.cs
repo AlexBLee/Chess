@@ -43,7 +43,7 @@ public class King : Piece
         // diagonal backwards left
         CalculateMoves(-1, -1, true);
 
-        if (!hasMoved)
+        if (!hasMoved && !check)
         {
             // Check both directions for castling
             canCastleRight = CheckCastle(1);
