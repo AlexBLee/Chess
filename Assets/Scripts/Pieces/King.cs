@@ -90,11 +90,10 @@ public class King : Piece
     private void RemoveDefendedPieceTiles()
     {
         // Remove moves where the piece is defended.
-        for (int i = 0; i < moves.Count; i++)
-        {
-            Piece piece = board.tiles[moves[i].x][moves[i].y].piece;
-            moves.RemoveAll(x => piece != null && piece.defended && piece.render.sharedMaterial != render.sharedMaterial);
-        }
+        moves.RemoveAll(x => 
+        board.tiles[x.x][x.y].piece != null && 
+        board.tiles[x.x][x.y].piece.defended && 
+        board.tiles[x.x][x.y].piece.render.sharedMaterial != render.sharedMaterial);
     }
 
     private bool CheckCastle(int direction)
