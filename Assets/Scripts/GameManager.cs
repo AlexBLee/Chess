@@ -154,7 +154,9 @@ public class GameManager : MonoBehaviour
     {
         if (kingInCheck.check && kingInCheck.moves.Count == 0 && !kingInCheck.checkDefended)
         {
-            Debug.Log("checkmate");
+            string side = (kingInCheck.render.sharedMaterial == board.pieceWhite) ? "Black " : "White ";
+            resultPanel.gameObject.SetActive(true);
+            resultPanel.DisplayText(side + "wins by checkmate");
         }
         kingInCheck.line.Clear();
     }
