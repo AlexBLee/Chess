@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool paused;
     public King kingInCheck;
     public PromotionPanel promotionPanel;
+    public ResultPanel resultPanel;
     public int moveCounter;
     public int movesWithoutCaptures;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         }
 
         promotionPanel.gameObject.SetActive(false);
+        resultPanel.gameObject.SetActive(false);
     }
 
     public void FindWhiteMoves()

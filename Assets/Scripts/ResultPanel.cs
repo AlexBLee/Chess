@@ -6,9 +6,9 @@ using TMPro;
 
 public class ResultPanel : MonoBehaviour
 {
-    TextMeshProUGUI resultText;
-    Button playAgainButton;
-    Button quitButton;
+    public TextMeshProUGUI resultText;
+    public Button playAgainButton;
+    public Button quitButton;
 
     void Start()
     {
