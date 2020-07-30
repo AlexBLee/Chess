@@ -185,20 +185,23 @@ public class GameManager : MonoBehaviour
         if (kingInCheck == null && (board.blackPieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count ||
                                     board.whitePieces.Where(x => x.moves.Count == 0).Count() == board.blackPieces.Count))
         {
-            Debug.Log("stalemate");
+            resultPanel.gameObject.SetActive(true);
+            resultPanel.DisplayText("Stalemate");
         }
 
         // If there are 3 identical positions at any point in the game..
         List<string> posHistory = PENWriter.positionHistory;
         if (posHistory.Where(x => x.Equals(posHistory[posHistory.Count - 1])).Count() == 3)
         {
-            Debug.Log("draw by repitition");
+            resultPanel.gameObject.SetActive(true);
+            resultPanel.DisplayText("Draw by repitition");
         }
 
         // If 50 complete moves without captures or pawn movement has happened..
         if (PENWriter.consecutivePieceMoves == 100 && movesWithoutCaptures == 100)
         {
-            Debug.Log("fifty move draw");
+            resultPanel.gameObject.SetActive(true);
+            resultPanel.DisplayText("Fifty move draw");
         }
 
     }
