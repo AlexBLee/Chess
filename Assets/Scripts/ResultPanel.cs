@@ -29,6 +29,6 @@ public class ResultPanel : MonoBehaviour
 
     void QuitToMenu()
     {
-
+        SceneManager.LoadScene("Menu");
     }
 }
