@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ResultPanel : MonoBehaviour
@@ -23,7 +24,7 @@ public class ResultPanel : MonoBehaviour
 
     void PlayAgain()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void QuitToMenu()
