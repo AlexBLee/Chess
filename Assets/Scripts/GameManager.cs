@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public PENWriter PENWriter;
+    public Stockfish stockfish;
     public Board board;
     public bool whiteTurn = true;
     public bool check;
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
             piece.defended = false;
             piece.pinned = false;
         }
+
     }
 
     public void SetGameState(bool state)
@@ -174,7 +176,7 @@ public class GameManager : MonoBehaviour
                 CheckForCheckMate();
             }
 
-            PENWriter.WritePosition();
+            stockfish.GetBestMove(PENWriter.WritePosition());
             CheckDraw();
         }
     }

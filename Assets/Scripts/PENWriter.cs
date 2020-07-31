@@ -26,7 +26,7 @@ public class PENWriter : MonoBehaviour
         WritePosition();
     }
 
-    public void WritePosition()
+    public string WritePosition()
     {
         string PEN = "";
 
@@ -38,6 +38,8 @@ public class PENWriter : MonoBehaviour
         PEN += " " + moveCount;
 
         positionHistory.Add(PEN.Substring(0, PEN.IndexOf(' ')));
+
+        return PEN;
     }
 
     private string WriteCastlePossibility()
