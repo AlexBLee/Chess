@@ -25,6 +25,8 @@ public class Stockfish : MonoBehaviour
         // Process 20 deep
         // String processString = "go depth 20";
 
+        p.StandardInput.WriteLine("setoption name Thread value 2");
+        p.StandardInput.WriteLine("setoption name hash value 1024");
         p.StandardInput.WriteLine(processString);
 
         string bestMoveInAlgebraicNotation = null;
