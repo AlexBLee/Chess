@@ -31,13 +31,26 @@ public class Stockfish : MonoBehaviour
 
             if (bestMoveInAlgebraicNotation.Contains("bestmove"))
             {
+                ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(9,2));
+                ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(11,2));
+
                 break;
             }
         }
 
 
         p.Close();
-        Debug.Log(bestMoveInAlgebraicNotation);
         return bestMoveInAlgebraicNotation;
+    }
+
+    public Vector2Int ConvertAlgNotationToCoordinates(string not)
+    {
+        // Convert letter to x coordinate
+        int letterNumber = not[0] - 97;
+
+        // Convert number - 1 to y coordinate 
+        int numberCoor = not[1] - '0' - 1;
+
+        return new Vector2Int(letterNumber, numberCoor);
     }
 }
