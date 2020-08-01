@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Stockfish : MonoBehaviour
 {
-    public string GetBestMove(string forsythEdwardsNotationString)
+    public Vector2Int startPos;
+    public Vector2Int resultPos;
+
+    public void GetBestMove(string forsythEdwardsNotationString)
     {
         var p = new System.Diagnostics.Process();
         p.StartInfo.FileName = "F:/Portfolio/Unity/Projects/Prototypes/Chess-2/Assets/Scripts/stockfish.exe";
@@ -31,16 +34,13 @@ public class Stockfish : MonoBehaviour
 
             if (bestMoveInAlgebraicNotation.Contains("bestmove"))
             {
-                ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(9,2));
-                ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(11,2));
-
+                startPos = ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(9,2));
+                resultPos = ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(11,2));
                 break;
             }
         }
 
-
         p.Close();
-        return bestMoveInAlgebraicNotation;
     }
 
     public Vector2Int ConvertAlgNotationToCoordinates(string not)

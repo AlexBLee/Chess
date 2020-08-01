@@ -169,15 +169,21 @@ public class GameManager : MonoBehaviour
         {
             SwitchSides();
             FindAllPossibleMoves();
-                
+            
+
             if (kingInCheck != null)
             {
                 CheckKingCheck();
                 CheckForCheckMate();
             }
 
-            stockfish.GetBestMove(PENWriter.WritePosition());
             CheckDraw();
+
+            if (!whiteTurn)
+            {
+                MakeBotMove();
+            }
+
         }
     }
 
@@ -206,5 +212,12 @@ public class GameManager : MonoBehaviour
             resultPanel.DisplayText("Fifty move draw");
         }
 
+    }
+
+    public void MakeBotMove()
+    {
+        stockfish.GetBestMove(PENWriter.WritePosition());
+        board.tiles[stockfish.startPos.x][stockfish.startPos.y].piece.MoveTo(board.tiles[stockfish.resultPos.x][stockfish.resultPos.y]);
+        NextTurn();
     }
 }
