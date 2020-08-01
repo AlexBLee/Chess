@@ -8,6 +8,7 @@ public class Stockfish : MonoBehaviour
     {
         var p = new System.Diagnostics.Process();
         p.StartInfo.FileName = "F:/Portfolio/Unity/Projects/Prototypes/Chess-2/Assets/Scripts/stockfish.exe";
+        p.StartInfo.CreateNoWindow = true;
         p.StartInfo.UseShellExecute = false;
         p.StartInfo.RedirectStandardInput = true;
         p.StartInfo.RedirectStandardOutput = true;
