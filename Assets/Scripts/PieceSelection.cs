@@ -12,18 +12,21 @@ public class PieceSelection : MonoBehaviour
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit))
+        if (GameManager.instance.whiteTurn)
         {
-            if (pieceSelected)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit))
             {
-                MakeMove(hit.transform.GetComponent<Tile>());
-            }
-            else
-            {
-                SelectPiece(hit.transform.GetComponent<Tile>().piece);
+                if (pieceSelected)
+                {
+                    MakeMove(hit.transform.GetComponent<Tile>());
+                }
+                else
+                {
+                    SelectPiece(hit.transform.GetComponent<Tile>().piece);
+                }
             }
         }
     }
