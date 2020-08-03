@@ -34,8 +34,7 @@ public class GameManager : MonoBehaviour
         // If the player starts as black, use alternate camera position
         if (!whiteSide)
         {
-            Camera.main.transform.position = blackSideCameraPos.position;
-            Camera.main.transform.rotation = blackSideCameraPos.rotation;
+            Camera.main.transform.SetPositionAndRotation(blackSideCameraPos.position, blackSideCameraPos.rotation);
         }
 
         promotionPanel.gameObject.SetActive(false);
