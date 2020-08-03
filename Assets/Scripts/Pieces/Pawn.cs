@@ -111,7 +111,7 @@ public class Pawn : Piece
 
         // Move piece to new Tile
         tile.piece = this;
-        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 1.0f);
+        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
         location = tile.coordinates;
 
         CheckForMovementToPromotionTile(tile);

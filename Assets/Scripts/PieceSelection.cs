@@ -66,8 +66,7 @@ public class PieceSelection : MonoBehaviour
             // Colour the board back to normal
             board.ResetPieceMoveTileColours(selectedPiece);
             selectedPiece.MoveTo(selectedTile);
-            
-            GameManager.instance.NextTurn();
+            StartCoroutine(AddDelay());
         }
         else
         {
@@ -75,5 +74,12 @@ public class PieceSelection : MonoBehaviour
         }
 
         pieceSelected = false;
+    }
+
+    public IEnumerator AddDelay()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameManager.instance.NextTurn();
+
     }
 }

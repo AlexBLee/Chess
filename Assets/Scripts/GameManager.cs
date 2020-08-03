@@ -220,4 +220,6 @@ public class GameManager : MonoBehaviour
         board.tiles[stockfish.startPos.x][stockfish.startPos.y].piece.MoveTo(board.tiles[stockfish.resultPos.x][stockfish.resultPos.y]);
         NextTurn();
     }
+
+    
 }
