@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public ResultPanel resultPanel;
     public int moveCounter;
     public int movesWithoutCaptures;
-
+    public bool whiteSide;
+    public Transform blackSideCameraPos;
 
     void Awake()
     {
@@ -28,6 +29,13 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+        }
+
+        // If the player starts as black, use alternate camera position
+        if (!whiteSide)
+        {
+            Camera.main.transform.position = blackSideCameraPos.position;
+            Camera.main.transform.rotation = blackSideCameraPos.rotation;
         }
 
         promotionPanel.gameObject.SetActive(false);
