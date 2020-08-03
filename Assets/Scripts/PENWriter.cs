@@ -38,7 +38,6 @@ public class PENWriter : MonoBehaviour
         PEN += " " + moveCount;
 
         positionHistory.Add(PEN.Substring(0, PEN.IndexOf(' ')));
-
         return PEN;
     }
 
@@ -50,6 +49,7 @@ public class PENWriter : MonoBehaviour
         for (int i = rookList.Count - 1; i >= 0; i--)
         {
             Rook rook = (Rook)rookList[i];
+            if (rook == null) continue;
 
             // If kings or rook have moved, skip finding a character for the string.
             if (rook.hasMoved)

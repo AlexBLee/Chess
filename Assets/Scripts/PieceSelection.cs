@@ -12,8 +12,8 @@ public class PieceSelection : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.whiteTurn)
-        {
+        // if (GameManager.instance.whiteTurn)
+        // {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -28,7 +28,7 @@ public class PieceSelection : MonoBehaviour
                     SelectPiece(hit.transform.GetComponent<Tile>().piece);
                 }
             }
-        }
+        // }
     }
 
     public void SelectPiece(Piece piece)

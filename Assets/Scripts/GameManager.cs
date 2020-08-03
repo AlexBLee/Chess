@@ -177,12 +177,13 @@ public class GameManager : MonoBehaviour
                 CheckForCheckMate();
             }
 
-            CheckDraw();
 
-            if (!whiteTurn)
-            {
-                MakeBotMove();
-            }
+            CheckDraw();
+            PENWriter.WritePosition();
+            // if (!whiteTurn)
+            // {
+            //     MakeBotMove();
+            // }
 
         }
     }
