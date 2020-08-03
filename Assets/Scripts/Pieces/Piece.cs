@@ -110,15 +110,15 @@ public class Piece : MonoBehaviour
         // Need to know ahead of time of what moves the enemy piece can make
         enemyPieceFound.FindMoveSet();
         
-        // Get only the moves along the checked line and add it to the enemy piece
-        enemyPieceFound.pinnedMoveList = enemyPieceFound.moves.Intersect(line).ToList();
-
         // Only add current coordinates if its not a pawn as the pawn would be able to teleport and
         // capture pieces way out of it s moveset.
         if (!(enemyPieceFound is Pawn))
         {
-            enemyPieceFound.pinnedMoveList.Add(location);
+            line.Add(location);
         }
+
+        // Get only the moves along the checked line and add it to the enemy piece
+        enemyPieceFound.moves = enemyPieceFound.moves.Intersect(line).ToList();
 
         enemyPieceFound.pinned = true;
         

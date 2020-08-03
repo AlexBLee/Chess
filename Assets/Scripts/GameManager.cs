@@ -42,10 +42,7 @@ public class GameManager : MonoBehaviour
             {
                 piece.FindMoveSet();
             }
-            else if (piece.pinned && piece.interactable)
-            {
-                piece.moves = piece.pinnedMoveList;
-            }
+
         }
     }
 
@@ -56,10 +53,6 @@ public class GameManager : MonoBehaviour
             if (!piece.pinned)
             {
                 piece.FindMoveSet();
-            }
-            else if (piece.pinned && piece.interactable)
-            {
-                piece.moves = piece.pinnedMoveList;
             }
         }
     }
