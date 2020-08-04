@@ -125,14 +125,14 @@ public class GameManager : MonoBehaviour
 
         foreach (Piece piece in board.whitePieces)
         {
-            piece.interactable = (piece.interactable == true) ? false : true;
+            piece.interactable = (whiteTurn == true) ? true : false;
             piece.defended = false;
             piece.pinned = false;
         }
 
         foreach (Piece piece in board.blackPieces)
         {
-            piece.interactable = (piece.interactable == true) ? false : true;
+            piece.interactable = (whiteTurn == true) ? false : true;
             piece.defended = false;
             piece.pinned = false;
         }

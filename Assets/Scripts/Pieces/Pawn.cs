@@ -159,9 +159,6 @@ public class Pawn : Piece
         board.DestroyPieceAt(tile);
         board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)promotionNumber, render.sharedMaterial);
 
-        tile.piece.interactable = 
-        (tile.piece.render.sharedMaterial) ? board.whitePieces[0].interactable : board.blackPieces[0].interactable;
-
         GameManager.instance.promotionPanel.gameObject.SetActive(false);
         GameManager.instance.promotionPanel.buttonPressed = false;
 
