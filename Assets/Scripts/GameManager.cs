@@ -43,13 +43,16 @@ public class GameManager : MonoBehaviour
             playerTurn = true;
         }
 
+        promotionPanel.gameObject.SetActive(false);
+        resultPanel.gameObject.SetActive(false);
+    }
+
+    private void Start() {
+
         if (!playerTurn)
         {
             MakeBotMove();
         }
-
-        promotionPanel.gameObject.SetActive(false);
-        resultPanel.gameObject.SetActive(false);
     }
 
     public void FindWhiteMoves()
