@@ -735,6 +735,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 1075530551}
   quitButton: {fileID: 1753618515}
+  whiteButton: {fileID: 1675965011}
+  blackButton: {fileID: 710496506}
+  randomButton: {fileID: 1285364689}
   selectionPanel: {fileID: 2133595476}
 --- !u!4 &823874868
 Transform:
