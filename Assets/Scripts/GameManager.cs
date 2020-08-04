@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public ResultPanel resultPanel;
     public int moveCounter;
     public int movesWithoutCaptures;
-    public bool whiteSide;
+    public static bool whiteSide;
     public Transform blackSideCameraPos;
     public bool playerTurn;
 

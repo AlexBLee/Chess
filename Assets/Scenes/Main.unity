@@ -5272,6 +5272,7 @@ MonoBehaviour:
   movesWithoutCaptures: 0
   whiteSide: 0
   blackSideCameraPos: {fileID: 797006145}
+  playerTurn: 0
 --- !u!4 &2103853830
 Transform:
   m_ObjectHideFlags: 0
