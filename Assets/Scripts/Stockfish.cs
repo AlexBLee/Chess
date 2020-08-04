@@ -6,6 +6,7 @@ public class Stockfish : MonoBehaviour
 {
     public Vector2Int startPos;
     public Vector2Int resultPos;
+    public int promotionNumber;
 
     public System.Diagnostics.Process process;
 
@@ -35,6 +36,9 @@ public class Stockfish : MonoBehaviour
             {
                 startPos = ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(9,2));
                 resultPos = ConvertAlgNotationToCoordinates(bestMoveInAlgebraicNotation.Substring(11,2));
+
+                GetPromotionPiece(bestMoveInAlgebraicNotation);
+    
                 break;
             }
         }
@@ -51,5 +55,32 @@ public class Stockfish : MonoBehaviour
         int numberCoor = not[1] - '0' - 1;
 
         return new Vector2Int(letterNumber, numberCoor);
+    }
+
+    public void GetPromotionPiece(string notation)
+    {
+        if (notation.Length > 13)
+        {
+            char promotionLetter = notation[13];
+
+            switch (promotionLetter)
+            {
+                case 'q':
+                    promotionNumber = 4;
+                    break;
+                
+                case 'b':
+                    promotionNumber = 3;
+                    break;
+
+                case 'n':
+                    promotionNumber = 2;
+                    break;
+
+                case 'r':
+                    promotionNumber = 1;
+                    break;
+            }
+        }
     }
 }

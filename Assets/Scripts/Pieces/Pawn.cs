@@ -139,21 +139,25 @@ public class Pawn : Piece
 
         if (tile.coordinates.y == side)
         {
-            GameManager.instance.promotionPanel.gameObject.SetActive(true);
+            if (GameManager.instance.playerTurn)
+            {
+                GameManager.instance.promotionPanel.gameObject.SetActive(true);
+            }
             GameManager.instance.SetGameState(false);
-    
-            StartCoroutine(PromotePiece(tile));        
+                
+            int x = (GameManager.instance.playerTurn) ? GameManager.instance.promotionPanel.number : GameManager.instance.stockfish.promotionNumber;
+            StartCoroutine(PromotePiece(tile, x));        
         }
     }
 
-    IEnumerator PromotePiece(Tile tile)
+    IEnumerator PromotePiece(Tile tile, int promotionNumber)
     {
-        while (!GameManager.instance.promotionPanel.buttonPressed)
+        while (!GameManager.instance.promotionPanel.buttonPressed && GameManager.instance.playerTurn)
         {
             yield return null;
         }
         board.DestroyPieceAt(tile);
-        board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
+        board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)promotionNumber, render.sharedMaterial);
 
         tile.piece.interactable = 
         (tile.piece.render.sharedMaterial) ? board.whitePieces[0].interactable : board.blackPieces[0].interactable;
@@ -162,6 +166,10 @@ public class Pawn : Piece
         GameManager.instance.promotionPanel.buttonPressed = false;
 
         GameManager.instance.SetGameState(true);
-        GameManager.instance.NextTurn();
+
+        if (GameManager.instance.playerTurn)
+        {
+            GameManager.instance.NextTurn();
+        }
     }
 }
