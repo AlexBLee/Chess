@@ -194,7 +194,7 @@ public class Board : MonoBehaviour
     public void DestroyPieceAt(Piece selectedPiece, Tile selectedTile)
     {
         // Destroy the piece at that tile
-        if (selectedTile.piece != null && selectedPiece.interactable != selectedTile.piece.interactable) 
+        if (selectedTile.piece != null && selectedPiece.render.sharedMaterial != selectedTile.piece.render.sharedMaterial) 
         {
             GameManager.instance.movesWithoutCaptures = 0;
 

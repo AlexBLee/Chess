@@ -43,7 +43,7 @@ public class PieceSelection : MonoBehaviour
                 Tile tile = board.tiles[move.x][move.y];
 
                 // If the piece can attack a piece, then turn it red
-                if (tile.piece != null && (tile.piece.interactable != selectedPiece.interactable))
+                if (tile.piece != null && (tile.piece.render.sharedMaterial != selectedPiece.render.sharedMaterial))
                 {
                     board.SetTileColour(tile, board.pieceAttack);
                 }

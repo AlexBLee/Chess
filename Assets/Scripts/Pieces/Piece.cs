@@ -157,12 +157,12 @@ public class Piece : MonoBehaviour
 
     public bool IsFriendlyPiece(Vector2Int tile)
     {
-        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable == interactable;
+        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.render.sharedMaterial == render.sharedMaterial;
     }
 
     public bool IsEnemyPiece(Vector2Int tile)
     {
-        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.interactable != interactable;
+        return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.render.sharedMaterial != render.sharedMaterial;
     }
 
     public void ApplyCheck(King king)
