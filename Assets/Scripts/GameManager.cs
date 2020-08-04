@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int movesWithoutCaptures;
     public bool whiteSide;
     public Transform blackSideCameraPos;
+    public bool playerTurn;
 
     void Awake()
     {
@@ -34,7 +35,17 @@ public class GameManager : MonoBehaviour
         // If the player starts as black, use alternate camera position
         if (!whiteSide)
         {
+            playerTurn = false;
             Camera.main.transform.SetPositionAndRotation(blackSideCameraPos.position, blackSideCameraPos.rotation);
+        }
+        else
+        {
+            playerTurn = true;
+        }
+
+        if (!playerTurn)
+        {
+            MakeBotMove();
         }
 
         promotionPanel.gameObject.SetActive(false);
@@ -82,6 +93,7 @@ public class GameManager : MonoBehaviour
     public void SwitchSides()
     {
         whiteTurn = (whiteTurn == true) ? false : true;
+        playerTurn = (playerTurn == true) ? false : true;
 
         moveCounter--;
         if (moveCounter % 2 == 0)
@@ -169,7 +181,6 @@ public class GameManager : MonoBehaviour
         {
             SwitchSides();
             FindAllPossibleMoves();
-            
 
             if (kingInCheck != null)
             {
@@ -177,13 +188,13 @@ public class GameManager : MonoBehaviour
                 CheckForCheckMate();
             }
 
-
             CheckDraw();
             PENWriter.WritePosition();
-            // if (!whiteTurn)
-            // {
-            //     MakeBotMove();
-            // }
+
+            if (!playerTurn)
+            {
+                MakeBotMove();
+            }
 
         }
     }
