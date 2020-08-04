@@ -24,6 +24,7 @@ public class PENWriter : MonoBehaviour
         rookList.AddRange(board.blackPieces.FindAll(x => x is Rook));
         rookList.AddRange(board.whitePieces.FindAll(x => x is Rook));
         WritePosition();
+
     }
 
     public string WritePosition()
@@ -37,8 +38,13 @@ public class PENWriter : MonoBehaviour
         PEN += " " + consecutivePieceMoves;
         PEN += " " + moveCount;
 
-        positionHistory.Add(PEN.Substring(0, PEN.IndexOf(' ')));
         return PEN;
+    }
+
+    public void AddPositionToHistory()
+    {
+        string PEN = WritePosition();
+        positionHistory.Add(PEN.Substring(0, PEN.IndexOf(' ')));
     }
 
     private string WriteCastlePossibility()

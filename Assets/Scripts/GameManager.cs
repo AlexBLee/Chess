@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         promotionPanel.gameObject.SetActive(false);
         resultPanel.gameObject.SetActive(false);
+
     }
 
     private void Start() {
@@ -192,7 +193,7 @@ public class GameManager : MonoBehaviour
             }
 
             CheckDraw();
-            PENWriter.WritePosition();
+            PENWriter.AddPositionToHistory();
 
             if (!playerTurn)
             {
@@ -232,6 +233,8 @@ public class GameManager : MonoBehaviour
     public void MakeBotMove()
     {
         stockfish.GetBestMove(PENWriter.WritePosition());
+        PENWriter.AddPositionToHistory();
+
         board.tiles[stockfish.startPos.x][stockfish.startPos.y].piece.MoveTo(board.tiles[stockfish.resultPos.x][stockfish.resultPos.y]);
         NextTurn();
     }
