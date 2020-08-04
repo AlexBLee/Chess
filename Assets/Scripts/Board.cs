@@ -152,10 +152,12 @@ public class Board : MonoBehaviour
 
         selectedTile.piece = pieces[(int)pieceType];
 
+        Quaternion correctRotation = (material == pieceWhite) ? Quaternion.Euler(0,270,0) : Quaternion.Euler(0,90,0);
+
         selectedTile.piece = 
         Instantiate(selectedTile.piece, 
         tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
-        Quaternion.Euler(0,90,0),
+        correctRotation,
         transform);
 
         selectedTile.piece.location = new Vector2Int(x, y);
