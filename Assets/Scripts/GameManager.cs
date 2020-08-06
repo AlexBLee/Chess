@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
         }
 
         // If 50 complete moves without captures or pawn movement has happened..
-        if (PENWriter.consecutivePieceMoves == 100 && movesWithoutCaptures == 100)
+        if (PENWriter.consecutivePieceMoves >= 100 && movesWithoutCaptures >= 100)
         {
             resultPanel.gameObject.SetActive(true);
             resultPanel.DisplayText("Fifty move draw");
