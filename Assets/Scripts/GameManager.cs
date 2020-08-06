@@ -190,6 +190,8 @@ public class GameManager : MonoBehaviour
     {
         if (!paused)
         {
+            PENWriter.AddPositionToHistory();
+
             SwitchSides();
             FindAllPossibleMoves();
 
@@ -200,7 +202,6 @@ public class GameManager : MonoBehaviour
             }
 
             CheckDraw();
-            PENWriter.AddPositionToHistory();
 
             // if (!playerTurn)
             // {
@@ -225,7 +226,6 @@ public class GameManager : MonoBehaviour
         if (posHistory.Where(x => x.Equals(posHistory[posHistory.Count - 1])).Count() == 3)
         {
             resultPanel.gameObject.SetActive(true);
-            Debug.Log(posHistory[posHistory.Count - 1]);
             resultPanel.DisplayText("Draw by repitition");
         }
 

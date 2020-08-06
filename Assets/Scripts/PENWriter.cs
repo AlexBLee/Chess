@@ -23,7 +23,7 @@ public class PENWriter : MonoBehaviour
         whiteKing = (King)board.whitePieces.Find(x => x is King);
         rookList.AddRange(board.blackPieces.FindAll(x => x is Rook));
         rookList.AddRange(board.whitePieces.FindAll(x => x is Rook));
-        WritePosition();
+        AddPositionToHistory();
 
     }
 
