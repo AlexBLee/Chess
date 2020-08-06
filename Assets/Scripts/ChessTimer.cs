@@ -12,6 +12,12 @@ public class ChessTimer : MonoBehaviour
     public TextMeshProUGUI whiteTimerText;
     public TextMeshProUGUI blackTimerText;
 
+    private void Start() 
+    {
+        UpdateText(whiteTimerText, whiteTimerValue);
+        UpdateText(blackTimerText, blackTimerValue);
+    }
+
     public void StartCountdown()
     {
         StopAllCoroutines();
@@ -32,8 +38,7 @@ public class ChessTimer : MonoBehaviour
         while (blackTimerValue > 0)
         {
             blackTimerValue--;
-            TimeSpan time = TimeSpan.FromSeconds(blackTimerValue);
-            UpdateText(blackTimerText, time.ToString(@"mm\:ss"));
+            UpdateText(blackTimerText, blackTimerValue);
 
             yield return new WaitForSeconds(1.0f);
         }
@@ -44,15 +49,15 @@ public class ChessTimer : MonoBehaviour
         while (whiteTimerValue > 0)
         {
             whiteTimerValue--;
-            TimeSpan time = TimeSpan.FromSeconds(whiteTimerValue);
-            UpdateText(whiteTimerText, time.ToString(@"mm\:ss"));
-            
+            UpdateText(whiteTimerText, whiteTimerValue);
+
             yield return new WaitForSeconds(1.0f);
         }
     }
 
-    public void UpdateText(TextMeshProUGUI text, string value)
+    public void UpdateText(TextMeshProUGUI text, float timerValue)
     {
-        text.text = value;
+        TimeSpan time = TimeSpan.FromSeconds(timerValue);
+        text.text = time.ToString(@"mm\:ss");
     }
 }
