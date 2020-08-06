@@ -63,6 +63,9 @@ public class PieceSelection : MonoBehaviour
         // If the clicked tile is possible for the piece to move to, move there
         if (selectedPiece.moves.Any(move => move == selectedTile.coordinates))
         {
+            // Used for indicating if a player or bot has made the move;
+            GameManager.instance.playerControlled = true;
+
             // Colour the board back to normal
             board.ResetPieceMoveTileColours(selectedPiece);
             selectedPiece.MoveTo(selectedTile);

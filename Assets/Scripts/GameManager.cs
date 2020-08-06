@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static bool whiteSide;
     public Transform blackSideCameraPos;
     public bool playerTurn;
+    public bool playerControlled;
 
     void Awake()
     {
@@ -240,6 +241,8 @@ public class GameManager : MonoBehaviour
 
     public void MakeBotMove()
     {
+        GameManager.instance.playerControlled = false;
+        
         stockfish.GetBestMove(PENWriter.WritePosition());
         PENWriter.AddPositionToHistory();
 

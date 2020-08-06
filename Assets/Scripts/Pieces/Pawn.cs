@@ -139,20 +139,20 @@ public class Pawn : Piece
 
         if (tile.coordinates.y == side)
         {
-            if (GameManager.instance.playerTurn)
+            if (GameManager.instance.playerControlled)
             {
                 GameManager.instance.promotionPanel.gameObject.SetActive(true);
             }
             GameManager.instance.SetGameState(false);
                 
-            int x = (GameManager.instance.playerTurn) ? GameManager.instance.promotionPanel.number : GameManager.instance.stockfish.promotionNumber;
+            int x = (GameManager.instance.playerControlled) ? GameManager.instance.promotionPanel.number : GameManager.instance.stockfish.promotionNumber;
             StartCoroutine(PromotePiece(tile, x));        
         }
     }
 
     IEnumerator PromotePiece(Tile tile, int promotionNumber)
     {
-        while (!GameManager.instance.promotionPanel.buttonPressed && GameManager.instance.playerTurn)
+        while (!GameManager.instance.promotionPanel.buttonPressed && GameManager.instance.playerControlled)
         {
             yield return null;
         }
@@ -164,7 +164,7 @@ public class Pawn : Piece
 
         GameManager.instance.SetGameState(true);
 
-        if (GameManager.instance.playerTurn)
+        if (GameManager.instance.playerControlled)
         {
             GameManager.instance.NextTurn();
         }
