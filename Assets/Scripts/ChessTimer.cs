@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using TMPro;
 
 public class ChessTimer : MonoBehaviour
 {
     public float whiteTimerValue = 300;
     public float blackTimerValue = 300;
+
+    public TextMeshProUGUI whiteTimerText;
+    public TextMeshProUGUI blackTimerText;
 
     public void StartCountdown()
     {
@@ -26,9 +31,11 @@ public class ChessTimer : MonoBehaviour
     {
         while (blackTimerValue > 0)
         {
-            Debug.Log("Countdown: " + blackTimerValue);
-            yield return new WaitForSeconds(1.0f);
             blackTimerValue--;
+            TimeSpan time = TimeSpan.FromSeconds(blackTimerValue);
+            UpdateText(blackTimerText, time.ToString(@"mm\:ss"));
+
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -36,9 +43,16 @@ public class ChessTimer : MonoBehaviour
     {
         while (whiteTimerValue > 0)
         {
-            Debug.Log("Countdown: " + whiteTimerValue);
-            yield return new WaitForSeconds(1.0f);
             whiteTimerValue--;
+            TimeSpan time = TimeSpan.FromSeconds(whiteTimerValue);
+            UpdateText(whiteTimerText, time.ToString(@"mm\:ss"));
+            
+            yield return new WaitForSeconds(1.0f);
         }
+    }
+
+    public void UpdateText(TextMeshProUGUI text, string value)
+    {
+        text.text = value;
     }
 }
