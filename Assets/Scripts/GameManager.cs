@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public PENWriter PENWriter;
     public Stockfish stockfish;
+    public ChessTimer chessTimer;
     public Board board;
     public bool whiteTurn = true;
     public bool check;
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     public Transform blackSideCameraPos;
     public bool playerTurn;
     public bool playerControlled;
+
+    public float whiteTimerValue = 300;
+    public float blackTimerValue = 300;
+
 
     void Awake()
     {
@@ -113,6 +118,8 @@ public class GameManager : MonoBehaviour
             PENWriter.moveCount++;
             moveCounter = 2;
         }
+
+        chessTimer.StartCountdown();
 
         PENWriter.enPassantTile = "-";
 
@@ -250,5 +257,4 @@ public class GameManager : MonoBehaviour
         NextTurn();
     }
 
-    
 }
