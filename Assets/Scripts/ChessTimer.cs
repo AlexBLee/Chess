@@ -42,8 +42,7 @@ public class ChessTimer : MonoBehaviour
             blackTimerValue--;
             UpdateText(!GameManager.whiteSide ? bottomTimerText : topTimerText, blackTimerValue);
         }
-        GameManager.instance.resultPanel.gameObject.SetActive(true);
-        GameManager.instance.resultPanel.DisplayText("White wins by timeout");
+        GameManager.instance.ActivateGameOver("White wins by timeout");
     }
 
     public IEnumerator StartWhiteCountdown()
@@ -55,9 +54,7 @@ public class ChessTimer : MonoBehaviour
             whiteTimerValue--;
             UpdateText(GameManager.whiteSide ? bottomTimerText : topTimerText, whiteTimerValue);
         }
-        GameManager.instance.resultPanel.gameObject.SetActive(true);
-        GameManager.instance.resultPanel.DisplayText("Black wins by timeout");
-
+        GameManager.instance.ActivateGameOver("Black wins by timeout");
     }
 
     public void UpdateText(TextMeshProUGUI text, float timerValue)
