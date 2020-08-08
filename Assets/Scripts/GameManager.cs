@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
 
-        // if (!playerTurn)
-        // {
-        //     MakeBotMove();
-        // }
+        if (!playerTurn)
+        {
+            MakeBotMove();
+        }
     }
 
     private void Update() {
@@ -210,10 +210,10 @@ public class GameManager : MonoBehaviour
 
             CheckDraw();
 
-            // if (!playerTurn)
-            // {
-            //     MakeBotMove();
-            // }
+            if (!playerTurn)
+            {
+                MakeBotMove();
+            }
 
         }
     }
