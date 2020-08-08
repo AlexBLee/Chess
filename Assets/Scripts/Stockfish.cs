@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Stockfish : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Stockfish : MonoBehaviour
     private void Start() 
     {
         process = new System.Diagnostics.Process();
-        process.StartInfo.FileName = "F:/Portfolio/Unity/Projects/Prototypes/Chess-2/Assets/Scripts/stockfish.exe";
+        Debug.Log(Directory.GetCurrentDirectory() + "\\stockfish.exe");
+        process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\stockfish.exe";
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.RedirectStandardInput = true;
