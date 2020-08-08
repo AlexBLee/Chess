@@ -9,13 +9,13 @@ public class ChessTimer : MonoBehaviour
     public float whiteTimerValue = 300;
     public float blackTimerValue = 300;
 
-    public TextMeshProUGUI whiteTimerText;
-    public TextMeshProUGUI blackTimerText;
+    public TextMeshProUGUI topTimerText;
+    public TextMeshProUGUI bottomTimerText;
 
     private void Start() 
     {
-        UpdateText(whiteTimerText, whiteTimerValue);
-        UpdateText(blackTimerText, blackTimerValue);
+        UpdateText(topTimerText, blackTimerValue);
+        UpdateText(bottomTimerText, whiteTimerValue);
     }
 
     public void StartCountdown()
@@ -38,7 +38,7 @@ public class ChessTimer : MonoBehaviour
         while (blackTimerValue > 0)
         {
             blackTimerValue--;
-            UpdateText(blackTimerText, blackTimerValue);
+            UpdateText(!GameManager.whiteSide ? bottomTimerText : topTimerText, blackTimerValue);
 
             yield return new WaitForSeconds(1.0f);
         }
@@ -49,7 +49,7 @@ public class ChessTimer : MonoBehaviour
         while (whiteTimerValue > 0)
         {
             whiteTimerValue--;
-            UpdateText(whiteTimerText, whiteTimerValue);
+            UpdateText(GameManager.whiteSide ? bottomTimerText : topTimerText, whiteTimerValue);
 
             yield return new WaitForSeconds(1.0f);
         }

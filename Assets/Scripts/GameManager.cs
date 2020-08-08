@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSides()
     {
+        Debug.Log(whiteSide);
         whiteTurn = (whiteTurn == true) ? false : true;
         playerTurn = (playerTurn == true) ? false : true;
 
