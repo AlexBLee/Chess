@@ -196,6 +196,8 @@ public class Board : MonoBehaviour
         // Destroy the piece at that tile
         if (selectedTile.piece != null && selectedPiece.render.sharedMaterial != selectedTile.piece.render.sharedMaterial) 
         {
+            AudioManager.Instance.Play("Capture");
+
             GameManager.instance.movesWithoutCaptures = 0;
 
             // TODO: clear piece from board function
@@ -210,6 +212,10 @@ public class Board : MonoBehaviour
 
 
             Destroy(selectedTile.piece.gameObject); 
+        }
+        else
+        {
+            AudioManager.Instance.Play("Move");
         }
     }
 

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public ResultPanel resultPanel;
     public int moveCounter;
     public int movesWithoutCaptures;
-    public static bool whiteSide;
+    public static bool whiteSide = true;
     public Transform blackSideCameraPos;
     public bool playerTurn;
     public bool playerControlled;
@@ -256,6 +256,7 @@ public class GameManager : MonoBehaviour
 
     public void ActivateGameOver(string text)
     {
+        AudioManager.Instance.Play("GameOver");
         resultPanel.gameObject.SetActive(true);
         resultPanel.DisplayText(text);
     }
