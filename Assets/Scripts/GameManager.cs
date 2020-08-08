@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
 
-        if (!playerTurn)
-        {
-            MakeBotMove();
-        }
+        // if (!playerTurn)
+        // {
+        //     MakeBotMove();
+        // }
     }
 
     private void Update() {
@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
         // Resets checks and defended statuses as well.
         if (kingInCheck != null)
         {
+            kingInCheck.checkLight.enabled = false;
             kingInCheck.check = false;
             kingInCheck.checkDefended = false;
             kingInCheck = null;
@@ -210,10 +211,10 @@ public class GameManager : MonoBehaviour
 
             CheckDraw();
 
-            if (!playerTurn)
-            {
-                MakeBotMove();
-            }
+            // if (!playerTurn)
+            // {
+            //     MakeBotMove();
+            // }
 
         }
     }

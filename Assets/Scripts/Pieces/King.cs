@@ -5,6 +5,8 @@ using System.Linq;
 
 public class King : Piece
 {
+    public Light checkLight;
+
     public bool check;
     public bool hasMoved;
     public bool checkDefended;

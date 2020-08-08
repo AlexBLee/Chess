@@ -167,6 +167,7 @@ public class Piece : MonoBehaviour
 
     public void ApplyCheck(King king)
     {
+        king.checkLight.enabled = true;
         king.check = true;
         king.canCastleRight = false;
         king.canCastleLeft = false;
