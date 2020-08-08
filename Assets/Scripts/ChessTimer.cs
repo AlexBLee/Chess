@@ -37,22 +37,27 @@ public class ChessTimer : MonoBehaviour
     {
         while (blackTimerValue > 0)
         {
+            yield return new WaitForSeconds(1.0f);
+
             blackTimerValue--;
             UpdateText(!GameManager.whiteSide ? bottomTimerText : topTimerText, blackTimerValue);
-
-            yield return new WaitForSeconds(1.0f);
         }
+        GameManager.instance.resultPanel.gameObject.SetActive(true);
+        GameManager.instance.resultPanel.DisplayText("White wins by timeout");
     }
 
     public IEnumerator StartWhiteCountdown()
     {
         while (whiteTimerValue > 0)
         {
+            yield return new WaitForSeconds(1.0f);
+
             whiteTimerValue--;
             UpdateText(GameManager.whiteSide ? bottomTimerText : topTimerText, whiteTimerValue);
-
-            yield return new WaitForSeconds(1.0f);
         }
+        GameManager.instance.resultPanel.gameObject.SetActive(true);
+        GameManager.instance.resultPanel.DisplayText("Black wins by timeout");
+
     }
 
     public void UpdateText(TextMeshProUGUI text, float timerValue)
