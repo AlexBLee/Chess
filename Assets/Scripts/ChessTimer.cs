@@ -37,6 +37,11 @@ public class ChessTimer : MonoBehaviour
     {
         while (blackTimerValue > 0)
         {
+            if (GameManager.instance.gameOver)
+            {
+                yield break;
+            }
+
             yield return new WaitForSeconds(1.0f);
 
             blackTimerValue--;
@@ -49,6 +54,11 @@ public class ChessTimer : MonoBehaviour
     {
         while (whiteTimerValue > 0)
         {
+            if (GameManager.instance.gameOver)
+            {
+                yield break;
+            }
+            
             yield return new WaitForSeconds(1.0f);
 
             whiteTimerValue--;

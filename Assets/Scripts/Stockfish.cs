@@ -14,7 +14,6 @@ public class Stockfish : MonoBehaviour
     private void Start() 
     {
         process = new System.Diagnostics.Process();
-        Debug.Log(Directory.GetCurrentDirectory() + "\\stockfish.exe");
         process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\stockfish.exe";
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;

@@ -22,10 +22,7 @@ public class GameManager : MonoBehaviour
     public Transform blackSideCameraPos;
     public bool playerTurn;
     public bool playerControlled;
-
-    public float whiteTimerValue = 300;
-    public float blackTimerValue = 300;
-
+    public bool gameOver;
 
     void Awake()
     {
@@ -256,6 +253,7 @@ public class GameManager : MonoBehaviour
 
     public void ActivateGameOver(string text)
     {
+        gameOver = true;
         AudioManager.Instance.Play("GameOver");
         resultPanel.gameObject.SetActive(true);
         resultPanel.DisplayText(text);
