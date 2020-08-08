@@ -2334,7 +2334,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GameOver
     clip: {fileID: 8300000, guid: 01c09221e5e0dd347bae43d9643c002b, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
 --- !u!4 &738045745
