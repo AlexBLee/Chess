@@ -8,11 +8,13 @@ public class MainMenu : MonoBehaviour
 {
     public Button playButton;
     public Button quitButton;
+    public Button onlineButton;
 
     public Button whiteButton;
     public Button blackButton;
     public Button randomButton;
 
+    public GameObject onlineMenu;
     public GameObject selectionPanel;
 
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class MainMenu : MonoBehaviour
         selectionPanel.gameObject.SetActive(false);
 
         playButton.onClick.AddListener(PlayGame);
+        onlineButton.onClick.AddListener(ShowOnlineMenu);
         quitButton.onClick.AddListener(Application.Quit);
 
         whiteButton.onClick.AddListener(ChooseWhite);
@@ -31,8 +34,19 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         playButton.gameObject.SetActive(false);
+        onlineButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
+
         selectionPanel.gameObject.SetActive(true);
+    }
+
+    public void ShowOnlineMenu()
+    {
+        playButton.gameObject.SetActive(false);
+        onlineButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
+
+        onlineMenu.gameObject.SetActive(true);
     }
 
     public void ChooseWhite()
