@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8120575776522638242
+--- !u!1 &7387614997161679047
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5109700447414837681}
-  - component: {fileID: 4301583895421246343}
-  - component: {fileID: 7534173254904457086}
-  - component: {fileID: -8584396003266799852}
+  - component: {fileID: 5826898611433990868}
+  - component: {fileID: 3280392757364019426}
+  - component: {fileID: 9131825317604338715}
+  - component: {fileID: 4129706068979860152}
+  - component: {fileID: 324445446247230729}
+  - component: {fileID: 2704025330027025261}
   m_Layer: 0
-  m_Name: bishop
+  m_Name: queenM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5109700447414837681
+--- !u!4 &5826898611433990868
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8120575776522638242}
+  m_GameObject: {fileID: 7387614997161679047}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
@@ -33,21 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!33 &4301583895421246343
+--- !u!33 &3280392757364019426
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8120575776522638242}
-  m_Mesh: {fileID: -7809067171011586860, guid: 5e701cbab902edb4cb164a0b4f119cbc, type: 3}
---- !u!23 &7534173254904457086
+  m_GameObject: {fileID: 7387614997161679047}
+  m_Mesh: {fileID: -21644700573213184, guid: 57aa0f75afcf0d54595dd9bf59df9cde, type: 3}
+--- !u!23 &9131825317604338715
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8120575776522638242}
+  m_GameObject: {fileID: 7387614997161679047}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -80,23 +82,60 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-8584396003266799852
+--- !u!114 &4129706068979860152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8120575776522638242}
+  m_GameObject: {fileID: 7387614997161679047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e6063d8d4635c42a1c86929d7043d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b8e78d8eae1004286976a6ce296a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 0
-  render: {fileID: 7534173254904457086}
+  render: {fileID: 9131825317604338715}
   moves: []
   pinnedMoveList: []
   location: {x: 0, y: 0}
   forwardDirection: 0
   defended: 0
   pinned: 0
+--- !u!114 &324445446247230729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387614997161679047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &2704025330027025261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387614997161679047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
