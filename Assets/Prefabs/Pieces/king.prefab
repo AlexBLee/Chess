@@ -97,9 +97,9 @@ MonoBehaviour:
   render: {fileID: 427492348948822389}
   moves: []
   pinnedMoveList: []
-  location: {x: 0, y: 0}
-  forwardDirection: 0
-  defended: 0
+  location: {x: 4, y: 7}
+  forwardDirection: -1
+  defended: 1
   pinned: 0
   checkLight: {fileID: 8184967643728371336}
   check: 0

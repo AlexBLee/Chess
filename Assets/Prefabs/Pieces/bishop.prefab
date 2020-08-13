@@ -96,7 +96,7 @@ MonoBehaviour:
   render: {fileID: 7534173254904457086}
   moves: []
   pinnedMoveList: []
-  location: {x: 0, y: 0}
-  forwardDirection: 0
-  defended: 0
+  location: {x: 5, y: 7}
+  forwardDirection: -1
+  defended: 1
   pinned: 0

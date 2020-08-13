@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Photon.Pun;
 
-public class Piece : MonoBehaviour
+public class Piece : MonoBehaviourPun
 {
     // to tell between white and black
     public static Board board;

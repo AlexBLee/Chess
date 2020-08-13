@@ -92,5 +92,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f372f03f05c8ef48a0cb23c195fafdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
+  interactable: 0
   render: {fileID: 1196041110559704840}
+  moves:
+  - {x: 6, y: 5}
+  pinnedMoveList: []
+  location: {x: 7, y: 6}
+  forwardDirection: -1
+  defended: 1
+  pinned: 0
+  firstMove: 1
+  enPassantPossible: 0
+  enPassantTile: {x: 0, y: 0}
