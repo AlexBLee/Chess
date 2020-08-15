@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5273481883959638843}
   - component: {fileID: -1321325678186087294}
   m_Layer: 0
-  m_Name: kingM
+  m_Name: KingM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   forwardDirection: 0
   defended: 0
   pinned: 0
+  white: 0
   checkLight: {fileID: 8184967643728371336}
   check: 0
   hasMoved: 0
@@ -126,9 +127,10 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   observableSearch: 2
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -1321325678186087294}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

@@ -98,6 +98,6 @@ MonoBehaviour:
   pinnedMoveList: []
   location: {x: 7, y: 7}
   forwardDirection: -1
-  defended: 0
+  defended: 1
   pinned: 0
   hasMoved: 0

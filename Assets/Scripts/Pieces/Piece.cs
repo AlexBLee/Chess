@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Photon.Pun;
 
-public class Piece : MonoBehaviourPun
+public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
 {
     // to tell between white and black
     public static Board board;
@@ -175,4 +175,35 @@ public class Piece : MonoBehaviourPun
         king.line.Add(location);
         GameManager.instance.kingInCheck = king;
     }
+
+    #region PhotonNetwork Calls
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        // data[0] = x coordinate
+        // data[1] = y coordinate
+
+        // data[2] = bool used to determine if white side or not.
+
+        location = new Vector2Int((int)info.photonView.InstantiationData[0], (int)info.photonView.InstantiationData[1]);
+        render.material = ((bool)info.photonView.InstantiationData[2]) ? board.pieceWhite : board.pieceBlack;
+
+        if (render.sharedMaterial == board.pieceWhite)
+        {
+            board.whitePieces.Add(this);
+            forwardDirection = 1;
+            interactable = true;
+        }
+        else
+        {
+            board.blackPieces.Add(this);
+            forwardDirection = -1;
+            interactable = false;
+        }
+
+        board.tiles[location.x][location.y].piece = this;
+    }
+
+    #endregion
+
 }

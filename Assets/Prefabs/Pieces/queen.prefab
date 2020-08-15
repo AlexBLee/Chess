@@ -99,4 +99,4 @@ MonoBehaviour:
   location: {x: 3, y: 7}
   forwardDirection: -1
   defended: 1
-  pinned: 0
+  pinned: 1

@@ -155,27 +155,47 @@ public class Board : MonoBehaviour
 
         Quaternion correctRotation = (material == pieceWhite) ? Quaternion.Euler(0,270,0) : Quaternion.Euler(0,90,0);
 
-        selectedTile.piece = 
-        Instantiate(selectedTile.piece, 
-        tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
-        correctRotation,
-        transform);
-
-        selectedTile.piece.location = new Vector2Int(x, y);
-
-        selectedTile.piece.SetPieceColor(material);
-
-        if (material == pieceWhite)
+        // If singleplayer..
+        if (!PhotonNetwork.IsConnected)
         {
-            whitePieces.Add(selectedTile.piece);
-            selectedTile.piece.forwardDirection = 1;
-            selectedTile.piece.interactable = true;
+            selectedTile.piece = 
+            Instantiate(selectedTile.piece, 
+            tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
+            correctRotation,
+            transform);
+
+            selectedTile.piece.location = new Vector2Int(x, y);
+
+            selectedTile.piece.SetPieceColor(material);
+
+            if (material == pieceWhite)
+            {
+                whitePieces.Add(selectedTile.piece);
+                selectedTile.piece.forwardDirection = 1;
+                selectedTile.piece.interactable = true;
+            }
+            else
+            {
+                blackPieces.Add(selectedTile.piece);
+                selectedTile.piece.forwardDirection = -1;
+                selectedTile.piece.interactable = false;
+            }   
         }
-        else
+        else  // If online..
         {
-            blackPieces.Add(selectedTile.piece);
-            selectedTile.piece.forwardDirection = -1;
-            selectedTile.piece.interactable = false;
+            if (!PhotonNetwork.IsMasterClient) { return; }
+
+            // Because you can't send material through the object data, have to use a bool
+            // to determine the color the piece will be and then explicitly set the material 
+            // on its instatiate based on the bool.
+            bool white = (material == pieceWhite) ? true : false;
+
+            object[] instantiateData = { x, y, white }; 
+
+            PhotonNetwork.InstantiateRoomObject(selectedTile.piece.name + "M", 
+            tiles[x][y].transform.position + new Vector3(0, 0.5f, 0),
+            correctRotation,
+            0, instantiateData);
         }
     }
     

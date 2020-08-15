@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8294170028942540388}
   - component: {fileID: -4850037392159950722}
   m_Layer: 0
-  m_Name: rookM
+  m_Name: RookM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6922793697723135513, guid: e9a3a949907e2e246b7c65be92af730a, type: 3}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   forwardDirection: 0
   defended: 0
   pinned: 0
+  white: 0
   hasMoved: 0
 --- !u!114 &8294170028942540388
 MonoBehaviour:
@@ -119,9 +120,10 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   observableSearch: 2
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -4850037392159950722}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
