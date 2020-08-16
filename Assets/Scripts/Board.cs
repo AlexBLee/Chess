@@ -37,7 +37,15 @@ public class Board : MonoBehaviour
         InitalizeBoard();
         ColourAndNameTiles();
         SpawnPieces();
-        GameManager.instance.FindAllPossibleMoves();
+
+        // For some reason, when the client player joins, the piece lists are initially empty which
+        // results in a NullReference error.
+        // So, if you're online, the piece will find their own moves for the start of the game.
+        // But if you're offline, it will just get the GameManager to find the moves.
+        if (!PhotonNetwork.IsConnected)
+        {
+            GameManager.instance.FindAllPossibleMoves();
+        }
     }
 
     private void InitalizeBoard()

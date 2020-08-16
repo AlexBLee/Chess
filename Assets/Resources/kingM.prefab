@@ -103,7 +103,6 @@ MonoBehaviour:
   forwardDirection: 0
   defended: 0
   pinned: 0
-  white: 0
   checkLight: {fileID: 8184967643728371336}
   check: 0
   hasMoved: 0
@@ -128,7 +127,7 @@ MonoBehaviour:
   prefixField: -1
   observableSearch: 2
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   ObservedComponents:
   - {fileID: -1321325678186087294}
   viewIdField: 0

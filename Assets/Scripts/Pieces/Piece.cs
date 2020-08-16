@@ -202,6 +202,8 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         }
 
         board.tiles[location.x][location.y].piece = this;
+
+        FindMoveSet();
     }
 
     #endregion

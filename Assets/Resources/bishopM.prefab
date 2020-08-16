@@ -102,7 +102,6 @@ MonoBehaviour:
   forwardDirection: 0
   defended: 0
   pinned: 0
-  white: 0
 --- !u!114 &-5585448473832870723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +119,7 @@ MonoBehaviour:
   prefixField: -1
   observableSearch: 2
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   ObservedComponents:
   - {fileID: 3177001343077278653}
   viewIdField: 0
