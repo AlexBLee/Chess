@@ -141,6 +141,25 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         location = tile.coordinates;          
     }
 
+    [PunRPC]
+    public virtual void MoveTo(Vector2 tileLoc)
+    {
+        Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
+
+        GameManager.instance.PENWriter.consecutivePieceMoves++;
+        GameManager.instance.movesWithoutCaptures++;
+        
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[location.x][location.y].piece = null;
+
+        board.DestroyPieceAt(this, tile);
+
+        // Move piece to new Tile
+        tile.piece = this;
+        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
+        location = tile.coordinates;          
+    }
+
     public void ColourAvailableTiles(Tile tile, Material mat)
     {
         tile.render.material = mat;
@@ -205,7 +224,17 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
 
         FindMoveSet();
     }
+    
+    [PunRPC]
+    public void Test()
+    {
+        Debug.Log("recieved!");
+    }
 
+    public void Test2()
+    {
+        Debug.Log("recieved 2!");
+    }
     #endregion
 
 }

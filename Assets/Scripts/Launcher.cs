@@ -7,9 +7,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 {
     byte maxPlayersPerRoom = 4;
     string gameVersion = "1";
-    [SerializeField] private GameObject controlPanel;
-    [SerializeField] private GameObject progressLabel;
-    [SerializeField] private Button connectButton;
+    [SerializeField] private GameObject controlPanel = null;
+    [SerializeField] private GameObject progressLabel = null;
+    [SerializeField] private Button connectButton = null;
 
     bool isConnecting;
 

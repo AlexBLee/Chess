@@ -69,7 +69,17 @@ public class PieceSelection : MonoBehaviour
 
             // Colour the board back to normal
             board.ResetPieceMoveTileColours(selectedPiece);
-            selectedPiece.MoveTo(selectedTile);
+            
+            if (PhotonNetwork.IsConnected)
+            {
+                Vector2 coor = new Vector2(selectedTile.coordinates.x, selectedTile.coordinates.y);
+                selectedPiece.GetComponent<PhotonView>().RPC("MoveTo", RpcTarget.All, coor);
+            }
+            else
+            {
+                selectedPiece.MoveTo(selectedTile);
+            }
+
             StartCoroutine(AddDelay());
         }
         else
@@ -86,4 +96,6 @@ public class PieceSelection : MonoBehaviour
         GameManager.instance.NextTurn();
 
     }
+
+    
 }
