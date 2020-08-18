@@ -248,6 +248,44 @@ public class Board : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    public void DestroyPieceAt(Vector2 clickedTileLocation, Vector2 currentPieceLocation)
+    {
+        // Need some kind of comparison to tell which side is which
+        Tile selectedTile = tiles[(int)clickedTileLocation.x][(int)clickedTileLocation.y];
+        Tile currentTile = tiles[(int)currentPieceLocation.x][(int)currentPieceLocation.y]
+
+        Debug.Log(selectedTile.piece);
+
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null && currentTile.piece != null) 
+        {
+            if (selectedTile.piece.render.sharedMaterial != currentTile.piece.render.sharedMaterial)
+            {
+                AudioManager.Instance.Play("Capture");
+
+                GameManager.instance.movesWithoutCaptures = 0;
+
+                // TODO: clear piece from board function
+                if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+                {
+                    blackPieces.Remove(selectedTile.piece);
+                }
+                else
+                {
+                    whitePieces.Remove(selectedTile.piece);
+                }
+
+
+                Destroy(selectedTile.piece.gameObject); 
+            }
+        }
+        else
+        {
+            AudioManager.Instance.Play("Move");
+        }
+    }
+
     public void DestroyPieceAt(Tile selectedTile)
     {
         // Destroy the piece at that tile

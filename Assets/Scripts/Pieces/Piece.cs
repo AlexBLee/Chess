@@ -149,10 +149,12 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         GameManager.instance.PENWriter.consecutivePieceMoves++;
         GameManager.instance.movesWithoutCaptures++;
         
+        Vector2 coor = new Vector2(tile.coordinates.x, tile.coordinates.y);
+        Vector2 currentCoor = new Vector2(location.x, location.y);
+        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, coor, currentCoor);
+
         // Make sure the previous Tile no longer owns the piece
         board.tiles[location.x][location.y].piece = null;
-
-        board.DestroyPieceAt(this, tile);
 
         // Move piece to new Tile
         tile.piece = this;
@@ -225,16 +227,6 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         FindMoveSet();
     }
     
-    [PunRPC]
-    public void Test()
-    {
-        Debug.Log("recieved!");
-    }
-
-    public void Test2()
-    {
-        Debug.Log("recieved 2!");
-    }
     #endregion
 
 }
