@@ -253,9 +253,7 @@ public class Board : MonoBehaviour
     {
         // Need some kind of comparison to tell which side is which
         Tile selectedTile = tiles[(int)clickedTileLocation.x][(int)clickedTileLocation.y];
-        Tile currentTile = tiles[(int)currentPieceLocation.x][(int)currentPieceLocation.y]
-
-        Debug.Log(selectedTile.piece);
+        Tile currentTile = tiles[(int)currentPieceLocation.x][(int)currentPieceLocation.y];
 
         // Destroy the piece at that tile
         if (selectedTile.piece != null && currentTile.piece != null) 

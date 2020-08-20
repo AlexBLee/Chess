@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Photon.Pun;
 
 public class Pawn : Piece
 {
@@ -116,6 +117,28 @@ public class Pawn : Piece
 
         CheckForMovementToPromotionTile(tile);
     }
+
+    [PunRPC]
+    public override void MoveTo(Vector2 tileLoc)
+    {
+        Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
+
+        GameManager.instance.PENWriter.consecutivePieceMoves = 0;
+
+        FirstMoveCheck(tile);
+
+        GetComponent<PhotonView>().RPC("CheckForMovementToEnPassantTile", RpcTarget.All, tileLoc);
+
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[location.x][location.y].piece = null;
+
+        // Move piece to new Tile
+        tile.piece = this;
+        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
+        location = tile.coordinates;
+
+        CheckForMovementToPromotionTile(tile);
+    }
     
     public void FirstMoveCheck(Tile tile)
     {
@@ -127,9 +150,19 @@ public class Pawn : Piece
 
     public void CheckForMovementToEnPassantTile(Tile tile)
     {        
-        Tile tilePieceToDestroy = (tile.coordinates == enPassantTile) ? board.GetTile(enPassantTile) : tile;
+        Tile tilePieceToDestroy = (tile.coordinates == enPassantTile) ? board.GetTile(new Vector2Int(enPassantTile.x, enPassantTile.y - (1 * forwardDirection))) : tile;
 
         board.DestroyPieceAt(this, tilePieceToDestroy);
+        
+    }
+
+    [PunRPC]
+    public void CheckForMovementToEnPassantTile(Vector2 tile)
+    {        
+        Vector2 enPassantPawnTile = new Vector2(enPassantTile.x, enPassantTile.y);
+        Vector2 tilePieceToDestroy = (tile == enPassantPawnTile) ? new Vector2(enPassantTile.x, enPassantTile.y - (1 * forwardDirection)) : tile;
+  
+        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, tilePieceToDestroy, new Vector2(location.x, location.y));
     }
 
     public void CheckForMovementToPromotionTile(Tile tile)
