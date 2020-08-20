@@ -141,27 +141,6 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         location = tile.coordinates;          
     }
 
-    [PunRPC]
-    public virtual void MoveTo(Vector2 tileLoc)
-    {
-        Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
-
-        GameManager.instance.PENWriter.consecutivePieceMoves++;
-        GameManager.instance.movesWithoutCaptures++;
-        
-        Vector2 coor = new Vector2(tile.coordinates.x, tile.coordinates.y);
-        Vector2 currentCoor = new Vector2(location.x, location.y);
-        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, coor, currentCoor);
-
-        // Make sure the previous Tile no longer owns the piece
-        board.tiles[location.x][location.y].piece = null;
-
-        // Move piece to new Tile
-        tile.piece = this;
-        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
-        location = tile.coordinates;          
-    }
-
     public void ColourAvailableTiles(Tile tile, Material mat)
     {
         tile.render.material = mat;
@@ -225,6 +204,27 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         board.tiles[location.x][location.y].piece = this;
 
         FindMoveSet();
+    }
+
+    [PunRPC]
+    public virtual void MoveTo(Vector2 tileLoc)
+    {
+        Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
+
+        GameManager.instance.PENWriter.consecutivePieceMoves++;
+        GameManager.instance.movesWithoutCaptures++;
+        
+        Vector2 coor = new Vector2(tile.coordinates.x, tile.coordinates.y);
+        Vector2 currentCoor = new Vector2(location.x, location.y);
+        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, coor, currentCoor);
+
+        // Make sure the previous Tile no longer owns the piece
+        board.tiles[location.x][location.y].piece = null;
+
+        // Move piece to new Tile
+        tile.piece = this;
+        iTween.MoveTo(gameObject, tile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
+        location = tile.coordinates;          
     }
     
     #endregion
