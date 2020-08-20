@@ -159,8 +159,7 @@ public class Pawn : Piece
     [PunRPC]
     public void CheckForMovementToEnPassantTile(Vector2 tile)
     {        
-        Vector2 enPassantPawnTile = new Vector2(enPassantTile.x, enPassantTile.y);
-        Vector2 tilePieceToDestroy = (tile == enPassantPawnTile) ? new Vector2(enPassantTile.x, enPassantTile.y - (1 * forwardDirection)) : tile;
+        Vector2 tilePieceToDestroy = (tile == enPassantTile) ? new Vector2(enPassantTile.x, enPassantTile.y - (1 * forwardDirection)) : tile;
   
         board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, tilePieceToDestroy, new Vector2(location.x, location.y));
     }
