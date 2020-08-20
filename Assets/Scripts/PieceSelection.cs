@@ -93,7 +93,15 @@ public class PieceSelection : MonoBehaviour
     public IEnumerator AddDelay()
     {
         yield return new WaitForSeconds(0.25f);
-        GameManager.instance.NextTurn();
+
+        if (PhotonNetwork.IsConnected)
+        {
+            GameManager.instance.GetComponent<PhotonView>().RPC("NextTurn", RpcTarget.All);
+        }
+        else
+        {
+            GameManager.instance.NextTurn();
+        }
 
     }
 

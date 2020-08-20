@@ -41,6 +41,7 @@ MonoBehaviour:
   - MoveToX
   - DestroyPieceAt
   - CheckForMovementToEnPassantTile
+  - NextTurn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

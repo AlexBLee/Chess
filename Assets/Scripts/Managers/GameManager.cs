@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
@@ -191,6 +192,7 @@ public class GameManager : MonoBehaviour
         kingInCheck.line.Clear();
     }
 
+    [PunRPC]
     public void NextTurn()
     {
         if (!paused)
