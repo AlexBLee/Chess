@@ -34,7 +34,7 @@ public class PieceSelection : MonoBehaviour
 
     public void SelectPiece(Piece piece)
     {
-        if (piece != null && piece.interactable && !GameManager.instance.paused)
+        if (piece != null && piece.interactable && !GameManager.instance.paused && piece.GetComponent<PhotonView>().IsMine)
         {
             selectedPiece = piece;
 

@@ -24,6 +24,13 @@ public class OnlineManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player other)
     {
+        // TODO: Change to work for both sides
+        // Only doing black for debug reasons.
+        foreach (Piece piece in GameManager.instance.board.blackPieces)
+        {
+            piece.GetComponent<PhotonView>().TransferOwnership(2);
+        }
+        
         Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if youre the player connecting.
     }
 
