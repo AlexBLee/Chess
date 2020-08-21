@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public bool playerControlled;
     public bool gameOver;
 
+    private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
+
+
     void Awake()
     {
         if (instance == null)
@@ -36,6 +39,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            _customProperties.Add("side", GameManager.whiteSide);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
+        }
+
+        Debug.Log("@@");
         // If the player starts as black, use alternate camera position
         if (!whiteSide)
         {
@@ -61,10 +71,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        // if (Input.GetKeyDown(KeyCode.F))
-        // {
-        //     MakeBotMove();
-        // }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // MakeBotMove();
+            Debug.Log(whiteSide);
+        }
     }
 
     public void FindWhiteMoves()
