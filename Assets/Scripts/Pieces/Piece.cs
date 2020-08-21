@@ -16,9 +16,11 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
     public int forwardDirection;
     public bool defended;
     public bool pinned;
+    public PhotonView photonView;
     
     private void Awake() 
     {
+        photonView = GetComponent<PhotonView>();
         board = FindObjectOfType<Board>();
     }
 
@@ -216,7 +218,7 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         
         Vector2 coor = new Vector2(tile.coordinates.x, tile.coordinates.y);
         Vector2 currentCoor = new Vector2(location.x, location.y);
-        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, coor, currentCoor);
+        board.photonView.RPC("DestroyPieceAt", RpcTarget.All, coor, currentCoor);
 
         // Make sure the previous Tile no longer owns the piece
         board.tiles[location.x][location.y].piece = null;

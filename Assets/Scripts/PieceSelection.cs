@@ -34,7 +34,7 @@ public class PieceSelection : MonoBehaviour
 
     public void SelectPiece(Piece piece)
     {
-        if (piece != null && piece.interactable && !GameManager.instance.paused && piece.GetComponent<PhotonView>().IsMine)
+        if (piece != null && piece.interactable && !GameManager.instance.paused && piece.photonView.IsMine)
         {
             selectedPiece = piece;
 
@@ -73,7 +73,7 @@ public class PieceSelection : MonoBehaviour
             if (PhotonNetwork.IsConnected)
             {
                 Vector2 coor = new Vector2(selectedTile.coordinates.x, selectedTile.coordinates.y);
-                selectedPiece.GetComponent<PhotonView>().RPC("MoveTo", RpcTarget.All, coor);
+                selectedPiece.photonView.RPC("MoveTo", RpcTarget.All, coor);
             }
             else
             {

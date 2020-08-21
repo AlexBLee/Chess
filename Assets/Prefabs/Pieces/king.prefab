@@ -102,7 +102,7 @@ MonoBehaviour:
   defended: 1
   pinned: 0
   checkLight: {fileID: 8184967643728371336}
-  check: 1
+  check: 0
   hasMoved: 0
   checkDefended: 0
   line:
@@ -147,7 +147,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4604733605541941193}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0

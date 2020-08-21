@@ -183,7 +183,7 @@ public class Pawn : Piece
 
         FirstMoveCheck(tile);
 
-        GetComponent<PhotonView>().RPC("CheckForMovementToEnPassantTile", RpcTarget.All, tileLoc);
+        photonView.RPC("CheckForMovementToEnPassantTile", RpcTarget.All, tileLoc);
 
         // Make sure the previous Tile no longer owns the piece
         board.tiles[location.x][location.y].piece = null;
@@ -201,7 +201,7 @@ public class Pawn : Piece
     {        
         Vector2 tilePieceToDestroy = (tile == enPassantTile) ? new Vector2(enPassantTile.x, enPassantTile.y - (1 * forwardDirection)) : tile;
   
-        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, tilePieceToDestroy, new Vector2(location.x, location.y));
+        board.photonView.RPC("DestroyPieceAt", RpcTarget.All, tilePieceToDestroy, new Vector2(location.x, location.y));
     }
 
     #endregion
