@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
         }
 
-        Debug.Log("@@");
         // If the player starts as black, use alternate camera position
         if (!whiteSide)
         {

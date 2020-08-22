@@ -192,7 +192,7 @@ public class King : Piece
     [PunRPC]
     public override void MoveTo(Vector2 tileLoc)
     {
-        kingCastleTile = board.tiles[location.x][location.y];
+        kingCastleTile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
 
         Vector2 currentCoor = new Vector2(location.x, location.y);
         board.photonView.RPC("DestroyPieceAt", RpcTarget.All, tileLoc, currentCoor);
