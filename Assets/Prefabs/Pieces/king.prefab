@@ -101,6 +101,7 @@ MonoBehaviour:
   forwardDirection: -1
   defended: 1
   pinned: 0
+  photonView: {fileID: 0}
   checkLight: {fileID: 8184967643728371336}
   check: 0
   hasMoved: 0

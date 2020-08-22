@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Photon.Pun;
 
 public class King : Piece
 {
@@ -16,6 +17,9 @@ public class King : Piece
 
     public bool canCastleRight;
     public bool canCastleLeft;
+
+    // Castle position - online only
+    private Tile kingCastleTile;
 
     public override void FindLegalMoves()
     {
@@ -182,4 +186,60 @@ public class King : Piece
             canCastleRight = false;
         }
     }
+
+    #region PhotonNetwork Calls
+
+    [PunRPC]
+    public override void MoveTo(Vector2 tileLoc)
+    {
+        kingCastleTile = board.tiles[location.x][location.y];
+
+        Vector2 currentCoor = new Vector2(location.x, location.y);
+        board.photonView.RPC("DestroyPieceAt", RpcTarget.All, tileLoc, currentCoor);
+
+        // Make sure the previous Tile no longer owns the piece
+        kingCastleTile.piece = null;
+
+        if (canCastleRight && castleMoveList.Any(x => x == tileLoc && tileLoc.x > 4))
+        {
+            photonView.RPC("MoveAndCastleKing", RpcTarget.All, 1);
+        }
+        else if (canCastleLeft && castleMoveList.Any(x => x == tileLoc && tileLoc.x < 4))
+        {
+            photonView.RPC("MoveAndCastleKing", RpcTarget.All, -1);
+        }
+
+        // Move piece to new Tile
+        kingCastleTile.piece = this;
+        iTween.MoveTo(gameObject, kingCastleTile.transform.position + new Vector3(0, 0.5f, 0), 0.5f);
+        location = kingCastleTile.coordinates;  
+       
+        if (!hasMoved)
+        {
+            hasMoved = true;
+            canCastleRight = false;
+        }
+    }
+
+    [PunRPC]
+    private void MoveAndCastleKing(int side)
+    {
+        // Honestly have no idea why I should need this.. but it calls twice if this isn't here.
+        if (photonView.IsMine)
+        {
+            // Choose the correct rook
+            int rookPositionX = (side > 0) ? 7 : 0;
+            int rookPositionY = (render.sharedMaterial == board.pieceWhite) ? 0 : 7;
+
+            // Allocate the tiles that the pieces are supposed to switch to.
+            Tile tile = board.tiles[location.x + (2 * side)][rookPositionY];
+            Tile castleRookTile = board.tiles[location.x + (1 * side)][rookPositionY];
+
+            // Move the rook to the position
+            board.tiles[rookPositionX][rookPositionY].piece.photonView.RPC("MoveTo", RpcTarget.All, new Vector2(castleRookTile.coordinates.x, castleRookTile.coordinates.y));
+
+            kingCastleTile = tile;
+        }
+    }
+    #endregion
 }

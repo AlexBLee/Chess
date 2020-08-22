@@ -62,11 +62,14 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
             Tile currentTile = board.GetTile(boardCoordPoint);
             if (currentTile == null) { return; }
 
-            if (!IsPieceAtTile(boardCoordPoint) && enemyPieceFound == null)
+            if (!IsPieceAtTile(boardCoordPoint))
             {
                 // If an enemy piece hasn't already appeared, keep adding moves.
-                line.Add(boardCoordPoint);
-                moves.Add(boardCoordPoint);
+                if (enemyPieceFound == null)
+                {
+                    line.Add(boardCoordPoint);
+                    moves.Add(boardCoordPoint);
+                }
             }
             else if (IsFriendlyPiece(boardCoordPoint) && enemyPieceFound == null)
             {

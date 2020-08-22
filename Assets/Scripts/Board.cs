@@ -36,6 +36,8 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
+
         InitalizeBoard();
         ColourAndNameTiles();
         SpawnPieces();
@@ -46,7 +48,6 @@ public class Board : MonoBehaviour
         // But if you're offline, it will just get the GameManager to find the moves.
         if (!PhotonNetwork.IsConnected)
         {
-            photonView = GetComponent<PhotonView>();
             GameManager.instance.FindAllPossibleMoves();
         }
     }

@@ -102,6 +102,7 @@ MonoBehaviour:
   forwardDirection: 0
   defended: 0
   pinned: 0
+  photonView: {fileID: 0}
 --- !u!114 &-5585448473832870723
 MonoBehaviour:
   m_ObjectHideFlags: 0
