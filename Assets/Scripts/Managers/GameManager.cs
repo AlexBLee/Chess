@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    [PunRPC]
     public void SetGameState(bool state)
     {
         // If state is true -> resume game, if state is false -> pause game

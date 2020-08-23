@@ -34,6 +34,8 @@ public class Board : MonoBehaviour
 
     public PhotonView photonView;
 
+    public bool initialInstantiation = true;
+
     void Start()
     {
         photonView = GetComponent<PhotonView>();
@@ -157,6 +159,8 @@ public class Board : MonoBehaviour
         // black king
         PlacePiecesAt(4,7, PieceType.King, pieceBlack);
 
+        initialInstantiation = false;
+
     }
 
     public void PlacePiecesAt(int x, int y, PieceType pieceType, Material material)
@@ -195,7 +199,7 @@ public class Board : MonoBehaviour
         }
         else  // If online..
         {
-            if (!PhotonNetwork.IsMasterClient) { return; }
+            if (!PhotonNetwork.IsMasterClient && initialInstantiation) { return; }
 
             // Because you can't send material through the object data, have to use a bool
             // to determine the color the piece will be and then explicitly set the material 
@@ -252,6 +256,40 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void DestroyPieceAt(Tile selectedTile)
+    {
+        // Destroy the piece at that tile
+        if (selectedTile.piece != null)
+        {
+            GameManager.instance.movesWithoutCaptures = 0;
+
+            // TODO: clear piece from board function
+            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            {
+                blackPieces.Remove(selectedTile.piece);
+            }
+            else
+            {
+                whitePieces.Remove(selectedTile.piece);
+            }
+
+            Destroy(selectedTile.piece.gameObject); 
+        }
+    }
+
+    public bool IsInBoard(Vector2Int tile)
+    {
+        return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
+    }
+
+    public Tile GetTile(Vector2Int coordinates)
+    {
+        return IsInBoard(coordinates) ? tiles[coordinates.x][coordinates.y] : null;
+    }
+
+
+    #region PhotonNetwork Calls
+
     [PunRPC]
     public void DestroyPieceAt(Vector2 clickedTileLocation, Vector2 currentPieceLocation)
     {
@@ -288,35 +326,28 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void DestroyPieceAt(Tile selectedTile)
+    [PunRPC]
+    public void DestroyPieceAt(Vector2 location)
     {
+        Tile tile = tiles[(int)location.x][(int)location.y];
+
         // Destroy the piece at that tile
-        if (selectedTile.piece != null)
+        if (tile.piece != null)
         {
             GameManager.instance.movesWithoutCaptures = 0;
 
             // TODO: clear piece from board function
-            if (selectedTile.piece.render.sharedMaterial == pieceBlack)
+            if (tile.piece.render.sharedMaterial == pieceBlack)
             {
-                blackPieces.Remove(selectedTile.piece);
+                blackPieces.Remove(tile.piece);
             }
             else
             {
-                whitePieces.Remove(selectedTile.piece);
+                whitePieces.Remove(tile.piece);
             }
 
-            Destroy(selectedTile.piece.gameObject); 
+            Destroy(tile.piece.gameObject); 
         }
     }
-
-    public bool IsInBoard(Vector2Int tile)
-    {
-        return tile.x >= 0 && tile.y >= 0 && tile.x <= 7 && tile.y <= 7;
-    }
-
-    public Tile GetTile(Vector2Int coordinates)
-    {
-        return IsInBoard(coordinates) ? tiles[coordinates.x][coordinates.y] : null;
-    }
-
+    #endregion
 }

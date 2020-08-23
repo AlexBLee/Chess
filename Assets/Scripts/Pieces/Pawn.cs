@@ -142,13 +142,24 @@ public class Pawn : Piece
         if (tile.coordinates.y == side)
         {
             if (GameManager.instance.playerControlled)
-            {
-                GameManager.instance.promotionPanel.gameObject.SetActive(true);
+            { 
+                if (PhotonNetwork.IsConnected && photonView.IsMine)
+                {
+                    GameManager.instance.promotionPanel.gameObject.SetActive(true);
+                }
             }
             GameManager.instance.SetGameState(false);
                 
             int x = (GameManager.instance.playerControlled) ? GameManager.instance.promotionPanel.number : GameManager.instance.stockfish.promotionNumber;
-            StartCoroutine(PromotePiece(tile, x));        
+
+            if (PhotonNetwork.IsConnected)
+            {
+                StartCoroutine(PromotePiece(new Vector2(tile.coordinates.x, tile.coordinates.y), x));
+            }
+            else
+            {
+                StartCoroutine(PromotePiece(tile, x));        
+            }
         }
     }
 
@@ -165,11 +176,31 @@ public class Pawn : Piece
         GameManager.instance.promotionPanel.buttonPressed = false;
 
         GameManager.instance.SetGameState(true);
+        GameManager.instance.NextTurn();
+    }
 
-        if (GameManager.instance.playerControlled)
+    IEnumerator PromotePiece(Vector2 tileLoc, int promotionNumber)
+    {
+        while (!GameManager.instance.promotionPanel.buttonPressed && GameManager.instance.playerControlled)
         {
-            GameManager.instance.NextTurn();
+            yield return null;
         }
+
+        Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
+
+        board.GetComponent<PhotonView>().RPC("DestroyPieceAt", RpcTarget.All, tileLoc);
+
+        object[] instantiateData = { tile.coordinates.x, tile.coordinates.y, render.sharedMaterial == board.pieceWhite ? true : false }; 
+        Quaternion correctRotation = (render.sharedMaterial == board.pieceWhite) ? Quaternion.Euler(0,270,0) : Quaternion.Euler(0,90,0);
+        
+        PhotonNetwork.Instantiate("QueenM", tile.transform.position + new Vector3(0, 0.5f, 0), correctRotation, 0, instantiateData);
+
+        GameManager.instance.promotionPanel.gameObject.SetActive(false);
+        GameManager.instance.promotionPanel.buttonPressed = false;
+
+        GameManager.instance.GetComponent<PhotonView>().RPC("SetGameState", RpcTarget.All, true);
+        GameManager.instance.GetComponent<PhotonView>().RPC("NextTurn", RpcTarget.All);
+        
     }
 
     #region PhotonNetwork Calls
