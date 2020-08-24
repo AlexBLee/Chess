@@ -46,11 +46,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     {
         GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
 
-        if (!GameManager.whiteSide)
-        {
-            Camera.main.transform.SetPositionAndRotation(GameManager.instance.blackSideCameraPos.position, GameManager.instance.blackSideCameraPos.rotation);
-        }
-
+        GameManager.instance.InitializeHUD();
     }
 
     public override void OnPlayerLeftRoom(Player other)

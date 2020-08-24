@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool playerControlled;
     public bool gameOver;
 
+    public List<GameObject> rankFileList = new List<GameObject>();
+
     private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
 
 
@@ -45,16 +47,7 @@ public class GameManager : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
         }
 
-        // If the player starts as black, use alternate camera position
-        if (!whiteSide)
-        {
-            playerTurn = false;
-            Camera.main.transform.SetPositionAndRotation(blackSideCameraPos.position, blackSideCameraPos.rotation);
-        }
-        else
-        {
-            playerTurn = true;
-        }
+        InitializeHUD();
 
         promotionPanel.gameObject.SetActive(false);
         resultPanel.gameObject.SetActive(false);
@@ -126,7 +119,6 @@ public class GameManager : MonoBehaviour
             PENWriter.moveCount++;
             moveCounter = 2;
         }
-
         chessTimer.StartCountdown();
 
         PENWriter.enPassantTile = "-";
@@ -272,4 +264,31 @@ public class GameManager : MonoBehaviour
         resultPanel.DisplayText(text);
     }
 
+    public void InitializeHUD()
+    {
+        // If the player starts as black, use alternate camera position
+        if (!whiteSide)
+        {
+            playerTurn = false;
+            Camera.main.transform.SetPositionAndRotation(blackSideCameraPos.position, blackSideCameraPos.rotation);
+
+            // set black perspective markings
+            GameManager.instance.rankFileList[0].SetActive(false);
+            GameManager.instance.rankFileList[1].SetActive(false);
+
+            GameManager.instance.rankFileList[2].SetActive(true);
+            GameManager.instance.rankFileList[3].SetActive(true);
+        }
+        else
+        {
+            playerTurn = true;
+
+            // set white perspective markings
+            GameManager.instance.rankFileList[0].SetActive(true);
+            GameManager.instance.rankFileList[1].SetActive(true);
+
+            GameManager.instance.rankFileList[2].SetActive(false);
+            GameManager.instance.rankFileList[3].SetActive(false);
+        }
+    }
 }
