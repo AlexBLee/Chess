@@ -34,8 +34,10 @@ public class PieceSelection : MonoBehaviour
 
     public void SelectPiece(Piece piece)
     {
-        if (piece != null && piece.interactable && !GameManager.instance.paused && piece.photonView.IsMine)
+        if (piece != null && piece.interactable && !GameManager.instance.paused)
         {
+            if (PhotonNetwork.IsConnected && !piece.photonView.IsMine) { return; }
+
             selectedPiece = piece;
 
             // Loop through each possible move that the piece can make
