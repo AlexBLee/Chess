@@ -197,6 +197,8 @@ public class King : Piece
         Vector2 currentCoor = new Vector2(location.x, location.y);
         board.photonView.RPC("DestroyPieceAt", RpcTarget.All, tileLoc, currentCoor);
 
+        board.tiles[location.x][location.y].piece = null;
+
         // Make sure the previous Tile no longer owns the piece
         kingCastleTile.piece = null;
 
