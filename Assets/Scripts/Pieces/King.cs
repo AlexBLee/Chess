@@ -224,22 +224,22 @@ public class King : Piece
     [PunRPC]
     private void MoveAndCastleKing(int side)
     {
-        // Honestly have no idea why I should need this.. but it calls twice if this isn't here.
-        if (photonView.IsMine)
-        {
-            // Choose the correct rook
-            int rookPositionX = (side > 0) ? 7 : 0;
-            int rookPositionY = (render.sharedMaterial == board.pieceWhite) ? 0 : 7;
+        // Choose the correct rook
+        int rookPositionX = (side > 0) ? 7 : 0;
+        int rookPositionY = (render.sharedMaterial == board.pieceWhite) ? 0 : 7;
 
-            // Allocate the tiles that the pieces are supposed to switch to.
-            Tile tile = board.tiles[location.x + (2 * side)][rookPositionY];
-            Tile castleRookTile = board.tiles[location.x + (1 * side)][rookPositionY];
+        // Temp fix: this function for some reason triggers twice, so it will end up going out of bounds so this is needed..
+        if (location.x + (2 * side) > 7 || location.x + (2 * side) < 0) { return; }
 
-            // Move the rook to the position
-            board.tiles[rookPositionX][rookPositionY].piece.photonView.RPC("MoveTo", RpcTarget.All, new Vector2(castleRookTile.coordinates.x, castleRookTile.coordinates.y));
+        // Allocate the tiles that the pieces are supposed to switch to.
+        Tile tile = board.tiles[location.x + (2 * side)][rookPositionY];
+        Tile castleRookTile = board.tiles[location.x + (1 * side)][rookPositionY];
 
-            kingCastleTile = tile;
-        }
+        // Move the rook to the position
+        board.tiles[rookPositionX][rookPositionY].piece.photonView.RPC("MoveTo", RpcTarget.All, new Vector2(castleRookTile.coordinates.x, castleRookTile.coordinates.y));
+
+        kingCastleTile = tile;
+        
     }
     #endregion
 }
