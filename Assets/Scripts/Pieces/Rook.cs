@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Rook : Piece
 {
@@ -22,6 +23,17 @@ public class Rook : Piece
     }
 
     public override void MoveTo(Tile tile)
+    {
+        base.MoveTo(tile);
+        
+        if (!hasMoved)
+        {
+            hasMoved = true;
+        }
+    }
+
+    [PunRPC]
+    public override void MoveTo(Vector2 tile)
     {
         base.MoveTo(tile);
         

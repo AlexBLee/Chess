@@ -214,6 +214,7 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
     [PunRPC]
     public virtual void MoveTo(Vector2 tileLoc)
     {
+        Debug.Log("xx");
         Tile tile = board.tiles[(int)tileLoc.x][(int)tileLoc.y];
 
         GameManager.instance.PENWriter.consecutivePieceMoves++;
