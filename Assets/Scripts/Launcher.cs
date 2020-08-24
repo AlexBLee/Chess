@@ -82,6 +82,8 @@ public class Launcher : MonoBehaviourPunCallbacks
             // #Critical: We only load if we are the first player, else we rely on 'PhotonNetwork.AutomaticallySyncScene' to sync our instance scene.
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
+                GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
+
                 Debug.Log("Loading level..");
 
                 // #Critical
