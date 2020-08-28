@@ -105,7 +105,7 @@ MonoBehaviour:
   photonView: {fileID: 0}
   firstMove: 1
   enPassantPossible: 0
-  enPassantTile: {x: 0, y: 0}
+  enPassantTile: {x: 99, y: 99}
 --- !u!114 &2344046264791668813
 MonoBehaviour:
   m_ObjectHideFlags: 0

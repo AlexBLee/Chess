@@ -100,6 +100,7 @@ MonoBehaviour:
   forwardDirection: -1
   defended: 1
   pinned: 0
+  photonView: {fileID: 0}
   firstMove: 1
   enPassantPossible: 0
-  enPassantTile: {x: 0, y: 0}
+  enPassantTile: {x: 99, y: 99}
