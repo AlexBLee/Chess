@@ -69,6 +69,18 @@ public class Pawn : Piece
                     moves.Add(boardCoordPoint);
                 }
             }
+            else
+            {
+                // If the tile is at the ends of the board, it's possible it could be blocking a castle from happening.
+                // -- The reason we dont include the x coorindates at 7 and 0 is because a castle is still possible even 
+                // when you attack a rook.
+                if (((boardCoordPoint.y == 7 && render.sharedMaterial == board.pieceWhite) || 
+                    (boardCoordPoint.y == 0 && render.sharedMaterial == board.pieceBlack)) &&
+                    (boardCoordPoint.x != 7 || boardCoordPoint.x != 0))
+                {
+                    currentTile.possibleCastleBlocked = true;
+                }
+            }
             
             // If it's not this pawn's turn, add the diagonals regardless if there is a piece or not at those tiles.
             if (!interactable) { moves.Add(boardCoordPoint); }        
