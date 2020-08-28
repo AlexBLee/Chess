@@ -146,13 +146,9 @@ public class GameManager : MonoBehaviour
             piece.pinned = false;
         }
 
-        // For now checks the entire board.. but should add a list for tiles only on the end of board.
-        foreach (List<Tile> tileList in board.tiles)
+        foreach (Tile tile in board.endTiles)
         {
-            foreach (Tile tile in tileList)
-            {
-                tile.possibleCastleBlocked = false;
-            }
+            tile.possibleCastleBlocked = false;
         }
 
     }

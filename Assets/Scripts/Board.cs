@@ -9,6 +9,9 @@ public class Board : MonoBehaviour
     public Tile tile;
     public List<List<Tile>> tiles;
 
+    // List of tiles at the end of each side - needed for turning off castle block status on tiles
+    public List<Tile> endTiles = new List<Tile>();
+
     // Holds the type of pieces that can be spawned
     public List<Piece> pieces;
 
@@ -92,6 +95,11 @@ public class Board : MonoBehaviour
 
                 tile.name = nextChar + (j+1).ToString();
                 tile.coordinates = new Vector2Int(i, j);
+
+                if (j == 7 || j == 0)
+                {
+                    endTiles.Add(tile);
+                }
 
                 if ((i+j) % 2 == 0)
                 {
