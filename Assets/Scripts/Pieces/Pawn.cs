@@ -154,10 +154,12 @@ public class Pawn : Piece
         if (tile.coordinates.y == side)
         {
             if (GameManager.instance.playerControlled)
-            { 
-                if (PhotonNetwork.IsConnected && photonView.IsMine)
+            {
+                GameManager.instance.promotionPanel.gameObject.SetActive(true);
+                
+                if (PhotonNetwork.IsConnected && !photonView.IsMine)
                 {
-                    GameManager.instance.promotionPanel.gameObject.SetActive(true);
+                    GameManager.instance.promotionPanel.gameObject.SetActive(false);
                 }
             }
             GameManager.instance.SetGameState(false);
