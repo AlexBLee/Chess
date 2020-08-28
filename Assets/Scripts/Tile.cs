@@ -9,4 +9,7 @@ public class Tile : MonoBehaviour
     public Piece piece;
     public Vector2Int coordinates;
     public Material defaultColour;
+
+    // Mark the tiles that could possibly block the king from castling
+    public bool possibleCastleBlocked;
 }

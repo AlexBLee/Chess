@@ -106,7 +106,7 @@ public class King : Piece
     {
         bool canCastle = true;
         
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             Vector2Int boardCoordPoint = 
             new Vector2Int(location.x + (i + 1) * direction, location.y);
@@ -116,8 +116,9 @@ public class King : Piece
             {
                 castleMoveList.Add(boardCoordPoint);
             }
-            
-            if (IsPieceAtTile(boardCoordPoint) && !CheckForCastleRooks(boardCoordPoint))
+
+            if ((IsPieceAtTile(boardCoordPoint) && !CheckForCastleRooks(boardCoordPoint)) 
+                || board.tiles[boardCoordPoint.x][boardCoordPoint.y].possibleCastleBlocked)
             {
                 return false;
             }
