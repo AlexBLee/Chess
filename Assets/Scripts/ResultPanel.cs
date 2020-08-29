@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Photon.Pun;
 
 public class ResultPanel : MonoBehaviour
 {
@@ -27,8 +28,20 @@ public class ResultPanel : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    void Disconnect()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
     void QuitToMenu()
     {
+
+        if (PhotonNetwork.IsConnected)
+        {
+            Disconnect();
+        }
+
         SceneManager.LoadScene("Menu");
+        
     }
 }

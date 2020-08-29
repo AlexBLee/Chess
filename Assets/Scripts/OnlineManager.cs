@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -20,6 +21,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        SceneManager.LoadScene("Menu");
         Debug.Log("Player left room");
     }
 
