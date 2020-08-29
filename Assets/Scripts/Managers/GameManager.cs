@@ -267,6 +267,13 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("GameOver");
         resultPanel.gameObject.SetActive(true);
         resultPanel.DisplayText(text);
+
+        // For now, there is only going to be a quit button and players will have to rematch by re-queueing up in the Menu.
+        // The plan will be to have the play again button instantly rematch the players.
+        if (PhotonNetwork.IsConnected)
+        {
+            resultPanel.playAgainButton.interactable = false;
+        }
     }
 
     public void InitializeHUD()

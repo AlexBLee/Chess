@@ -17,6 +17,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     #region Photon Callbacks
 
 
+
     public override void OnLeftRoom()
     {
         Debug.Log("Player left room");
