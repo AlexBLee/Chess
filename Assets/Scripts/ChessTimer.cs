@@ -16,10 +16,17 @@ public class ChessTimer : MonoBehaviour
 
     private void Start() 
     {
-        whiteTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
-        blackTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
-        incTime = PlayerPrefs.GetInt("IncTime");
+        if (PlayerPrefs.HasKey("TimePerSide"))
+        {
+            whiteTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+            blackTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+        }
 
+        if (PlayerPrefs.HasKey("IncTime"))
+        {
+            incTime = PlayerPrefs.GetInt("IncTime");
+        }
+        
         UpdateText(topTimerText, blackTimerValue);
         UpdateText(bottomTimerText, whiteTimerValue);
     }
