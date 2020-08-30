@@ -19,13 +19,29 @@ public class OnlineManager : MonoBehaviourPunCallbacks
 
     public void Setup()
     {
+
         if (!PhotonNetwork.IsMasterClient)
         {
             GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
         }
 
-        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = PhotonNetwork.PlayerList[0].NickName;
-
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (GameManager.whiteSide)
+            {
+                foreach (Piece piece in GameManager.instance.board.blackPieces)
+                {
+                    piece.photonView.TransferOwnership(2);
+                }
+            }
+            else
+            {
+                foreach (Piece piece in GameManager.instance.board.whitePieces)
+                {
+                    piece.photonView.TransferOwnership(2);
+                }
+            }
+        }
 
         GameManager.instance.InitializeHUD();
     }
@@ -36,39 +52,6 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene("Menu");
         Debug.Log("Player left room");
-    }
-
-    public override void OnPlayerEnteredRoom(Player other)
-    {
-        if (GameManager.whiteSide)
-        {
-            foreach (Piece piece in GameManager.instance.board.blackPieces)
-            {
-                piece.photonView.TransferOwnership(2);
-            }
-        }
-        else
-        {
-            foreach (Piece piece in GameManager.instance.board.whitePieces)
-            {
-                piece.photonView.TransferOwnership(2);
-            }
-        }
-        
-
-        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = other.NickName;
-        
-        Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if youre the player connecting.
-    }
-
-    public override void OnJoinedRoom()
-    {
-
-    }
-
-    public override void OnPlayerLeftRoom(Player other)
-    {
-        Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects.
     }
     
 
