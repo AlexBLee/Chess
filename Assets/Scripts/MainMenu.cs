@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject onlineMenu;
     public GameObject selectionPanel;
+    public GameObject selectionPanel2;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class MainMenu : MonoBehaviour
         quitButton.gameObject.SetActive(false);
 
         selectionPanel.gameObject.SetActive(true);
+        selectionPanel2.gameObject.SetActive(true);
     }
 
     public void ShowOnlineMenu()
@@ -66,5 +68,15 @@ public class MainMenu : MonoBehaviour
         // The reason it's 0,2 rather than 0,1 is because the max value is not inclusive
         GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
         SceneManager.LoadScene("Main");
+    }
+
+    public void SetTime(string value)
+    {
+        PlayerPrefs.SetInt("TimePerSide", int.Parse(value));
+    }
+
+    public void SetIncrementTime(string value)
+    {
+        PlayerPrefs.SetInt("IncTime", int.Parse(value));
     }
 }

@@ -6,14 +6,20 @@ using TMPro;
 
 public class ChessTimer : MonoBehaviour
 {
-    public float whiteTimerValue = 300;
-    public float blackTimerValue = 300;
+    public float whiteTimerValue;
+    public float blackTimerValue;
+
+    public int incTime;
 
     public TextMeshProUGUI topTimerText;
     public TextMeshProUGUI bottomTimerText;
 
     private void Start() 
     {
+        whiteTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+        blackTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+        incTime = PlayerPrefs.GetInt("IncTime");
+
         UpdateText(topTimerText, blackTimerValue);
         UpdateText(bottomTimerText, whiteTimerValue);
     }
@@ -35,6 +41,7 @@ public class ChessTimer : MonoBehaviour
     // Problem: can't pass parameters as reference types :(
     public IEnumerator StartBlackCountdown()
     {
+        blackTimerValue += incTime;
         while (blackTimerValue > 0)
         {
             if (GameManager.instance.gameOver)
@@ -52,6 +59,8 @@ public class ChessTimer : MonoBehaviour
 
     public IEnumerator StartWhiteCountdown()
     {
+        whiteTimerValue += incTime;
+
         while (whiteTimerValue > 0)
         {
             if (GameManager.instance.gameOver)

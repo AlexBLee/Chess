@@ -204,7 +204,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.85
+  m_fontSize: 27.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.85
+  m_fontSize: 27.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.65
+  m_fontSize: 26.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2330,7 +2330,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.65
+  m_fontSize: 26.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2841,7 +2841,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.85
+  m_fontSize: 27.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3016,8 +3016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56099e900a2dd14bb6e773047b6d222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteTimerValue: 300
-  blackTimerValue: 300
+  whiteTimerValue: 1800
+  blackTimerValue: 1800
   topTimerText: {fileID: 1169666380}
   bottomTimerText: {fileID: 1094253799}
 --- !u!1 &792073726
@@ -3443,7 +3443,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.85
+  m_fontSize: 27.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3858,7 +3858,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 37.75
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4187,7 +4187,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 37.75
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6797,7 +6797,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32.15
+  m_fontSize: 35.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7605,6 +7605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: -5034907466988445263, guid: 21bbccdf2d1ae834c81ced3884544130, type: 3}
+  endTiles: []
   pieces:
   - {fileID: -6260407229231561430, guid: 5c23dc5a5f8f92841b5fce13937f1268, type: 3}
   - {fileID: 7553842220805437677, guid: 9008833d4f63128429daf33824539c4d, type: 3}
