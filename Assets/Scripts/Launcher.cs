@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
+using TMPro;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    byte maxPlayersPerRoom = 4;
+    byte maxPlayersPerRoom = 2;
     string gameVersion = "1";
     [SerializeField] private GameObject controlPanel = null;
     [SerializeField] private GameObject progressLabel = null;
@@ -13,6 +16,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [SerializeField] private InputField inputField;
     const string playerNamePrefKey = "PlayerName";
+
+    public GameObject onlineLobbyPanel;
+    public List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
 
     bool isConnecting;
 
@@ -69,6 +75,30 @@ public class Launcher : MonoBehaviourPunCallbacks
         PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 
+    public void UpdateList()
+    {
+        Player[] playerList = PhotonNetwork.PlayerList;
+
+        int index = 0;
+        foreach (TextMeshProUGUI text in textList)
+        {
+            if (index < playerList.Length)
+            {
+                text.text = playerList[index].NickName; 
+            }
+            else
+            {
+                text.text = "Player " + (index + 1).ToString();
+            }
+            index++;
+        }
+    }
+
+    public void LoadLevel()
+    {
+        PhotonNetwork.LoadLevel("Main Multiplayer Test");
+    }
+
     #region MonoBehaviourPunCallBacks Callbacks
 
         public override void OnConnectedToMaster()
@@ -104,21 +134,32 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
         }
 
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            UpdateList();
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            UpdateList();
+        }
+
         public override void OnJoinedRoom()
         {
             Debug.Log("Client is now in room..");
 
-            // #Critical: We only load if we are the first player, else we rely on 'PhotonNetwork.AutomaticallySyncScene' to sync our instance scene.
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
+            progressLabel.SetActive(false);
+            onlineLobbyPanel.SetActive(true);
 
-                Debug.Log("Loading level..");
+            GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
 
-                // #Critical
-                PhotonNetwork.LoadLevel("Main Multiplayer Test");
-            }
+            UpdateList();
+
+            // #Critical
+            // PhotonNetwork.LoadLevel("Main Multiplayer Test");
+            
         }
+
         #endregion
 
 }
