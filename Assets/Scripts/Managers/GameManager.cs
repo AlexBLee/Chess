@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> rankFileList = new List<GameObject>();
 
-    private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
 
 
     void Awake()
@@ -41,11 +40,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            _customProperties.Add("side", GameManager.whiteSide);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
-        }
+
 
         InitializeHUD();
 

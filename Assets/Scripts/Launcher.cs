@@ -19,6 +19,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public GameObject onlineLobbyPanel;
     public List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
+    private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
+
 
     bool isConnecting;
 
@@ -101,65 +103,65 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     #region MonoBehaviourPunCallBacks Callbacks
 
-        public override void OnConnectedToMaster()
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected to Master called by Pun");
+
+        // we don't want to do anything if we are not attempting to join a room.
+        // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
+        // we don't want to do anything.
+        if (isConnecting)
         {
-            Debug.Log("Connected to Master called by Pun");
-
-            // we don't want to do anything if we are not attempting to join a room.
-            // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
-            // we don't want to do anything.
-            if (isConnecting)
-            {
-                // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
-                PhotonNetwork.JoinRandomRoom();
-                isConnecting = false;
-
-            }
-        }
-
-        public override void OnDisconnected(DisconnectCause cause)
-        {
-            progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
+            // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
+            PhotonNetwork.JoinRandomRoom();
             isConnecting = false;
 
-            Debug.LogWarningFormat("OnDisconnected called with reason: {0}", cause);
         }
+    }
 
-        public override void OnJoinRandomFailed(short returnCode, string message)
-        {
-            Debug.Log("No random room available.. creating");
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(true);
+        isConnecting = false;
 
-            // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-        }
+        Debug.LogWarningFormat("OnDisconnected called with reason: {0}", cause);
+    }
 
-        public override void OnPlayerEnteredRoom(Player newPlayer)
-        {
-            UpdateList();
-        }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("No random room available.. creating");
 
-        public override void OnPlayerLeftRoom(Player otherPlayer)
-        {
-            UpdateList();
-        }
+        GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
 
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("Client is now in room..");
+        _customProperties.Add("side", GameManager.whiteSide);
 
-            progressLabel.SetActive(false);
-            onlineLobbyPanel.SetActive(true);
+        // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom, CustomRoomProperties = _customProperties });
+    }
 
-            GameManager.whiteSide = (Random.Range(0,2) == 0) ? true : false;
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        UpdateList();
+    }
 
-            UpdateList();
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdateList();
+    }
 
-            // #Critical
-            // PhotonNetwork.LoadLevel("Main Multiplayer Test");
-            
-        }
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Client is now in room..");
 
-        #endregion
+        progressLabel.SetActive(false);
+        onlineLobbyPanel.SetActive(true);
+
+        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["side"]);
+
+        UpdateList();
+    }
+
+    #endregion
 
 }

@@ -14,11 +14,23 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     void Start()
     {
         instance = this;
+        Setup();
+    }
+
+    public void Setup()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
+        }
+
+        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = PhotonNetwork.PlayerList[0].NickName;
+
+
+        GameManager.instance.InitializeHUD();
     }
 
     #region Photon Callbacks
-
-
 
     public override void OnLeftRoom()
     {
@@ -51,17 +63,14 @@ public class OnlineManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
-        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = PhotonNetwork.PlayerList[0].NickName;
 
-
-        GameManager.instance.InitializeHUD();
     }
 
     public override void OnPlayerLeftRoom(Player other)
     {
         Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects.
     }
+    
 
     #endregion
     
