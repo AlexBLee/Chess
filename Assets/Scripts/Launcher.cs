@@ -11,12 +11,29 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject progressLabel = null;
     [SerializeField] private Button connectButton = null;
 
+    [SerializeField] private InputField inputField;
+    const string playerNamePrefKey = "PlayerName";
+
     bool isConnecting;
 
     private void Awake()
     {
         connectButton.onClick.AddListener(Connect);
         PhotonNetwork.AutomaticallySyncScene = true;
+
+        string defaultName = string.Empty;
+
+        if (inputField != null)
+        {
+            if (PlayerPrefs.HasKey(playerNamePrefKey))
+            {
+                defaultName = PlayerPrefs.GetString(playerNamePrefKey);
+                inputField.text = defaultName;
+            }
+        }
+
+        PhotonNetwork.NickName = defaultName;
+
     }
 
     public void Connect()
@@ -38,6 +55,18 @@ public class Launcher : MonoBehaviourPunCallbacks
             isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
+    }
+
+    public void SetPlayerName(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            Debug.LogError("Player name is null or empty.");
+            return;
+        }
+
+        PhotonNetwork.NickName = value;
+        PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 
     #region MonoBehaviourPunCallBacks Callbacks

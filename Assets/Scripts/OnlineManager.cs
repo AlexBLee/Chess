@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class OnlineManager : MonoBehaviourPunCallbacks
 {
@@ -42,12 +43,17 @@ public class OnlineManager : MonoBehaviourPunCallbacks
             }
         }
         
+
+        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = other.NickName;
+        
         Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if youre the player connecting.
     }
 
     public override void OnJoinedRoom()
     {
         GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
+        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = PhotonNetwork.PlayerList[0].NickName;
+
 
         GameManager.instance.InitializeHUD();
     }
