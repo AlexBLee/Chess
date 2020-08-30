@@ -54,19 +54,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start() {
-
-        // if (!playerTurn)
-        // {
-        //     MakeBotMove();
-        // }
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.F))
+    private void Start() 
+    {
+        if (!playerTurn && !PhotonNetwork.IsConnected)
         {
-            // MakeBotMove();
-            Debug.Log(whiteSide);
+            MakeBotMove();
         }
     }
 
@@ -218,10 +210,10 @@ public class GameManager : MonoBehaviour
 
             CheckDraw();
 
-            // if (!playerTurn)
-            // {
-            //     MakeBotMove();
-            // }
+            if (!playerTurn && !PhotonNetwork.IsConnected)
+            {
+                MakeBotMove();
+            }
 
         }
     }
