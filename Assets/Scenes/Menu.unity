@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2111,7 +2111,7 @@ RectTransform:
   - {fileID: 2014641653}
   - {fileID: 339493290}
   m_Father: {fileID: 1072859926}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.515075, y: 0.048333332}
   m_AnchorMax: {x: 0.8728875, y: 0.6109259}
@@ -2541,6 +2541,8 @@ MonoBehaviour:
   onlineMenu: {fileID: 1396328915}
   selectionPanel: {fileID: 2133595476}
   selectionPanel2: {fileID: 657092739}
+  timeField: {fileID: 119068776}
+  incField: {fileID: 307478230}
 --- !u!4 &823874868
 Transform:
   m_ObjectHideFlags: 0
@@ -3257,8 +3259,8 @@ RectTransform:
   - {fileID: 888550566}
   - {fileID: 1753618514}
   - {fileID: 2133595477}
-  - {fileID: 1396328916}
   - {fileID: 657092740}
+  - {fileID: 1396328916}
   - {fileID: 1762305880}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -4019,7 +4021,7 @@ RectTransform:
   - {fileID: 627051016}
   - {fileID: 1268201319}
   m_Father: {fileID: 1072859926}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.47086248, y: 0.44375703}
   m_AnchorMax: {x: 0.52913755, y: 0.55624294}
