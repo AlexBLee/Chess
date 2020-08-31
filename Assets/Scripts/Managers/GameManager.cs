@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-
-
         InitializeHUD();
 
         promotionPanel.gameObject.SetActive(false);

@@ -17,10 +17,13 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private InputField inputField;
     const string playerNamePrefKey = "PlayerName";
 
+    // If master client.. show the input fields but if you're not, then show only numbers
+    public List<GameObject> inputFieldList = new List<GameObject>();
+    public List<GameObject> numberFieldList = new List<GameObject>();
+
     public GameObject onlineLobbyPanel;
     public List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
     private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
-
 
     bool isConnecting;
 
@@ -101,6 +104,34 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("Main Multiplayer Test");
     }
 
+    public void UpdateTime(string value)
+    {
+        if (_customProperties["time"] == null)
+        {
+            _customProperties.Add("time", int.Parse(value));
+        }
+        else
+        {
+            _customProperties["time"] = int.Parse(value);
+        }
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
+    }
+
+    public void UpdateIncrement(string value)
+    {
+        if (_customProperties["inc"] == null)
+        {
+            _customProperties.Add("inc", int.Parse(value));
+        }
+        else
+        {
+            _customProperties["inc"] = int.Parse(value);
+        }
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(_customProperties);
+    }
+
     #region MonoBehaviourPunCallBacks Callbacks
 
     public override void OnConnectedToMaster()
@@ -157,9 +188,31 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressLabel.SetActive(false);
         onlineLobbyPanel.SetActive(true);
 
-        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["side"]);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            inputFieldList[0].SetActive(true);
+            inputFieldList[1].SetActive(true);
+        }
+        else
+        {
+            numberFieldList[0].SetActive(true);
+            numberFieldList[1].SetActive(true);
+        }
 
         UpdateList();
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged["time"] != null)
+        {
+            numberFieldList[0].GetComponent<TextMeshProUGUI>().text = propertiesThatChanged["time"].ToString();
+        }
+
+        if (propertiesThatChanged["inc"] != null)
+        {
+            numberFieldList[1].GetComponent<TextMeshProUGUI>().text = propertiesThatChanged["inc"].ToString();
+        }
     }
 
     #endregion

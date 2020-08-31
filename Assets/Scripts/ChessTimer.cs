@@ -3,29 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using Photon.Pun;
 
 public class ChessTimer : MonoBehaviour
 {
-    public float whiteTimerValue;
-    public float blackTimerValue;
+    public static float whiteTimerValue;
+    public static float blackTimerValue;
 
-    public int incTime;
+    public static int incTime;
 
     public TextMeshProUGUI topTimerText;
     public TextMeshProUGUI bottomTimerText;
 
     private void Start() 
     {
-        if (PlayerPrefs.HasKey("TimePerSide"))
+        if (PhotonNetwork.IsConnected)
         {
-            whiteTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
-            blackTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+            whiteTimerValue = (int)PhotonNetwork.CurrentRoom.CustomProperties["time"] * 60;
+            blackTimerValue = (int)PhotonNetwork.CurrentRoom.CustomProperties["time"] * 60;
+
+            incTime = (int)PhotonNetwork.CurrentRoom.CustomProperties["inc"];
+        }
+        else
+        {
+            if (PlayerPrefs.HasKey("TimePerSide"))
+            {
+                whiteTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+                blackTimerValue = PlayerPrefs.GetInt("TimePerSide") * 60;
+            }
+
+            if (PlayerPrefs.HasKey("IncTime"))
+            {
+                incTime = PlayerPrefs.GetInt("IncTime");
+            }
         }
 
-        if (PlayerPrefs.HasKey("IncTime"))
-        {
-            incTime = PlayerPrefs.GetInt("IncTime");
-        }
         
         UpdateText(topTimerText, blackTimerValue);
         UpdateText(bottomTimerText, whiteTimerValue);
