@@ -264,11 +264,14 @@ public class GameManager : MonoBehaviour
 
     public void InitializeHUD()
     {
-        GameObject.Find("Name1").GetComponent<TextMeshProUGUI>().text = 
-        PhotonNetwork.NickName;
-        
-        GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = 
-        PhotonNetwork.IsMasterClient ? PhotonNetwork.PlayerList[1].NickName : PhotonNetwork.PlayerList[0].NickName;
+        if (PhotonNetwork.IsConnected)
+        {
+            GameObject.Find("Name1").GetComponent<TextMeshProUGUI>().text = 
+            PhotonNetwork.NickName;
+            
+            GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = 
+            PhotonNetwork.IsMasterClient ? PhotonNetwork.PlayerList[1].NickName : PhotonNetwork.PlayerList[0].NickName;   
+        }
 
         // If the player starts as black, use alternate camera position
         if (!whiteSide)

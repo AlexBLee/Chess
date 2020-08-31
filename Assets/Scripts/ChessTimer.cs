@@ -49,10 +49,22 @@ public class ChessTimer : MonoBehaviour
         if (GameManager.instance.whiteTurn)
         {
             StartCoroutine(StartWhiteCountdown());
+
+            if (GameManager.instance.moveCounter != 1)
+            {
+                blackTimerValue += incTime;
+                UpdateText(!GameManager.whiteSide ? bottomTimerText : topTimerText, blackTimerValue);
+            }
         }
         else
         {
             StartCoroutine(StartBlackCountdown());
+
+            if (GameManager.instance.moveCounter != 1)
+            {
+                whiteTimerValue += incTime;
+                UpdateText(GameManager.whiteSide ? bottomTimerText : topTimerText, whiteTimerValue);
+            }
         }
     }
 
@@ -60,7 +72,6 @@ public class ChessTimer : MonoBehaviour
     // Problem: can't pass parameters as reference types :(
     public IEnumerator StartBlackCountdown()
     {
-        blackTimerValue += incTime;
         while (blackTimerValue > 0)
         {
             if (GameManager.instance.gameOver)
@@ -78,8 +89,6 @@ public class ChessTimer : MonoBehaviour
 
     public IEnumerator StartWhiteCountdown()
     {
-        whiteTimerValue += incTime;
-
         while (whiteTimerValue > 0)
         {
             if (GameManager.instance.gameOver)
