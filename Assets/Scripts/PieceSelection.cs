@@ -6,10 +6,14 @@ using Photon.Pun;
 
 public class PieceSelection : MonoBehaviour
 {
-    public Board board;
-    public Piece selectedPiece;
-    public bool pieceSelected;
+    private Board board;
+    private Piece selectedPiece;
+    private bool pieceSelected;
 
+    private void Start() 
+    {
+        board = FindObjectOfType<Board>();
+    }
 
     void Update()
     {
