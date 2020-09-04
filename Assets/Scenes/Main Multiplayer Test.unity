@@ -3347,8 +3347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56099e900a2dd14bb6e773047b6d222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteTimerValue: 300
-  blackTimerValue: 300
   topTimerText: {fileID: 1169666380}
   bottomTimerText: {fileID: 1094253799}
 --- !u!1 &797006144
@@ -7697,7 +7695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: -5034907466988445263, guid: 21bbccdf2d1ae834c81ced3884544130, type: 3}
   endTiles: []
-  pieces:
+  pieceTypeList:
   - {fileID: -6260407229231561430, guid: 5c23dc5a5f8f92841b5fce13937f1268, type: 3}
   - {fileID: 7553842220805437677, guid: 9008833d4f63128429daf33824539c4d, type: 3}
   - {fileID: -1947997721133195617, guid: 53724cae61bd65c4bb420eb1f0f1c272, type: 3}
@@ -7706,7 +7704,6 @@ MonoBehaviour:
   - {fileID: -1148651295144696686, guid: 47afdbddb43d6c6418b42391e0dad814, type: 3}
   whitePieces: []
   blackPieces: []
-  pieceType: 0
   boardWhite: {fileID: 2100000, guid: 82472f43848b6e34cb683862c337dbc6, type: 2}
   boardBlack: {fileID: 2100000, guid: 7183734ca1c186745925bb8460813d0d, type: 2}
   pieceWhite: {fileID: 2100000, guid: 644348a57efd3114089b69f74becf655, type: 2}

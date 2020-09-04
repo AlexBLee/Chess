@@ -7,13 +7,13 @@ using Photon.Pun;
 
 public class ChessTimer : MonoBehaviour
 {
-    public static float whiteTimerValue;
-    public static float blackTimerValue;
+    private float whiteTimerValue;
+    private float blackTimerValue;
 
-    public static int incTime;
+    private int incTime;
 
-    public TextMeshProUGUI topTimerText;
-    public TextMeshProUGUI bottomTimerText;
+    [SerializeField] private TextMeshProUGUI topTimerText;
+    [SerializeField] private TextMeshProUGUI bottomTimerText;
 
     private void Start() 
     {
