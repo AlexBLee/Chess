@@ -23,25 +23,18 @@ public class ResultPanel : MonoBehaviour
         resultText.text = text;
     }
 
-    void PlayAgain()
+    private void PlayAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void Disconnect()
+    private void QuitToMenu()
     {
-        PhotonNetwork.LeaveRoom();
-    }
-
-    void QuitToMenu()
-    {
-
         if (PhotonNetwork.IsConnected)
         {
-            Disconnect();
+            PhotonNetwork.LeaveRoom();
         }
 
         SceneManager.LoadScene("Menu");
-        
     }
 }

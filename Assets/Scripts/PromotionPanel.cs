@@ -7,7 +7,7 @@ public class PromotionPanel : MonoBehaviour
 {
     private List<Button> buttonList;
     public int number;
-    private bool buttonPressed = false;
+    public bool buttonPressed = false;
     
     private void Start() 
     {
