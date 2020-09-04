@@ -6,6 +6,10 @@ using Photon.Pun;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] private const int boardWidth = 8;
+    [SerializeField] private const int boardHeight = 8;
+    private const float TILE_OFFSET = 1.0f;
+
     public Tile tile;
     public List<List<Tile>> tiles;
 
@@ -13,26 +17,18 @@ public class Board : MonoBehaviour
     public List<Tile> endTiles = new List<Tile>();
 
     // Holds the type of pieces that can be spawned
-    public List<Piece> pieces;
+    public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
+    [SerializeField] private List<Piece> pieceTypeList;
 
     // To keep a list of current pieces for each side on the board.
     public List<Piece> whitePieces;
     public List<Piece> blackPieces;
-
-    private const float TILE_OFFSET = 1.0f;
-
-    [SerializeField] private const int boardWidth = 8;
-    [SerializeField] private const int boardHeight = 8;
-
-    public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
-    public PieceType pieceType;
 
     public Material boardWhite;
     public Material boardBlack;
     public Material pieceWhite;
     public Material pieceBlack;
     public Material pieceAttack;
-
     public Material availableMoveColour;
 
     public PhotonView photonView;
@@ -175,7 +171,7 @@ public class Board : MonoBehaviour
     {
         Tile selectedTile = tiles[x][y];
 
-        selectedTile.piece = pieces[(int)pieceType];
+        selectedTile.piece = pieceTypeList[(int)pieceType];
 
         Quaternion correctRotation = (material == pieceWhite) ? Quaternion.Euler(0,270,0) : Quaternion.Euler(0,90,0);
 
