@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class PromotionPanel : MonoBehaviour
 {
-    public List<Button> buttonList;
+    private List<Button> buttonList;
     public int number;
-    public bool buttonPressed = false;
+    private bool buttonPressed = false;
     
     private void Start() 
     {
