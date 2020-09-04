@@ -68,9 +68,7 @@ public class ChessTimer : MonoBehaviour
         }
     }
 
-    // TODO: Combine these two functions into one..
-    // Problem: can't pass parameters as reference types :(
-    public IEnumerator StartBlackCountdown()
+    private IEnumerator StartBlackCountdown()
     {
         while (blackTimerValue > 0)
         {
@@ -87,7 +85,7 @@ public class ChessTimer : MonoBehaviour
         GameManager.instance.ActivateGameOver("White wins by timeout");
     }
 
-    public IEnumerator StartWhiteCountdown()
+    private IEnumerator StartWhiteCountdown()
     {
         while (whiteTimerValue > 0)
         {
@@ -104,7 +102,7 @@ public class ChessTimer : MonoBehaviour
         GameManager.instance.ActivateGameOver("Black wins by timeout");
     }
 
-    public void UpdateText(TextMeshProUGUI text, float timerValue)
+    private void UpdateText(TextMeshProUGUI text, float timerValue)
     {
         TimeSpan time = TimeSpan.FromSeconds(timerValue);
         text.text = time.ToString(@"mm\:ss");
