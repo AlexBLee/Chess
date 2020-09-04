@@ -43,7 +43,7 @@ public class Pawn : Piece
         }
     }
 
-    public void AttackDiagonals()
+    private void AttackDiagonals()
     {
         for (int i = -1; i < 2; i += 2)
         {
@@ -87,7 +87,7 @@ public class Pawn : Piece
         }        
     }
 
-    public void CheckForEnPassant()
+    private void CheckForEnPassant()
     {
         for (int i = -1; i < 2; i += 2)
         {
@@ -130,7 +130,7 @@ public class Pawn : Piece
         CheckForMovementToPromotionTile(tile);
     }
     
-    public void FirstMoveCheck(Tile tile)
+    private void FirstMoveCheck(Tile tile)
     {
         firstMove = false;
 
@@ -138,7 +138,7 @@ public class Pawn : Piece
         enPassantPossible = ((tile.coordinates.y - location.y) == (2 * forwardDirection)) ? true : false;
     }
 
-    public void CheckForMovementToEnPassantTile(Tile tile)
+    private void CheckForMovementToEnPassantTile(Tile tile)
     {        
         Tile tilePieceToDestroy = (tile.coordinates == enPassantTile) ? board.GetTile(new Vector2Int(enPassantTile.x, enPassantTile.y - (1 * forwardDirection))) : tile;
 
@@ -146,7 +146,7 @@ public class Pawn : Piece
         
     }
 
-    public void CheckForMovementToPromotionTile(Tile tile)
+    private void CheckForMovementToPromotionTile(Tile tile)
     {
         // Mark end of the board for each side.
         int side = (render.sharedMaterial == board.pieceWhite) ? 7 : 0;
