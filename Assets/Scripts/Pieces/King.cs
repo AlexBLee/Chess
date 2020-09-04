@@ -57,7 +57,7 @@ public class King : Piece
         }
     }
 
-    public override void RemoveIllegalMoves()
+    protected override void RemoveIllegalMoves()
     {
         base.RemoveIllegalMoves();
 

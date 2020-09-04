@@ -6,12 +6,11 @@ using Photon.Pun;
 
 public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
 {
-    // to tell between white and black
-    public static Board board;
+    protected Board board;
     public bool interactable;
     public Renderer render;
     public List<Vector2Int> moves;
-    public List<Vector2Int> pinnedMoveList;
+    private List<Vector2Int> pinnedMoveList;
     public Vector2Int location;
     public int forwardDirection;
     public bool defended;
@@ -41,7 +40,7 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
     }
 
     // TODO: clean this up.. as usual.
-    public void CalculateMoves(int xIncrement, int yIncrement, bool singleJump)
+    protected void CalculateMoves(int xIncrement, int yIncrement, bool singleJump)
     {
         // Movement
         int xStep = xIncrement;
@@ -157,32 +156,27 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
         location = tile.coordinates;          
     }
 
-    public void ColourAvailableTiles(Tile tile, Material mat)
-    {
-        tile.render.material = mat;
-    }
-
-    public virtual void RemoveIllegalMoves()
+    protected virtual void RemoveIllegalMoves()
     {
         moves.RemoveAll(tile => tile.x < 0 || tile.x > 7 || tile.y < 0 || tile.y > 7);
     }
 
-    public bool IsPieceAtTile(Vector2Int tile)
+    protected bool IsPieceAtTile(Vector2Int tile)
     {
         return board.IsInBoard(new Vector2Int(tile.x, tile.y)) && board.tiles[tile.x][tile.y].piece != null;
     }
 
-    public bool IsFriendlyPiece(Vector2Int tile)
+    protected bool IsFriendlyPiece(Vector2Int tile)
     {
         return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.render.sharedMaterial == render.sharedMaterial;
     }
 
-    public bool IsEnemyPiece(Vector2Int tile)
+    protected bool IsEnemyPiece(Vector2Int tile)
     {
         return IsPieceAtTile(tile) && board.tiles[tile.x][tile.y].piece.render.sharedMaterial != render.sharedMaterial;
     }
 
-    public void ApplyCheck(King king)
+    protected void ApplyCheck(King king)
     {
         king.checkLight.enabled = true;
         king.check = true;
