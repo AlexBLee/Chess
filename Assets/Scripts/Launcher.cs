@@ -8,24 +8,26 @@ using TMPro;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    byte maxPlayersPerRoom = 2;
-    string gameVersion = "1";
+    // Photon Settings
+    private const string playerNamePrefKey = "PlayerName";
+    private byte maxPlayersPerRoom = 2;
+    private string gameVersion = "1";
+    private bool isConnecting;
+
+    // Scene
     [SerializeField] private GameObject controlPanel = null;
     [SerializeField] private GameObject progressLabel = null;
     [SerializeField] private Button connectButton = null;
-
     [SerializeField] private InputField inputField;
-    const string playerNamePrefKey = "PlayerName";
 
     // If master client.. show the input fields but if you're not, then show only numbers
-    public List<GameObject> inputFieldList = new List<GameObject>();
-    public List<GameObject> numberFieldList = new List<GameObject>();
+    [SerializeField] private List<GameObject> inputFieldList = new List<GameObject>();
+    [SerializeField] private List<GameObject> numberFieldList = new List<GameObject>();
 
-    public GameObject onlineLobbyPanel;
-    public List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
+    [SerializeField] private GameObject onlineLobbyPanel;
+    [SerializeField] private List<TextMeshProUGUI> textList = new List<TextMeshProUGUI>();
     private ExitGames.Client.Photon.Hashtable _customProperties = new ExitGames.Client.Photon.Hashtable();
 
-    bool isConnecting;
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     }
 
-    public void Connect()
+    private void Connect()
     {
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
@@ -80,7 +82,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 
-    public void UpdateList()
+    private void UpdateList()
     {
         Player[] playerList = PhotonNetwork.PlayerList;
 
