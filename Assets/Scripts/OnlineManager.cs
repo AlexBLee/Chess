@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-using Photon.Realtime;
-using TMPro;
 
 public class OnlineManager : MonoBehaviourPunCallbacks
 {
@@ -17,16 +13,12 @@ public class OnlineManager : MonoBehaviourPunCallbacks
         Setup();
     }
 
-    public void Setup()
+    private void Setup()
     {
-
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
-        }
-
         if (PhotonNetwork.IsMasterClient)
         {
+            GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
+
             if (GameManager.whiteSide)
             {
                 foreach (Piece piece in GameManager.instance.board.blackPieces)
@@ -47,17 +39,12 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     }
 
     #region Photon Callbacks
-
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene("Menu");
         Debug.Log("Player left room");
     }
     
-
     #endregion
-    
-    
-
     
 }
