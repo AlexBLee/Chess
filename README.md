@@ -1,2 +1,2 @@
-# Chess-2
-The sequel to Chess!
+# Chess
+Chess with Singleplayer and Multiplayer using Photon Network.
