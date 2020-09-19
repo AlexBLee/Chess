@@ -38,8 +38,10 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene("Menu");
+        base.OnLeftRoom();
         Debug.Log("Player left room");
     }
+
     
     #endregion
     

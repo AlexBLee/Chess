@@ -28,13 +28,15 @@ public class ResultPanel : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void QuitToMenu()
+    public void QuitToMenu()
     {
         if (PhotonNetwork.IsConnected)
         {
             PhotonNetwork.LeaveRoom();
+            
+            PhotonNetwork.CurrentRoom.SetCustomProperties(null);
         }
-
-        SceneManager.LoadScene("Menu");
     }
+
+
 }
