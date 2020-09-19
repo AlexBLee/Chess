@@ -97,7 +97,6 @@ MonoBehaviour:
   interactable: 0
   render: {fileID: 9131825317604338715}
   moves: []
-  pinnedMoveList: []
   location: {x: 0, y: 0}
   forwardDirection: 0
   defended: 0

@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class PromotionPanel : MonoBehaviour
 {
+    [SerializeField]
     private List<Button> buttonList;
     public int number;
     public bool buttonPressed = false;
     
-    private void Start() 
+    public void ChangePromotionNumber(int promotionNumber)
     {
-        for (int i = 0; i < buttonList.Count; i++)
-        {
-            int x = i + 1;
-            buttonList[i].onClick.AddListener(() => { number = x; buttonPressed = true; });
-        }
+        number = promotionNumber;
+        buttonPressed = true;
     }
 }

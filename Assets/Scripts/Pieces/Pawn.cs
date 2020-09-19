@@ -165,26 +165,25 @@ public class Pawn : Piece
             GameManager.instance.SetGameState(false);
                 
             int x = (GameManager.instance.playerControlled) ? GameManager.instance.promotionPanel.number : GameManager.instance.stockfish.promotionNumber;
-
             if (PhotonNetwork.IsConnected)
             {
                 StartCoroutine(PromotePiece(new Vector2(tile.coordinates.x, tile.coordinates.y), x));
             }
             else
             {
-                StartCoroutine(PromotePiece(tile, x));        
+                StartCoroutine(PromotePiece(tile));        
             }
         }
     }
 
-    IEnumerator PromotePiece(Tile tile, int promotionNumber)
+    IEnumerator PromotePiece(Tile tile)
     {
         while (!GameManager.instance.promotionPanel.buttonPressed && GameManager.instance.playerControlled)
         {
             yield return null;
         }
         board.DestroyPieceAt(tile);
-        board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)promotionNumber, render.sharedMaterial);
+        board.PlacePiecesAt(tile.coordinates.x, tile.coordinates.y, (Board.PieceType)GameManager.instance.promotionPanel.number, render.sharedMaterial);
 
         GameManager.instance.promotionPanel.gameObject.SetActive(false);
         GameManager.instance.promotionPanel.buttonPressed = false;
@@ -207,7 +206,7 @@ public class Pawn : Piece
         object[] instantiateData = { tile.coordinates.x, tile.coordinates.y, render.sharedMaterial == board.pieceWhite ? true : false }; 
         Quaternion correctRotation = (render.sharedMaterial == board.pieceWhite) ? Quaternion.Euler(0,270,0) : Quaternion.Euler(0,90,0);
         
-        PhotonNetwork.Instantiate("QueenM", tile.transform.position + new Vector3(0, 0.5f, 0), correctRotation, 0, instantiateData);
+        PhotonNetwork.Instantiate(board.pieceTypeList[GameManager.instance.promotionPanel.number].GetType().ToString() + "M", tile.transform.position + new Vector3(0, 0.5f, 0), correctRotation, 0, instantiateData);
 
         GameManager.instance.promotionPanel.gameObject.SetActive(false);
         GameManager.instance.promotionPanel.buttonPressed = false;

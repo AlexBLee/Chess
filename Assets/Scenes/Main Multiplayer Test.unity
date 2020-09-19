@@ -1063,7 +1063,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 87369042}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057277300}
+        m_MethodName: ChangePromotionNumber
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &87369042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4364,10 +4375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonList:
-  - {fileID: 1721654985}
-  - {fileID: 1206693212}
-  - {fileID: 1591673569}
   - {fileID: 87369041}
+  - {fileID: 1591673569}
+  - {fileID: 1206693212}
+  - {fileID: 1721654985}
   number: 4
   buttonPressed: 0
 --- !u!114 &1057277301
@@ -5153,7 +5164,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1206693213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057277300}
+        m_MethodName: ChangePromotionNumber
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1206693213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6247,7 +6269,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1591673570}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057277300}
+        m_MethodName: ChangePromotionNumber
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1591673570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6324,9 +6357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2caa9913d8bcc5345a0be789ffa1dfb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 1982779081}
-  selectedPiece: {fileID: 0}
-  pieceSelected: 0
 --- !u!20 &1687258584
 Camera:
   m_ObjectHideFlags: 0
@@ -6496,7 +6526,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1721654986}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057277300}
+        m_MethodName: ChangePromotionNumber
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1721654986
 MonoBehaviour:
   m_ObjectHideFlags: 0

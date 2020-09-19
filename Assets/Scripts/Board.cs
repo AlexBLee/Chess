@@ -18,7 +18,7 @@ public class Board : MonoBehaviour
 
     // Holds the type of pieces that can be spawned
     public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King };
-    [SerializeField] private List<Piece> pieceTypeList;
+    [SerializeField] public List<Piece> pieceTypeList;
 
     // To keep a list of current pieces for each side on the board.
     public List<Piece> whitePieces;
