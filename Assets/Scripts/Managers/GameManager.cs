@@ -41,11 +41,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!PhotonNetwork.IsConnected)
-        {
-            InitializeHUD();
-        }
-
         promotionPanel.gameObject.SetActive(false);
         resultPanel.gameObject.SetActive(false);
 
@@ -53,6 +48,13 @@ public class GameManager : MonoBehaviour
 
     private void Start() 
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
+        }
+        
+        InitializeHUD();
+
         if (!playerTurn && !PhotonNetwork.IsConnected)
         {
             MakeBotMove();
@@ -207,10 +209,10 @@ public class GameManager : MonoBehaviour
 
             CheckDraw();
 
-            if (!playerTurn && !PhotonNetwork.IsConnected)
-            {
-                MakeBotMove();
-            }
+            // if (!playerTurn && !PhotonNetwork.IsConnected)
+            // {
+            //     MakeBotMove();
+            // }
 
         }
     }
@@ -275,6 +277,8 @@ public class GameManager : MonoBehaviour
             GameObject.Find("Name2").GetComponent<TextMeshProUGUI>().text = 
             PhotonNetwork.IsMasterClient ? PhotonNetwork.PlayerList[1].NickName : PhotonNetwork.PlayerList[0].NickName;   
         }
+
+        Debug.Log(whiteSide);
 
         // If the player starts as black, use alternate camera position
         if (!whiteSide)

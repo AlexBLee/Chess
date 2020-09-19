@@ -10,7 +10,7 @@ public class Piece : MonoBehaviour, IPunInstantiateMagicCallback
     public bool interactable;
     public Renderer render;
     public List<Vector2Int> moves;
-    private List<Vector2Int> pinnedMoveList;
+    private List<Vector2Int> pinnedMoveList = new List<Vector2Int>();
     public Vector2Int location;
     public int forwardDirection;
     public bool defended;
