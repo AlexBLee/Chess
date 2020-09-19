@@ -41,7 +41,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        InitializeHUD();
+        if (!PhotonNetwork.IsConnected)
+        {
+            InitializeHUD();
+        }
 
         promotionPanel.gameObject.SetActive(false);
         resultPanel.gameObject.SetActive(false);
