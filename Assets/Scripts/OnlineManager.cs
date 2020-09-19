@@ -17,8 +17,6 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GameManager.whiteSide = !(bool)PhotonNetwork.CurrentRoom.CustomProperties["side"];
-
             if (GameManager.whiteSide)
             {
                 foreach (Piece piece in GameManager.instance.board.blackPieces)
@@ -34,8 +32,6 @@ public class OnlineManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        GameManager.instance.InitializeHUD();
     }
 
     #region Photon Callbacks
